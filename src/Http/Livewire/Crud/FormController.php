@@ -93,7 +93,12 @@ class FormController extends RamboComponent
                 $field->formFields = $this->fields;
                 $field->itemId = $id;
                 $this->fields[$name] ??= $field->getDefault();
-                $this->fields[$name] = $field->beforeSave($this->fields[$name] ?? null);
+                $this->fields[$name] = $field->beforeSave($this->fields[$name], $id);
+
+                // Must be final step (password field)
+                if ($field->isField === false) {
+                    unset($this->fields[$name]);
+                }
             }
         });
 

@@ -14,6 +14,11 @@ class PasswordField extends Field
 
     public function beforeSave($value)
     {
+        if ($value === null) {
+            $this->isField = false;
+            return;
+        }
+
         return Rambo::passwordHash($value);
     }
 }
