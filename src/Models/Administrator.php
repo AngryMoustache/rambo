@@ -3,16 +3,18 @@
 namespace AngryMoustache\Rambo\Models;
 
 use AngryMoustache\Media\Models\Attachment;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Administrator extends Model
+class Administrator extends Authenticatable
 {
     protected $fillable = [
         'username',
         'email',
         'password',
         'avatar_id',
+        'online',
     ];
+    protected $guard = 'admin';
 
     public function avatar()
     {
@@ -25,5 +27,10 @@ class Administrator extends Model
             'resource' => 'administrators',
             'id' => $this->id,
         ]);
+    }
+
+    public function scopeOnline($query)
+    {
+        return $query->where('online', true);
     }
 }

@@ -5,6 +5,7 @@ namespace AngryMoustache\Rambo;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Rambo
@@ -36,7 +37,14 @@ class Rambo
 
     public function login($email, $password)
     {
+        if ($this->attemptLogin($email, $password)) {
+            session([$this->session => $this->guard()->user()]);
+
+            return $this->guard()->user();
+        }
+
         $user = Administrator::where('email', $email)
+            ->online()
             ->get()
             ->skipUntil(function ($user) use ($password) {
                 return (password_verify($password, $user->password));
@@ -46,6 +54,16 @@ class Rambo
         session([$this->session => $user]);
 
         return $user;
+    }
+
+    protected function attemptLogin($email, $password)
+    {
+        return $this->guard()->attempt(['email' => $email, 'password' => $password], false);
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 
     public function logout()

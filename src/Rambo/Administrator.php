@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Rambo;
 
 use AngryMoustache\Rambo\Resource\Fields\AttachmentField;
+use AngryMoustache\Rambo\Resource\Fields\BooleanField;
 use AngryMoustache\Rambo\Resource\Fields\Button;
 use AngryMoustache\Rambo\Resource\Fields\PasswordField;
 use AngryMoustache\Rambo\Resource\Fields\TextField;
@@ -40,6 +41,9 @@ class Administrator extends Resource
             AttachmentField::make('avatar_id')
                 ->label('Avatar')
                 ->folder('avatars'),
+
+            BooleanField::make('online')
+                ->label('Online'),
 
             Button::make('submit')
                 ->label('Submit'),
