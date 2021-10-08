@@ -26,7 +26,6 @@ class Administrator extends Resource
 
         return [
             TextField::make('username')
-                ->label('Username')
                 ->rules(['required', "unique:administrators,username,${id}"]),
 
             TextField::make('email')
@@ -34,7 +33,6 @@ class Administrator extends Resource
                 ->rules(['required', "unique:administrators,email,${id}", 'email']),
 
             PasswordField::make('password')
-                ->label('Password')
                 ->placeholder('Leave empty if not changing')
                 ->hideFrom(['index', 'show']),
 
@@ -42,11 +40,9 @@ class Administrator extends Resource
                 ->label('Avatar')
                 ->folder('avatars'),
 
-            BooleanField::make('online')
-                ->label('Online'),
+            BooleanField::make('online'),
 
-            Button::make('submit')
-                ->label('Submit'),
+            Button::make('submit'),
         ];
     }
 }

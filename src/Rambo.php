@@ -16,11 +16,15 @@ class Rambo
 
     public $user;
 
+    public $guard;
+
     public function __construct()
     {
         $this->resources = collect(config('rambo.resources', []))
             ->map(fn ($resource) => $this->fetchResource($resource))
             ->flatten();
+
+        $this->guard = config('rambo.admin-guard', 'rambo');
 
         $this->user = Administrator::find(optional(session($this->session))->id);
     }
@@ -37,18 +41,13 @@ class Rambo
 
     public function login($email, $password)
     {
-        if ($this->attemptLogin($email, $password)) {
+        if (Auth::check($this->guard) && $this->attemptLogin($email, $password)) {
             session([$this->session => $this->guard()->user()]);
-
             return $this->guard()->user();
         }
 
-        $user = Administrator::where('email', $email)
-            ->online()
-            ->get()
-            ->skipUntil(function ($user) use ($password) {
-                return (password_verify($password, $user->password));
-            })
+        $user = Administrator::where('email', $email)->online()->get()
+            ->skipUntil(fn ($user) => password_verify($password, $user->password))
             ->first();
 
         session([$this->session => $user]);
@@ -58,12 +57,15 @@ class Rambo
 
     protected function attemptLogin($email, $password)
     {
-        return $this->guard()->attempt(['email' => $email, 'password' => $password], false);
+        return $this->guard()->attempt([
+            'email' => $email,
+            'password' => $password,
+        ], false);
     }
 
     protected function guard()
     {
-        return Auth::guard('admin');
+        return Auth::guard($this->guard);
     }
 
     public function logout()

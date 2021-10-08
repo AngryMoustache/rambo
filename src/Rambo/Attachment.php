@@ -72,8 +72,7 @@ class Attachment extends Resource
                 ->label('Image')
                 ->hideFrom(['edit']),
 
-            Button::make('submit')
-                ->label('Submit'),
+            Button::make('submit'),
         ];
     }
 

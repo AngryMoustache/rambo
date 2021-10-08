@@ -14,7 +14,7 @@ class AddOnlineColumnToAdministratorsTable extends Migration
     public function up()
     {
         Schema::table('administrators', function (Blueprint $table) {
-            $table->boolean('online')->default(false);
+            $table->boolean('online')->after('avatar_id')->default(false);
         });
     }
 

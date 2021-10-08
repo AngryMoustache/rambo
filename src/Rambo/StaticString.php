@@ -25,19 +25,15 @@ class StaticString extends Resource
     {
         return [
             TextField::make('scope')
-                ->label('Scope')
                 ->rules('required'),
 
             TextField::make('key')
-                ->label('Key')
                 ->rules('required'),
 
             TextareaField::make('value')
-                ->label('Value')
                 ->rules('required'),
 
-            Button::make('submit')
-                ->label('Submit'),
+            Button::make('submit'),
         ];
     }
 }
