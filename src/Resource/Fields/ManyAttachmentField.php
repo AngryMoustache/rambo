@@ -6,7 +6,7 @@ use AngryMoustache\Rambo\Rambo\Attachment;
 
 class ManyAttachmentField extends HabtmField
 {
-    public $component = 'rambo::fields.form.many-attachment';
+    public $livewireComponent = 'rambo-fields-many-attachment-picker';
 
     public $showComponent = 'rambo::fields.show.many-attachment';
 

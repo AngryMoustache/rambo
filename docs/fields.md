@@ -4,6 +4,7 @@ In this page you will find all the fields that you can use in your resources.
 
 * [General notes and information](#important-notes)
   * [Custom component](#custom-component)
+  * [Custom Livewire field](#custom-livewire-field)
   * [Adding a field](#adding-field)
   * [Label](#label)
   * [Hiding fields](#hiding-fields)
@@ -96,6 +97,21 @@ TextField::make('title')
 ```
 
 If you want to change the "show component" (the blade component that is used to display the data in the show/index pages), you can use the `->showComponent($component)` method.
+
+### <a name="custom-livewire-field"></a>Custom Livewire component
+
+You can make custom fields that utilize a Livewire component, if this is the case, extend the `LivewireComponentField` instead of the normal `Field`, and pass it a `$livewireComponent` to load.
+
+```php
+namespace App\Rambo\Fields;
+
+use AngryMoustache\Rambo\Resource\Fields\LivewireComponentField;
+
+class CustomLivewireField extends LivewireComponentField
+{
+    public $livewireComponent = 'rambo-fields-attachment-picker';
+}
+```
 
 ### <a name="specific-variables"></a>Specific blade variables
 

@@ -4,9 +4,9 @@ namespace AngryMoustache\Rambo\Resource\Fields;
 
 use AngryMoustache\Rambo\Facades\Rambo;
 
-class PasswordField extends Field
+class PasswordField extends LivewireCustomField
 {
-    public $component = 'rambo::fields.form.password';
+    public $livewireComponent = 'rambo-fields-password-input';
 
     public $showComponent = 'rambo::fields.show.password';
 

@@ -4,9 +4,9 @@ namespace AngryMoustache\Rambo\Resource\Fields;
 
 use AngryMoustache\Media\Models\Attachment;
 
-class AttachmentField extends Field
+class AttachmentField extends LivewireCustomField
 {
-    public $component = 'rambo::fields.form.attachment';
+    public $livewireComponent = 'rambo-fields-attachment-picker';
 
     public $showComponent = 'rambo::fields.show.attachment';
 

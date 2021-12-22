@@ -2,9 +2,9 @@
 
 namespace AngryMoustache\Rambo\Resource\Fields;
 
-class YoutubeField extends Field
+class YoutubeField extends LivewireCustomField
 {
-    public $component = 'rambo::fields.form.youtube';
+    public $livewireComponent = 'rambo-fields-youtube-link';
 
     public $showComponent = 'rambo::fields.show.youtube';
 }

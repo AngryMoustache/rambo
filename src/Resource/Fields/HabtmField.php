@@ -2,9 +2,9 @@
 
 namespace AngryMoustache\Rambo\Resource\Fields;
 
-class HabtmField extends Field
+class HabtmField extends LivewireCustomField
 {
-    public $component = 'rambo::fields.form.habtm';
+    public $livewireComponent = 'rambo-fields-habtm-picker';
 
     public $showComponent = 'rambo::fields.show.habtm';
 
