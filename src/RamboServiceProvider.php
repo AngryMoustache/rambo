@@ -4,17 +4,6 @@ namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Crud\AttachmentsIndexTable;
-use AngryMoustache\Rambo\Http\Livewire\Crud\IndexTable;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceDelete;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
-use AngryMoustache\Rambo\Http\Livewire\Fields\AttachmentPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\HabtmPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\ManyAttachmentPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\PasswordInput;
-use AngryMoustache\Rambo\Http\Livewire\Fields\YoutubeLink;
 use AngryMoustache\Rambo\Rambo;
 use AngryMoustache\Rambo\View\Components\Toasts;
 use Illuminate\Foundation\AliasLoader;
@@ -59,21 +48,6 @@ class RamboServiceProvider extends ServiceProvider
     {
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
-
-        /** CRUD */
-        Livewire::component('rambo-crud-index-table', IndexTable::class);
-        Livewire::component('rambo-crud-resource-create', ResourceCreate::class);
-        Livewire::component('rambo-crud-resource-delete', ResourceDelete::class);
-        Livewire::component('rambo-crud-resource-edit', ResourceEdit::class);
-        Livewire::component('rambo-crud-resource-show', ResourceShow::class);
-        Livewire::component('rambo-crud-attachments-index-table', AttachmentsIndexTable::class);
-
-        /** FIELDS */
-        Livewire::component('rambo-fields-attachment-picker', AttachmentPicker::class);
-        Livewire::component('rambo-fields-habtm-picker', HabtmPicker::class);
-        Livewire::component('rambo-fields-many-attachment-picker', ManyAttachmentPicker::class);
-        Livewire::component('rambo-fields-password-input', PasswordInput::class);
-        Livewire::component('rambo-fields-youtube-link', YoutubeLink::class);
     }
 
     private function config()

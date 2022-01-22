@@ -20,6 +20,7 @@ class CreateAdministratorsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('avatar_id')->nullable()->constrained('attachments')->nullOnDelete();
+            $table->boolean('online')->default(0);
             $table->timestamps();
         });
 

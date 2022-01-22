@@ -24,6 +24,3 @@ php artisan migrate --seed
 You can now log in on the `/admin` route, using the test user!
 Username: admin
 Password: test
-
-## Documentation
-https://github.com/AngryMoustache/rambo/tree/master/docs
