@@ -4,9 +4,6 @@ namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class Rambo
 {
@@ -23,9 +20,13 @@ class Rambo
         $this->guard = config('rambo.admin-guard', 'rambo');
         $this->user = Administrator::find(optional(session($this->session))->id);
 
-        $this->resources = collect(config('rambo.resources', []))
-            ->flatten()
-            ->map(fn ($resource) => (new $resource()));
+        $this->resources = $this->navigation()->flatten();
+    }
+
+    public function navigation()
+    {
+        return collect(config('rambo.resources', $this->resources))
+            ->map(fn ($resource) => $this->fetchResource($resource));
     }
 
     public function resources()
@@ -33,9 +34,9 @@ class Rambo
         return $this->resources;
     }
 
-    public function navigation()
+    public function resource($value, $key = 'routebase')
     {
-        return config('rambo.resources', []);
+        return $this->resources->where($key, $value)->first();
     }
 
     public function user()
@@ -72,5 +73,16 @@ class Rambo
             RamboAuthMiddleware::class,
             optional(request()->route())->middleware() ?? []
         );
+    }
+
+    private function fetchResource($resource)
+    {
+        if (is_array($resource)) {
+            return collect($resource)
+                ->map(fn ($item) => $this->fetchResource($item))
+                ->toArray();
+        }
+
+        return (new $resource());
     }
 }
