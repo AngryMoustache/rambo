@@ -4,10 +4,9 @@ namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
+use AngryMoustache\Rambo\Http\Livewire\Auth\RamboLogin;
 use AngryMoustache\Rambo\Rambo;
-use AngryMoustache\Rambo\View\Components\Toasts;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -30,8 +29,6 @@ class RamboServiceProvider extends ServiceProvider
         Route::bind('resource', function ($value) {
             return FacadeRambo::resource($value) ?? abort(404);
         });
-
-        Blade::component('rambo-toasts', Toasts::class);
     }
 
     public function register()
@@ -47,7 +44,7 @@ class RamboServiceProvider extends ServiceProvider
     private function livewire()
     {
         /** AUTH */
-        Livewire::component('rambo-auth-login', Login::class);
+        Livewire::component('rambo-auth-login', RamboLogin::class);
     }
 
     private function config()

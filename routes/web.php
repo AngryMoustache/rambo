@@ -1,19 +1,23 @@
 <?php
 
+use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Controllers\RamboAuthController;
+use AngryMoustache\Rambo\Http\Livewire\Auth\RamboLogin;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
-$adminRoute = config('rambo::admin-route', 'admin');
+Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
+    Route::middleware('web')->group(function () {
+        /** Auth */
+        Route::get('login', RamboLogin::class)->name('rambo.auth.login');
+        Route::get('logout', function () {
+            Rambo::logout();
+            return redirect(route('rambo.auth.login'));
+        })->name('rambo.auth.logout');
 
-Route::middleware('web')->group(function () use ($adminRoute) {
-    /**
-     * Auth
-     */
-    Route::get("/${adminRoute}/login", [RamboAuthController::class, 'login'])->name('rambo.auth.login');
-    Route::get("/${adminRoute}/logout", [RamboAuthController::class, 'logout'])->name('rambo.auth.logout');
-
-    Route::middleware(RamboAuthMiddleware::class)->group(function () use ($adminRoute) {
-
+        /** CRUD */
+        Route::middleware(RamboAuthMiddleware::class)->group(function () {
+            // Route::get('', RamboDashboard::class)->name('rambo.dashboard');
+        });
     });
 });

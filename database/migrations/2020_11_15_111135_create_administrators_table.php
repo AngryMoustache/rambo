@@ -28,6 +28,7 @@ class CreateAdministratorsTable extends Migration
             'username' => 'Admin',
             'email' => 'admin',
             'password' => '$2y$10$1KTK.XWRA22lgvB/En9IuO71bfDHsirOZmHuWmFveThRZX18XTR5e',
+            'online' => 1,
         ]);
     }
 
