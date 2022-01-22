@@ -5,17 +5,14 @@ namespace AngryMoustache\Rambo\Http\Livewire\Auth;
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 
-class RamboLogin extends RamboComponent
+class Login extends RamboComponent
 {
     public $email = '';
     public $password = '';
     public $error = '';
 
-    public function render()
-    {
-        return view('rambo::livewire.auth.login')
-            ->extends('rambo::layouts.auth');
-    }
+    public $component = 'rambo::livewire.auth.login';
+    public $layout = 'rambo::layouts.auth';
 
     public function attemptLogin()
     {

@@ -22,6 +22,20 @@ class Rambo
     {
         $this->guard = config('rambo.admin-guard', 'rambo');
         $this->user = Administrator::find(optional(session($this->session))->id);
+
+        $this->resources = collect(config('rambo.resources', []))
+            ->flatten()
+            ->map(fn ($resource) => (new $resource()));
+    }
+
+    public function resources()
+    {
+        return $this->resources;
+    }
+
+    public function navigation()
+    {
+        return config('rambo.resources', []);
     }
 
     public function user()

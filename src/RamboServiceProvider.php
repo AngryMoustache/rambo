@@ -4,7 +4,7 @@ namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Auth\RamboLogin;
+use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Rambo;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +44,8 @@ class RamboServiceProvider extends ServiceProvider
     private function livewire()
     {
         /** AUTH */
-        Livewire::component('rambo-auth-login', RamboLogin::class);
+        Livewire::component('rambo-auth-login', Login::class);
+        Livewire::component('rambo-dashboard', Dashboard::class);
     }
 
     private function config()

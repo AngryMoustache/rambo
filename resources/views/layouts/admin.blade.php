@@ -16,7 +16,7 @@
 
         {{-- Content --}}
         <div class="main">
-            <x-rambo::header :breadcrumbs="$breadcrumbs" />
+            <x-rambo::header />
 
             <div class="main-content">
                 @yield('content')
@@ -24,9 +24,9 @@
         </div>
 
         {{-- Toasts --}}
-        <x-rambo-toasts />
+        {{-- <x-rambo-toasts /> --}}
 
-        <livewire:scripts>
+        {{-- <livewire:scripts> --}}
         <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>
     </body>
 </html>
