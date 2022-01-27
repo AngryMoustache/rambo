@@ -8,4 +8,11 @@ use AngryMoustache\Rambo\Resource;
 class Attachment extends Resource
 {
     public $model = ModelsAttachment::class;
+
+    public function fields()
+    {
+        return [
+
+        ];
+    }
 }

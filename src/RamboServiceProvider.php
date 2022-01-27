@@ -3,7 +3,11 @@
 namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
+use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
+use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
+use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldRender;
+use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldShowRender;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Rambo;
 use Illuminate\Foundation\AliasLoader;
@@ -46,6 +50,14 @@ class RamboServiceProvider extends ServiceProvider
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
         Livewire::component('rambo-dashboard', Dashboard::class);
+
+        /** FIELDS */
+        Livewire::component('rambo-field-render', FieldRender::class);
+        Livewire::component('rambo-field-show-render', FieldShowRender::class);
+
+        /** ACTIONS */
+        Livewire::component('rambo-action', ActionComponent::class);
+        Livewire::component('rambo-action-delete', DeleteActionComponent::class);
     }
 
     private function config()

@@ -8,6 +8,7 @@ class RamboComponent extends Component
 {
     public $component;
     public $layout = 'rambo::layouts.admin';
+    protected $componentData = [];
 
     public function mount()
     {
@@ -16,6 +17,7 @@ class RamboComponent extends Component
 
     public function render()
     {
-        return view($this->component)->extends($this->layout);
+        return view($this->component, $this->componentData)
+            ->extends($this->layout);
     }
 }

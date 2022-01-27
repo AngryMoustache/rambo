@@ -1,7 +1,7 @@
 <table class="crud-index-table">
     <thead>
         <tr>
-            {{-- @foreach ($resource->fieldStack('index', true) as $field)
+            @foreach ($fieldStack as $field)
                 <td>
                     @if ($field->sortable)
                         <span
@@ -10,7 +10,7 @@
                         >
                             {{ $field->getLabel() }}
 
-                            @if ($sortCol === $field->getName())
+                            {{-- @if ($sortCol === $field->getName())
                                 @if ($sortDir === 'desc')
                                     <i class="fas fa-sort-down"></i>
                                 @else
@@ -18,7 +18,7 @@
                                 @endif
                             @else
                                 <i class="fas fa-sort"></i>
-                            @endif
+                            @endif --}}
                         </span>
                     @else
                         <span class="crud-index-table-content">
@@ -26,21 +26,40 @@
                         </span>
                     @endif
                 </td>
-            @endforeach --}}
+            @endforeach
+            <td colspan="{{ count($resource->itemActions()) }}"></td>
         </tr>
     </thead>
 
-    {{-- <tbody wire:key="index_{{ $resource->routebase() }}">
+    <tbody wire:key="index_{{ $resource->routebase() }}">
         @foreach ($items as $item)
             <tr>
-                @foreach ($resource->fieldStack('index', true) as $field)
+                @foreach ($fieldStack as $field)
                     <td>
                         <span class="crud-index-table-content">
-                            {{ $field->item($item)->renderShow() }}
+                            <livewire:is
+                                :key="$field->getName() . '_' . $item->id"
+                                :component="$field->getLivewireShowComponent()"
+                                :resource="$resource"
+                                :field="$field"
+                                :item="$item"
+                            />
                         </span>
+                    </td>
+                @endforeach
+
+                @foreach ($resource->itemActions() as $action)
+                    <td class="crud-index-table-action">
+                        <livewire:is
+                            :key="$action . '_' . $item->id"
+                            :component="$action::getLivewireComponent()"
+                            :resource="$resource"
+                            :action="$action"
+                            :item="$item"
+                        />
                     </td>
                 @endforeach
             </tr>
         @endforeach
-    </tbody> --}}
+    </tbody>
 </table>

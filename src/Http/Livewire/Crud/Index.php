@@ -10,6 +10,7 @@ class Index extends ResourceComponent
     {
         parent::mount();
         $this->component = $this->resource->indexView();
+        $this->componentData['fieldStack'] = $this->resource->fieldStack('index', true);
         $this->items = $this->resource->indexQuery()->get();
     }
 }
