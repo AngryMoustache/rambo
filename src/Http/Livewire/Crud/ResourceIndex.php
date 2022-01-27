@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class ResourceIndex extends ResourceComponent
@@ -39,6 +40,7 @@ class ResourceIndex extends ResourceComponent
     {
         $this->fillComponentData();
         $items = $this->resource->indexQuery()
+            ->orderBy(DB::raw("LENGTH({$this->orderCol})"), $this->orderDir)
             ->orderBy($this->orderCol, $this->orderDir)
             ->get();
 
