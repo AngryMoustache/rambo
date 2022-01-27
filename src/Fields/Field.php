@@ -74,6 +74,11 @@ class Field
         return optional($this->item)->{$this->getName()};
     }
 
+    public function getShowValue()
+    {
+        return $this->getValue();
+    }
+
     /**
      * Search the item in the field for a value
      */
@@ -91,6 +96,7 @@ class Field
      */
     public function hideFrom($locations)
     {
-        return Arr::wrap($locations);
+        $this->hideFrom = Arr::wrap($locations);
+        return $this;
     }
 }

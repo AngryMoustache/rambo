@@ -14,7 +14,7 @@ class FieldShowRender extends RamboComponent
     public function mount($field = null, $item = null)
     {
         parent::mount();
-        $this->value = $item->{$field->getName()} ?? null;
+        $this->value = $field->item($item)->getShowValue();
         $this->component = $field->getShowComponent() ?? $this->component;
     }
 }

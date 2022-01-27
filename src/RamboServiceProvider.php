@@ -9,6 +9,7 @@ use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldRender;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldShowRender;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Rambo;
 use Illuminate\Foundation\AliasLoader;
@@ -31,8 +32,9 @@ class RamboServiceProvider extends ServiceProvider
         $this->publishing();
         $this->livewire();
 
-        Route::bind('resource', function ($value) {
-            return FacadeRambo::resource($value) ?? abort(404);
+        Route::bind('resource', function ($value, $route) {
+            return FacadeRambo::resource($value, $route->parameter('itemId'))
+                ?? abort(404);
         });
     }
 
@@ -54,6 +56,7 @@ class RamboServiceProvider extends ServiceProvider
 
         /** CRUD */
         Livewire::component('rambo-resource-index', ResourceIndex::class);
+        Livewire::component('rambo-resource-show', ResourceShow::class);
 
         /** FIELDS */
         Livewire::component('rambo-field-render', FieldRender::class);

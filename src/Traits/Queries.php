@@ -7,6 +7,7 @@ trait Queries
     public $defaultOrderCol = 'id';
     public $defaultOrderDir = 'desc';
     public $pagination = 25;
+    public $item;
 
     public function query()
     {
@@ -16,6 +17,17 @@ trait Queries
     public function indexQuery()
     {
         return $this->query();
+    }
+
+    public function fetch($id)
+    {
+        $this->item = $this->query()->find($id);
+        return $this;
+    }
+
+    public function item()
+    {
+        return $this->item;
     }
 
     public function defaultOrderCol()

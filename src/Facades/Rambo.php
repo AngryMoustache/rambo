@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static object logout()
  * @method static object serving()
  * @method static object resources()
+ * @method static object resource(string $value, $id = null, string $key = 'routebase')
  * @method static object navigation()
  */
 class Rambo extends Facade

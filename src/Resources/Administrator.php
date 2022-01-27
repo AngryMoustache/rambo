@@ -12,6 +12,8 @@ class Administrator extends Resource
 {
     public $model = ModelsAdministrator::class;
 
+    public $displayName = 'username';
+
     public function fields()
     {
         return [

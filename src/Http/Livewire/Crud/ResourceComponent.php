@@ -9,9 +9,11 @@ class ResourceComponent extends RamboComponent
 {
     public $resource;
 
-    public function hydrate()
+    public function booted()
     {
-        $this->resource = Rambo::resource($this->resource);
+        if (is_string($this->resource)) {
+            $this->resource = Rambo::resource($this->resource, $this->itemId ?? null);
+        }
     }
 
     public function dehydrate()

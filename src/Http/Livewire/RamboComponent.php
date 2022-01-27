@@ -14,14 +14,19 @@ class RamboComponent extends Component
         //
     }
 
-    public function fillComponentData()
+    public function addComponentData($values)
     {
-        $this->componentData = [];
+        $this->componentData = array_merge($values, $this->componentData);
+    }
+
+    public function getComponentData()
+    {
+        return $this->componentData;
     }
 
     public function render()
     {
-        return view($this->component, $this->componentData)
+        return view($this->component, $this->getComponentData())
             ->extends($this->layout);
     }
 }

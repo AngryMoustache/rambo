@@ -26,29 +26,21 @@ trait Routing
         return route('rambo.crud.create', $this->routebase());
     }
 
-    public function show($id)
+    public function show($id = null)
     {
         return route('rambo.crud.show', [
             'resource' => $this->routebase(),
-            'id' => $id,
+            'itemId' => $id ?? $this->itemId(),
         ]);
     }
 
-    public function edit($id)
+    public function edit($id = null)
     {
         return route('rambo.crud.edit', [
             'resource' => $this->routebase(),
-            'id' => $id,
+            'itemId' => $id ?? $this->itemId(),
         ]);
     }
-
-    // public function delete($id)
-    // {
-    //     return route('rambo.crud.delete', [
-    //         'resource' => $this->routebase(),
-    //         'id' => $id,
-    //     ]);
-    // }
 
     // public function routeAfterCreate($item)
     // {

@@ -10,15 +10,13 @@ class ResourceIndex extends ResourceComponent
 {
     use WithPagination;
 
-    public $component = 'rambo::livewire.crud.index';
-
     public $search = '';
 
     public $orderCol = '';
     public $orderDir = '';
 
     public $listeners = [
-        'refresh' => 'refreshItems',
+        'refresh',
     ];
 
     public $queryString = [
@@ -29,6 +27,7 @@ class ResourceIndex extends ResourceComponent
     public function mount()
     {
         parent::mount();
+        $this->component = $this->resource->indexView();
         $this->orderCol = request()->get('orderCol') ?? $this->resource->defaultOrderCol();
         $this->orderDir = request()->get('orderDir') ?? $this->resource->defaultOrderDir();
         $this->queryString['orderCol'] = ['except' => $this->resource->defaultOrderCol()];
@@ -36,9 +35,12 @@ class ResourceIndex extends ResourceComponent
     }
 
     /** Fetch, search and filter the items and set them */
-    public function refreshItems()
+    public function refresh()
     {
-        $this->fillComponentData();
+        $this->addComponentData([
+            'fieldStack' => $this->resource->fieldStack('index', true),
+        ]);
+
         $items = $this->resource->indexQuery()
             ->orderBy(DB::raw("LENGTH({$this->orderCol})"), $this->orderDir)
             ->orderBy($this->orderCol, $this->orderDir)
@@ -69,20 +71,13 @@ class ResourceIndex extends ResourceComponent
 
         if ($this->componentData['items']->count() === 0 && $this->page !== 1) {
             $this->page = 1;
-            $this->refreshItems();
+            $this->refresh();
         }
-    }
-
-    public function fillComponentData()
-    {
-        $this->componentData = [
-            'fieldStack' => $this->resource->fieldStack('index', true),
-        ];
     }
 
     public function render()
     {
-        $this->refreshItems();
+        $this->refresh();
         return parent::render();
     }
 

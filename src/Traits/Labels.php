@@ -24,6 +24,11 @@ trait Labels
         return $this->item->{$this->displayName()};
     }
 
+    public function itemId()
+    {
+        return $this->item->{$this->primaryField()};
+    }
+
     public function label()
     {
         return $this->label;

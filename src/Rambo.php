@@ -34,9 +34,18 @@ class Rambo
         return $this->resources;
     }
 
-    public function resource($value, $key = 'routebase')
+    public function resource($value, $id = null, $key = null)
     {
-        return $this->resources->where($key, $value)->first();
+        try {
+            return $this->resources
+                ->where($key ?? 'routebase', $value)
+                ->first()
+                ->fetch($id);
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($key, $value);
+        }
     }
 
     public function user()

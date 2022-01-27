@@ -10,6 +10,7 @@ return [
         'General' => [
             Administrator::class,
             Attachment::class,
+            App\Resources\Pull::class,
         ],
     ],
 ];

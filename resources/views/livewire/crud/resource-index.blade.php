@@ -29,7 +29,7 @@
         @endif
 
         @if ($items->isNotEmpty())
-            @include($resource->indexTableView())
+            @include($resource->indexTableBlade())
         @endif
 
         @if ($items->hasPages())
