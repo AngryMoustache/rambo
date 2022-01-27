@@ -17,4 +17,13 @@ trait Fields
         return collect($this->fields())
             ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []));
     }
+
+    /**
+     * Returns the fields that are searchable
+     */
+    public function searchableFields($stack = '')
+    {
+        return $this->fieldStack($stack)
+            ->filter(fn ($field) => $field->getSearchable());
+    }
 }

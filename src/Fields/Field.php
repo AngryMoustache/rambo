@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @method object label(string $label)
  * @method object hideFrom(string|array $locations)
+ * @method object searchable(boolean $searchable = true)
  */
 class Field
 {
@@ -61,6 +62,17 @@ class Field
     public function getValue()
     {
         return optional($this->item)->{$this->getName()};
+    }
+
+    /**
+     * Search the item in the field for a value
+     */
+    public function search($value, $item = null)
+    {
+        return Str::contains(
+            strtolower(($item ?? $this->item)->{$this->getName()}),
+            strtolower($value)
+        );
     }
 
     /**

@@ -17,7 +17,12 @@ class Administrator extends Resource
             TextField::make('id')
                 ->label('ID'),
 
-            TextField::make('username'),
+            TextField::make('username')
+                ->searchable(),
+
+            TextField::make('email')
+                ->label('E-Mail')
+                ->searchable(),
 
             TextField::make('avatar_id')
                 ->label('Avatar'),

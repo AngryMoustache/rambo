@@ -6,16 +6,27 @@
         </div>
     </div>
 
+    @if ($resource->searchableFields()->isNotEmpty())
+        <div class="crud-index-search">
+            <input
+                type="text"
+                wire:key="seach_{{ $resource->routebase() }}"
+                wire:model.250ms="search"
+                placeholder="Search for {{ $resource->label() }}"
+            >
+        </div>
+    @endif
+
     <div wire:loading.delay class="w-100">
         <x-rambo::loading />
     </div>
 
     <div wire:loading.delay.remove>
-        {{-- @if ($items->isEmpty())
+        @if ($items->isEmpty())
             <div class="crud-index-search">
-                <p>No <strong>{{ $resource->getLabel() }}</strong> found using the current filters.</p>
+                <p>No <strong>{{ $resource->label() }}</strong> found using the current filters.</p>
             </div>
-        @endif --}}
+        @endif
 
         @if ($items->isNotEmpty())
             @include($resource->indexTableView())

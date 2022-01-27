@@ -8,28 +8,46 @@ class ResourceIndex extends ResourceComponent
 {
     use WithPagination;
 
+    public $component = 'rambo::livewire.crud.index';
+
     public $items;
 
-    public $component = 'rambo::livewire.crud.index';
+    public $search = '';
 
     public $listeners = [
         'refresh' => 'updateData',
     ];
 
-    public function mount()
+    public function render()
     {
-        parent::mount();
         $this->updateData();
+        return parent::render();
     }
 
     public function updateData()
     {
         $this->items = $this->resource->indexQuery()->get();
         $this->fillComponentData();
+
+        /** Search the fields of the items */
+        if ($this->search && $this->search !== '') {
+            $searchableFields = $this->resource->searchableFields();
+            $this->items = $this->items->filter(function ($item) use ($searchableFields) {
+                foreach ($searchableFields as $field) {
+                    if ($field->search($this->search, $item)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
     }
 
     public function fillComponentData()
     {
-        $this->componentData['fieldStack'] = $this->resource->fieldStack('index', true);
+        $this->componentData = [
+            'fieldStack' => $this->resource->fieldStack('index', true),
+        ];
     }
 }
