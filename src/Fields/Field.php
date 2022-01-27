@@ -21,8 +21,9 @@ class Field
         return new static($name);
     }
 
-    public function __construct(public $name = null, $label = null)
+    public function __construct($name = null, $label = null)
     {
+        $this->name ??= $name;
         $this->label ??= Str::of($this->name)
             ->replace('_', ' ')
             ->ucfirst();
@@ -42,6 +43,15 @@ class Field
             }
 
             return $this->{$name};
+        }
+
+        // Check for any isX functions (returns bool)
+        if (preg_match('/is[A-Z]{1}/', $name)) {
+            if (! method_exists($this, $name)) {
+                $name = lcfirst(Str::of($name)->after('is'));
+            }
+
+            return (bool) $this->{$name};
         }
 
         // User is setting something

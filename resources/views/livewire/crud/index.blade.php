@@ -32,10 +32,10 @@
             @include($resource->indexTableView())
         @endif
 
-        {{-- @if ($items->hasPages())
+        @if ($items->hasPages())
             <div class="pagination">
-                {{ $items->withQueryString()->links('rambo::components.crud.index.pagination') }}
+                {{ $items->withQueryString()->links('rambo::components.crud.tables.pagination') }}
             </div>
-        @endif --}}
+        @endif
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithPagination;
 
 class ResourceIndex extends ResourceComponent
@@ -10,29 +11,41 @@ class ResourceIndex extends ResourceComponent
 
     public $component = 'rambo::livewire.crud.index';
 
-    public $items;
-
     public $search = '';
 
+    public $orderCol = '';
+    public $orderDir = '';
+
     public $listeners = [
-        'refresh' => 'updateData',
+        'refresh' => 'refreshItems',
     ];
 
-    public function render()
+    public $queryString = [
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
+    ];
+
+    public function mount()
     {
-        $this->updateData();
-        return parent::render();
+        parent::mount();
+        $this->orderCol = request()->get('orderCol') ?? $this->resource->defaultOrderCol();
+        $this->orderDir = request()->get('orderDir') ?? $this->resource->defaultOrderDir();
+        $this->queryString['orderCol'] = ['except' => $this->resource->defaultOrderCol()];
+        $this->queryString['orderDir'] = ['except' => $this->resource->defaultOrderDir()];
     }
 
-    public function updateData()
+    /** Fetch, search and filter the items and set them */
+    public function refreshItems()
     {
-        $this->items = $this->resource->indexQuery()->get();
         $this->fillComponentData();
+        $items = $this->resource->indexQuery()
+            ->orderBy($this->orderCol, $this->orderDir)
+            ->get();
 
         /** Search the fields of the items */
-        if ($this->search && $this->search !== '') {
+        if ($this->search !== '') {
             $searchableFields = $this->resource->searchableFields();
-            $this->items = $this->items->filter(function ($item) use ($searchableFields) {
+            $items = $items->filter(function ($item) use ($searchableFields) {
                 foreach ($searchableFields as $field) {
                     if ($field->search($this->search, $item)) {
                         return true;
@@ -42,6 +55,20 @@ class ResourceIndex extends ResourceComponent
                 return false;
             });
         }
+
+        // Paginate at the end
+        $pagination = $this->resource->pagination();
+        $this->componentData['items'] = new LengthAwarePaginator(
+            $items->forPage($this->page, $pagination),
+            $items->count(),
+            $pagination,
+            $this->page
+        );
+
+        if ($this->componentData['items']->count() === 0 && $this->page !== 1) {
+            $this->page = 1;
+            $this->refreshItems();
+        }
     }
 
     public function fillComponentData()
@@ -49,5 +76,26 @@ class ResourceIndex extends ResourceComponent
         $this->componentData = [
             'fieldStack' => $this->resource->fieldStack('index', true),
         ];
+    }
+
+    public function render()
+    {
+        $this->refreshItems();
+        return parent::render();
+    }
+
+    public function updatedSearch()
+    {
+        $this->page = 1;
+    }
+
+    public function changeOrder($column)
+    {
+        if ($this->orderCol === $column) {
+            $this->orderDir = ($this->orderDir === 'desc' ? 'asc' : 'desc');
+        } else {
+            $this->orderCol = $column;
+            $this->orderDir = 'asc';
+        }
     }
 }

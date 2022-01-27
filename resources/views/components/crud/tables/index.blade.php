@@ -3,22 +3,22 @@
         <tr>
             @foreach ($fieldStack as $field)
                 <td>
-                    @if ($field->sortable)
+                    @if ($field->isSortable())
                         <span
                             class="crud-index-table-content crud-index-table-sortable"
-                            wire:click="changeSort('{{ $field->getName() }}')"
+                            wire:click="changeOrder('{{ $field->getName() }}')"
                         >
                             {{ $field->getLabel() }}
 
-                            {{-- @if ($sortCol === $field->getName())
-                                @if ($sortDir === 'desc')
+                            @if ($orderCol === $field->getName())
+                                @if ($orderDir === 'desc')
                                     <i class="fas fa-sort-down"></i>
                                 @else
                                     <i class="fas fa-sort-up"></i>
                                 @endif
                             @else
                                 <i class="fas fa-sort"></i>
-                            @endif --}}
+                            @endif
                         </span>
                     @else
                         <span class="crud-index-table-content">

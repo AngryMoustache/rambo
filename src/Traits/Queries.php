@@ -6,6 +6,7 @@ trait Queries
 {
     public $defaultOrderCol = 'id';
     public $defaultOrderDir = 'desc';
+    public $pagination = 25;
 
     public function query()
     {
@@ -14,10 +15,7 @@ trait Queries
 
     public function indexQuery()
     {
-        return $this->query()->orderBy(
-            $this->defaultOrderCol(),
-            $this->defaultOrderDir()
-        );
+        return $this->query();
     }
 
     public function defaultOrderCol()
@@ -28,5 +26,10 @@ trait Queries
     public function defaultOrderDir()
     {
         return $this->defaultOrderDir;
+    }
+
+    public function pagination()
+    {
+        return $this->paginate ?? $this->pagination;
     }
 }

@@ -24,6 +24,6 @@ trait Fields
     public function searchableFields($stack = '')
     {
         return $this->fieldStack($stack)
-            ->filter(fn ($field) => $field->getSearchable());
+            ->filter(fn ($field) => $field->isSearchable());
     }
 }
