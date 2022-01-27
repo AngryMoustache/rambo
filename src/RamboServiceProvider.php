@@ -8,6 +8,7 @@ use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldRender;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldShowRender;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Rambo;
 use Illuminate\Foundation\AliasLoader;
@@ -50,6 +51,9 @@ class RamboServiceProvider extends ServiceProvider
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
         Livewire::component('rambo-dashboard', Dashboard::class);
+
+        /** CRUD */
+        Livewire::component('rambo-resource-index', ResourceIndex::class);
 
         /** FIELDS */
         Livewire::component('rambo-field-render', FieldRender::class);

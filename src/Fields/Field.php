@@ -7,8 +7,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * @method static object label(string $label)
- * @method static object hideFrom(string|array $locations)
+ * @method object label(string $label)
+ * @method object hideFrom(string|array $locations)
  */
 class Field
 {
