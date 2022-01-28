@@ -1,8 +1,12 @@
 <div class="crud-form-button-input">
     <input
         type="button"
-        class="button ml-1"
         wire:click.prevent="{{ $button::$action }}"
         value="{{ $button::$label }}"
+        @class([
+            'button-link' => $button::$inline,
+            'button',
+            'ml-1',
+        ])
     >
 </div>

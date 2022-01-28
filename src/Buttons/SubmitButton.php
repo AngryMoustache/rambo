@@ -1,6 +1,6 @@
 <?php
 
-namespace AngryMoustache\Rambo\Http\Livewire\Crud\Buttons;
+namespace AngryMoustache\Rambo\Buttons;
 
 class SubmitButton extends Button
 {

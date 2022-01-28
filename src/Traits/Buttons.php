@@ -2,8 +2,9 @@
 
 namespace AngryMoustache\Rambo\Traits;
 
-use AngryMoustache\Rambo\Http\Livewire\Crud\Buttons\SubmitButton;
-use AngryMoustache\Rambo\Http\Livewire\Crud\Buttons\SubmitContinueButton;
+use AngryMoustache\Rambo\Buttons\CancelButton;
+use AngryMoustache\Rambo\Buttons\SubmitButton;
+use AngryMoustache\Rambo\Buttons\SubmitContinueButton;
 
 trait Buttons
 {
@@ -15,6 +16,7 @@ trait Buttons
     public function createButtons()
     {
         return [
+            CancelButton::class,
             SubmitButton::class,
         ];
     }
@@ -22,6 +24,7 @@ trait Buttons
     public function editButtons()
     {
         return [
+            CancelButton::class,
             SubmitContinueButton::class,
             SubmitButton::class,
         ];

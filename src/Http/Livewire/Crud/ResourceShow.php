@@ -13,7 +13,7 @@ class ResourceShow extends ResourceComponent
     public function getComponentData()
     {
         return array_merge([
-            'item' => $this->resource->item(),
+            'item' => $this->resource->item,
         ], $this->componentData);
     }
 }

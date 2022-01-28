@@ -4,10 +4,16 @@
             <h1 class="h3">Creating {{ $resource->singularLabel() }}</h1>
 
             <div class="crud-title-actions">
-                <ul>
+                <ul class="crud-title-actions-list">
                     @foreach ($resource->actions('create') as $action)
-                        <li>
-                            {{-- {{ (new $action($resource, $currentUrl))->render() }} --}}
+                        <li class="crud-title-actions-list-item">
+                            <livewire:is
+                                :key="$action"
+                                :component="$action::getLivewireComponent()"
+                                :resource="$resource"
+                                :action="$action"
+                                label="true"
+                            />
                         </li>
                     @endforeach
                 </ul>

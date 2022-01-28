@@ -48,12 +48,12 @@
                     </td>
                 @endforeach
 
-                @foreach ($resource->actions('index') as $action)
+                @foreach ($resource->actions('table') as $action)
                     <td class="crud-index-table-action">
                         <livewire:is
                             :key="$action . '_' . $item->id"
                             :component="$action::getLivewireComponent()"
-                            :resource="$resource"
+                            :resource="$resource->item($item)"
                             :action="$action"
                             :item="$item"
                         />

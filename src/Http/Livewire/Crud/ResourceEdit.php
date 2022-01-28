@@ -17,7 +17,7 @@ class ResourceEdit extends ResourceFormComponent
 
     public function saveData()
     {
-        $item = $this->resource->item();
+        $item = $this->resource->item;
         $item->update($this->fields);
         $item->touch();
 

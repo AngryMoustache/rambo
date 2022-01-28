@@ -2,8 +2,21 @@
     <div class="crud-title">
         <h1 class="h3">{{ $resource->label() }}</h1>
 
-        <div class="crud-title-actions">
-        </div>
+            <div class="crud-title-actions">
+                <ul class="crud-title-actions-list">
+                    @foreach ($resource->actions('index') as $action)
+                        <li class="crud-title-actions-list-item">
+                            <livewire:is
+                                :key="$action"
+                                :component="$action::getLivewireComponent()"
+                                :resource="$resource"
+                                :action="$action"
+                                label="true"
+                            />
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
     </div>
 
     @if ($resource->searchableFields()->isNotEmpty())

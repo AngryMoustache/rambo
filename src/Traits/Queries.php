@@ -25,9 +25,10 @@ trait Queries
         return $this;
     }
 
-    public function item()
+    public function item($item)
     {
-        return $this->item;
+        $this->item = $item;
+        return $this;
     }
 
     public function defaultOrderCol()

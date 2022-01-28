@@ -11,13 +11,15 @@ class ActionComponent extends ResourceComponent
     public $action;
     public $item;
     public $label = false;
+    public $currentRoute;
 
     public function mount($action = null, $item = null, $resource = null)
     {
         parent::mount();
         $this->action = new $action;
         $this->link = $this->action->getLink($resource, $item);
-        $this->itemId = $item->{$resource->primaryField()};
+        $this->itemId = optional($item)->{$resource->primaryField()};
+        $this->currentRoute = request()->url();
     }
 
     public function hydrate()

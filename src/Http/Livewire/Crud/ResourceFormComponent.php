@@ -25,6 +25,15 @@ class ResourceFormComponent extends ResourceComponent
         $this->fields[$field->getName()] = $value;
     }
 
+    public function cancel()
+    {
+        if ($this->itemId) {
+            return redirect($this->resource->show());
+        }
+
+        return redirect($this->resource->index());
+    }
+
     public function submit($redirect = true)
     {
         $model = $this->handleSubmit();

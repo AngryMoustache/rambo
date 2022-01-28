@@ -11,4 +11,9 @@ class EditAction extends Action
     {
         return $resource->edit($item->id);
     }
+
+    public function shouldHide($resource = null, $currentRoute = null)
+    {
+        return $resource->edit() === $currentRoute;
+    }
 }
