@@ -21,11 +21,11 @@
             </div>
         </div>
 
-        <div wire:loading.flex>
+        <div wire:loading.flex wire:target="submit">
             <x-rambo::loading />
         </div>
 
-        <div wire:loading.remove>
+        <div wire:loading.remove wire:target="submit">
             <div class="crud-form">
                 @foreach ($resource->fieldStack('edit') as $field)
                     <livewire:is

@@ -1,3 +1,3 @@
-<div class="crud-form-field-label">
+<label class="crud-form-field-label" for="{{ $field->getName() }}">
     {{ $field->getLabel() }}
-</div>
+</label>

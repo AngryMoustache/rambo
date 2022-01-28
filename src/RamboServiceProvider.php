@@ -64,8 +64,8 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-resource-edit', ResourceEdit::class);
 
         /** FIELDS */
-        Livewire::component('rambo-field-form-render', FormField::class);
         Livewire::component('rambo-field-show-render', ShowField::class);
+        Livewire::component('rambo-field-form-render', FormField::class);
 
         /** ACTIONS */
         Livewire::component('rambo-action', ActionComponent::class);
