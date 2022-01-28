@@ -7,10 +7,9 @@ trait Rendering
     public $indexView = 'rambo::livewire.crud.resource-index';
     public $createView = 'rambo::livewire.crud.resource-create';
     public $showView = 'rambo::livewire.crud.resource-show';
-    // public $editView = 'rambo::livewire.crud.resource-edit';
+    public $editView = 'rambo::livewire.crud.resource-edit';
 
     public $indexTableBlade = 'rambo::components.crud.tables.index';
-    // public $habtmComponent = 'rambo::components.habtm.resource-item';
 
     public function indexView()
     {
@@ -27,18 +26,13 @@ trait Rendering
         return $this->showView;
     }
 
-    // public function editView()
-    // {
-    //     return $this->editView;
-    // }
+    public function editView()
+    {
+        return $this->editView;
+    }
 
     public function indexTableBlade()
     {
         return $this->indexTableBlade;
     }
-
-    // public function habtmComponent()
-    // {
-    //     return $this->habtmComponent;
-    // }
 }

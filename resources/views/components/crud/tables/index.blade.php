@@ -27,7 +27,7 @@
                     @endif
                 </td>
             @endforeach
-            <td colspan="{{ count($resource->itemActions()) }}"></td>
+            <td colspan="{{ count($resource->actions('table')) }}"></td>
         </tr>
     </thead>
 

@@ -4,11 +4,11 @@
     <div class="crud-form-field-input">
         <input
             wire:model.debounce="value"
-            type="{{ $field->type ?? 'text' }}"
+            type="{{ $field->getType() ?? 'text' }}"
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"
             placeholder="{{ $field->getLabel() }}"
-            @if ($field->readonly || $field->disabled) disabled @endif
+            @if ($field->isReadonly() || $field->isDisabled()) disabled @endif
         >
 
         <x-rambo::crud.fields.error :field="$field" />

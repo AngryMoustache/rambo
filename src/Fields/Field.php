@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
  * @method object label(string $label)
  * @method object searchable(boolean $searchable = true)
  * @method object default(mixed $defaultValue)
+ * @method object readonly(boolean $readonly = true)
+ * @method object disabled(boolean $disabled = true)
  */
 class Field
 {
@@ -76,6 +78,11 @@ class Field
     }
 
     public function getShowValue()
+    {
+        return $this->getValue();
+    }
+
+    public function getFormValue()
     {
         return $this->getValue();
     }

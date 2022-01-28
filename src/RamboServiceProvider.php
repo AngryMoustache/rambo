@@ -9,6 +9,7 @@ use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FormField;
 use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\ShowField;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
@@ -60,6 +61,7 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-resource-index', ResourceIndex::class);
         Livewire::component('rambo-resource-create', ResourceCreate::class);
         Livewire::component('rambo-resource-show', ResourceShow::class);
+        Livewire::component('rambo-resource-edit', ResourceEdit::class);
 
         /** FIELDS */
         Livewire::component('rambo-field-form-render', FormField::class);

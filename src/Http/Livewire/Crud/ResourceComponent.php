@@ -3,7 +3,6 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Facades\Rambo;
-use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Exceptions\RamboResourceNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Exceptions\RamboResourceWithIdNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
@@ -38,5 +37,12 @@ class ResourceComponent extends RamboComponent
     {
         parent::dehydrate();
         $this->resource = $this->resource->routebase();
+    }
+
+    public function refresh()
+    {
+        if (! optional($this->resource)->item && $this->itemId) {
+            redirect($this->resource->index());
+        }
     }
 }

@@ -13,7 +13,7 @@ trait Actions
         return $this->{"${type}Actions"}() ?? [];
     }
 
-    public function itemActions()
+    public function tableActions()
     {
         return [
             ShowAction::class,
@@ -24,19 +24,17 @@ trait Actions
 
     public function indexActions()
     {
-        return $this->actions('item');
+        return $this->actions('table');
     }
 
     public function showActions()
     {
-        return $this->actions('item');
+        return $this->actions('table');
     }
 
     public function formActions()
     {
-        return [
-
-        ];
+        return $this->actions('table');
     }
 
     public function createActions()

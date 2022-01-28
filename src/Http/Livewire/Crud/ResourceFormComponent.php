@@ -10,6 +10,7 @@ class ResourceFormComponent extends ResourceComponent
 
     public $listeners = [
         'changed-value' => 'fieldUpdated',
+        'refresh',
     ];
 
     public function mount()
@@ -27,7 +28,11 @@ class ResourceFormComponent extends ResourceComponent
     public function submit($redirect = true)
     {
         $model = $this->handleSubmit();
-        return redirect($this->resource->show($model->{$this->resource->primaryField()}));
+        if ($redirect) {
+            return redirect($this->resource->show($model->{$this->resource->primaryField()}));
+        }
+
+        $this->toastOk("{$this->resource->singularLabel()} successfully saved!");
     }
 
     public function handleSubmit()
@@ -62,7 +67,7 @@ class ResourceFormComponent extends ResourceComponent
     public function cleanFields()
     {
         foreach ($this->fields as $key => $value) {
-            if (in_array($value, ['', null])) {
+            if ($value === '' || $value === null) {
                 unset($this->fields[$key]);
             }
         }
