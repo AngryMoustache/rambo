@@ -2,6 +2,7 @@
 
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard\Dashboard;
@@ -22,7 +23,7 @@ Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
 
             /** CRUD */
             Route::get('{resource}', ResourceIndex::class)->name('rambo.crud.index');
-            Route::get('{resource}/create', Dashboard::class)->name('rambo.crud.create');
+            Route::get('{resource}/create', ResourceCreate::class)->name('rambo.crud.create');
             Route::get('{resource}/{itemId}', ResourceShow::class)->name('rambo.crud.show');
             Route::get('{resource}/{itemId}/edit', Dashboard::class)->name('rambo.crud.edit');
         });

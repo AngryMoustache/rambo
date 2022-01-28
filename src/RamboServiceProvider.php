@@ -6,8 +6,9 @@ use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldRender;
-use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FieldShowRender;
+use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FormField;
+use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\ShowField;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
@@ -35,11 +36,6 @@ class RamboServiceProvider extends ServiceProvider
         Route::bind('resource', function ($value, $route) {
             $itemId = $route->parameter('itemId');
             $resource = FacadeRambo::resource($value, $itemId);
-
-            // if ($itemId && optional($resource)->item === null) {
-            //     $resource = null;
-            // }
-
             return $resource;
         });
     }
@@ -62,11 +58,12 @@ class RamboServiceProvider extends ServiceProvider
 
         /** CRUD */
         Livewire::component('rambo-resource-index', ResourceIndex::class);
+        Livewire::component('rambo-resource-create', ResourceCreate::class);
         Livewire::component('rambo-resource-show', ResourceShow::class);
 
         /** FIELDS */
-        Livewire::component('rambo-field-render', FieldRender::class);
-        Livewire::component('rambo-field-show-render', FieldShowRender::class);
+        Livewire::component('rambo-field-form-render', FormField::class);
+        Livewire::component('rambo-field-show-render', ShowField::class);
 
         /** ACTIONS */
         Livewire::component('rambo-action', ActionComponent::class);

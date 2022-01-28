@@ -31,4 +31,21 @@ trait Actions
     {
         return $this->actions('item');
     }
+
+    public function formActions()
+    {
+        return [
+
+        ];
+    }
+
+    public function createActions()
+    {
+        return $this->actions('form');
+    }
+
+    public function editActions()
+    {
+        return $this->actions('form');
+    }
 }

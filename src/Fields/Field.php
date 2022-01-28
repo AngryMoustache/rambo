@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  */
 class Field
 {
-    public $livewireComponent = 'rambo-field-render';
+    public $livewireFormComponent = 'rambo-field-form-render';
     public $livewireShowComponent = 'rambo-field-show-render';
 
     public static function make($name = null)
@@ -97,6 +97,15 @@ class Field
     public function hideFrom($locations)
     {
         $this->hideFrom = Arr::wrap($locations);
+        return $this;
+    }
+
+    /**
+     * Validation rules
+     */
+    public function rules($rules)
+    {
+        $this->rules = Arr::wrap($rules);
         return $this;
     }
 }

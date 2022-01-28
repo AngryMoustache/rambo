@@ -5,7 +5,7 @@ namespace AngryMoustache\Rambo\Traits;
 trait Rendering
 {
     public $indexView = 'rambo::livewire.crud.resource-index';
-    // public $createView = 'rambo::livewire.crud.resource-create';
+    public $createView = 'rambo::livewire.crud.resource-create';
     public $showView = 'rambo::livewire.crud.resource-show';
     // public $editView = 'rambo::livewire.crud.resource-edit';
 
@@ -17,10 +17,10 @@ trait Rendering
         return $this->indexView;
     }
 
-    // public function createView()
-    // {
-    //     return $this->createView;
-    // }
+    public function createView()
+    {
+        return $this->createView;
+    }
 
     public function showView()
     {

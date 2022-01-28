@@ -5,7 +5,7 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud\Fields;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 
 /** Basic render component for text based fields */
-class FieldShowRender extends RamboComponent
+class ShowField extends RamboComponent
 {
     public $component = 'rambo::livewire.fields.show.text';
 
