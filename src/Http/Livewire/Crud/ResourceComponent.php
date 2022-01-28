@@ -4,6 +4,8 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
+use AngryMoustache\Rambo\Http\Exceptions\RamboResourceNotFoundHttpException;
+use AngryMoustache\Rambo\Http\Exceptions\RamboResourceWithIdNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 
 class ResourceComponent extends RamboComponent
@@ -14,12 +16,13 @@ class ResourceComponent extends RamboComponent
     public function mount()
     {
         parent::mount();
+
         if (! $this->resource) {
-            $this->handleResourceNotFound();
+            throw new RamboResourceNotFoundHttpException();
         }
 
         if (! optional($this->resource)->item && $this->itemId) {
-            $this->handleResourceNotFound();
+            throw new RamboResourceWithIdNotFoundHttpException();
         }
     }
 
@@ -35,10 +38,5 @@ class ResourceComponent extends RamboComponent
     {
         parent::dehydrate();
         $this->resource = $this->resource->routebase();
-    }
-
-    public function handleResourceNotFound()
-    {
-        throw new RamboNotFoundHttpException();
     }
 }

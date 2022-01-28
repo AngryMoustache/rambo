@@ -20,8 +20,12 @@ class DeleteActionComponent extends ActionComponent
 
     public function deleteConfirm()
     {
+        $item = $this->item->{$this->resource->displayName()};
         $this->item->delete();
+
         $this->toggleModal();
         $this->emit('refresh');
+
+        $this->toastOk("'{$item}' has been deleted successfully!");
     }
 }

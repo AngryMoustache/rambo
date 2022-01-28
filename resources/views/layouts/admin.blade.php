@@ -24,7 +24,7 @@
         </div>
 
         {{-- Toasts --}}
-        {{-- <x-rambo-toasts /> --}}
+        <x-rambo::toasts />
 
         <livewire:scripts>
         <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>

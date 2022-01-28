@@ -25,9 +25,4 @@ class ResourceShow extends ResourceComponent
             'item' => $this->resource->item(),
         ], $this->componentData);
     }
-
-    public function handleResourceNotFound()
-    {
-        redirect($this->resource->index());
-    }
 }
