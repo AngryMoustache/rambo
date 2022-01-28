@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Fields;
 
 /**
+ * @method object format(string $format = 'd M Y h:i:s')
  * @method object humanReadable(boolean $humanReadable = true)
  */
 class DateTimeField extends Field
@@ -19,6 +20,6 @@ class DateTimeField extends Field
             return $value->diffForHumans();
         }
 
-        return $value->format($this->format);
+        return $value->format($this->getFormat());
     }
 }

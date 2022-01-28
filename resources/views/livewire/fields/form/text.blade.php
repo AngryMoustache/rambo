@@ -3,7 +3,7 @@
 
     <div class="crud-form-field-input">
         <input
-            wire:model="value"
+            wire:model.debounce="value"
             type="{{ $field->type ?? 'text' }}"
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"
@@ -11,6 +11,6 @@
             @if ($field->readonly || $field->disabled) disabled @endif
         >
 
-        {{-- <x-rambo::crud.form.error :field="$field" /> --}}
+        <x-rambo::crud.fields.error :field="$field" />
     </div>
 </div>

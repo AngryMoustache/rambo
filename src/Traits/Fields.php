@@ -26,4 +26,14 @@ trait Fields
         return $this->fieldStack($stack)
             ->filter(fn ($field) => $field->isSearchable());
     }
+
+    /**
+     * Returns the fields that are searchable
+     */
+    public function validationStack($stack = '')
+    {
+        return $this->fieldStack($stack)
+            ->mapWithKeys(fn ($field) => ["fields.{$field->getName()}" => $field->getRules() ?? []])
+            ->toArray();
+    }
 }

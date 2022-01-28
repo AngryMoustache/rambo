@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
  * Below are some magic methods
  * @method object label(string $label)
  * @method object searchable(boolean $searchable = true)
+ * @method object default(mixed $defaultValue)
  */
 class Field
 {
@@ -77,6 +78,14 @@ class Field
     public function getShowValue()
     {
         return $this->getValue();
+    }
+
+    /**
+     * Do something before saving (returns the final value)
+     */
+    public function beforeSave($value, $fields, $id)
+    {
+        return $value;
     }
 
     /**

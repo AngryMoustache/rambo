@@ -9,4 +9,11 @@ class ResourceCreate extends ResourceFormComponent
         parent::mount();
         $this->component = $this->resource->createView();
     }
+
+    public function saveData()
+    {
+        $model = $this->resource->model();
+        $savedModel = $model::withoutGlobalScopes()->create($this->fields);
+        return $savedModel;
+    }
 }

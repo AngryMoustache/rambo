@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Traits;
 
 use AngryMoustache\Rambo\Http\Livewire\Crud\Buttons\SubmitButton;
+use AngryMoustache\Rambo\Http\Livewire\Crud\Buttons\SubmitContinueButton;
 
 trait Buttons
 {
@@ -11,20 +12,18 @@ trait Buttons
         return $this->{"${type}Buttons"}() ?? [];
     }
 
-    public function formButtons()
+    public function createButtons()
     {
         return [
             SubmitButton::class,
         ];
     }
 
-    public function createButtons()
-    {
-        return $this->buttons('form');
-    }
-
     public function editButtons()
     {
-        return $this->buttons('form');
+        return [
+            SubmitContinueButton::class,
+            SubmitButton::class,
+        ];
     }
 }
