@@ -2,15 +2,16 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Actions;
 
-use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
-
-class DeleteActionComponent extends RamboComponent
+class DeleteActionComponent extends ActionComponent
 {
     public $component = 'rambo::livewire.actions.delete-action';
-    public $action;
-    public $item;
 
     public $modal = false;
+
+    public function mount($action = null, $item = null, $resource = null)
+    {
+        $this->action = new $action;
+    }
 
     public function toggleModal()
     {
@@ -21,6 +22,6 @@ class DeleteActionComponent extends RamboComponent
     {
         $this->item->delete();
         $this->toggleModal();
-        $this->emitUp('refresh');
+        $this->emit('refresh');
     }
 }

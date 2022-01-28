@@ -25,7 +25,7 @@ textarea {
 input[type="submit"],
 .button,
 .button-link,
-.crud-title-actions a {
+.crud-title-actions a.action-link {
     background: $c-main;
     color: $c-grey;
     font-family: $f-button;

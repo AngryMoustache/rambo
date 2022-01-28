@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static object resources()
  * @method static object resource(string $value, $id = null, string $key = 'routebase')
  * @method static object navigation()
+ * @method static object notFound()
  */
 class Rambo extends Facade
 {

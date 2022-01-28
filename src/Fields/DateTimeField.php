@@ -1,6 +1,7 @@
 <?php
 
 namespace AngryMoustache\Rambo\Fields;
+
 /**
  * @method object humanReadable(boolean $humanReadable = true)
  */

@@ -9,7 +9,7 @@ class RamboComponent extends Component
     public $layout = 'rambo::layouts.admin';
     protected $componentData = [];
 
-    public function mount()
+    public function booted()
     {
         //
     }

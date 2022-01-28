@@ -1,16 +1,20 @@
-<div>
-    <a href="#" wire:click.prevent="toggleModal" class="action-icon">
-        <i class="{{ $action::$icon }}"></i>
+<div class="action">
+    <a href="#" wire:click.prevent="toggleModal" class="action-link action-icon">
+        @if (isset($label) && $label)
+            <span>{{ $action->label }}</span>
+        @endif
+
+        <i class="{{ $action->icon }}"></i>
     </a>
 
     @if ($modal)
         <x-rambo::modal>
             <x-slot name="title">
-                Deleting: $name
+                Deleting: {{ $item->{$resource->displayName()} }}
             </x-slot>
 
             <x-slot name="content">
-                Are you sure you wish to delete "$name?"
+                Are you sure you wish to delete "{{ $item->{$resource->displayName()} }}"
             </x-slot>
 
             <x-slot name="footer">

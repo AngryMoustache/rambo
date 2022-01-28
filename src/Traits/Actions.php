@@ -10,7 +10,7 @@ trait Actions
 {
     public function actions($type)
     {
-        return $this->{"${type}Actions"} ?? [];
+        return $this->{"${type}Actions"}() ?? [];
     }
 
     public function itemActions()
@@ -20,5 +20,15 @@ trait Actions
             EditAction::class,
             DeleteAction::class,
         ];
+    }
+
+    public function indexActions()
+    {
+        return $this->actions('item');
+    }
+
+    public function showActions()
+    {
+        return $this->actions('item');
     }
 }

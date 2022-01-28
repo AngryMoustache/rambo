@@ -4,8 +4,8 @@ namespace AngryMoustache\Rambo\Actions;
 
 class Action
 {
-    public static $icon;
-    public static $label;
+    public $icon;
+    public $label;
 
     public static $livewireComponent = 'rambo-action';
 

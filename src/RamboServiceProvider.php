@@ -33,8 +33,14 @@ class RamboServiceProvider extends ServiceProvider
         $this->livewire();
 
         Route::bind('resource', function ($value, $route) {
-            return FacadeRambo::resource($value, $route->parameter('itemId'))
-                ?? abort(404);
+            $itemId = $route->parameter('itemId');
+            $resource = FacadeRambo::resource($value, $itemId);
+
+            // if ($itemId && optional($resource)->item === null) {
+            //     $resource = null;
+            // }
+
+            return $resource;
         });
     }
 

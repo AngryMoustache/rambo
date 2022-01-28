@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo;
 
+use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
 
@@ -36,16 +37,8 @@ class Rambo
 
     public function resource($value, $id = null, $key = null)
     {
-        try {
-            return $this->resources
-                ->where($key ?? 'routebase', $value)
-                ->first()
-                ->fetch($id);
-            //code...
-        } catch (\Throwable $th) {
-            //throw $th;
-            dd($key, $value);
-        }
+        return optional($this->resources->where($key ?? 'routebase', $value)->first())
+            ->fetch($id);
     }
 
     public function user()
@@ -93,5 +86,10 @@ class Rambo
         }
 
         return (new $resource());
+    }
+
+    public function notFound()
+    {
+        throw new RamboNotFoundHttpException();
     }
 }

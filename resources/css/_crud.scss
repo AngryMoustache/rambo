@@ -13,22 +13,25 @@
 
         // Actions
         &-actions {
-            ul {
+            &-list {
                 display: flex;
 
-                li {
+                &-item {
                     display: flex;
 
-                    a {
-                        margin-left: 1rem;
-                        width: 100%;
+                    .action {
+                        margin-right: 1rem;
 
-                        i, span {
-                            color: $c-grey;
-                        }
+                        &-link {
+                            width: 100%;
 
-                        span {
-                            margin-right: .5rem;
+                            i, span {
+                                color: $c-grey;
+                            }
+
+                            span {
+                                margin-right: .5rem;
+                            }
                         }
                     }
                 }

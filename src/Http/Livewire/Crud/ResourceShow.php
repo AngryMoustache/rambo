@@ -4,7 +4,9 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 class ResourceShow extends ResourceComponent
 {
-    public $itemId;
+    public $listeners = [
+        'refresh',
+    ];
 
     public function mount()
     {
@@ -12,10 +14,20 @@ class ResourceShow extends ResourceComponent
         $this->component = $this->resource->showView();
     }
 
+    public function refresh()
+    {
+        //
+    }
+
     public function getComponentData()
     {
         return array_merge([
             'item' => $this->resource->item(),
         ], $this->componentData);
+    }
+
+    public function handleResourceNotFound()
+    {
+        redirect($this->resource->index());
     }
 }

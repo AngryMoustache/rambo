@@ -4,13 +4,20 @@
             <h1 class="h3">{{ $resource->itemName() }}</h1>
 
             <div class="crud-title-actions">
-                {{-- <ul>
-                    @foreach ($resource->showActions() as $action)
-                        <li>
-                            {{ (new $action($resource, $currentUrl, $item))->render() }}
+                <ul class="crud-title-actions-list">
+                    @foreach ($resource->actions('show') as $action)
+                        <li class="crud-title-actions-list-item">
+                            <livewire:is
+                                :key="$action . '_' . $item->id"
+                                :component="$action::getLivewireComponent()"
+                                :resource="$resource"
+                                :action="$action"
+                                :item="$item"
+                                label="true"
+                            />
                         </li>
                     @endforeach
-                </ul> --}}
+                </ul>
             </div>
         </div>
 

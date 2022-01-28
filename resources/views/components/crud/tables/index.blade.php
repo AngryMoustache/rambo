@@ -48,7 +48,7 @@
                     </td>
                 @endforeach
 
-                @foreach ($resource->itemActions() as $action)
+                @foreach ($resource->actions('index') as $action)
                     <td class="crud-index-table-action">
                         <livewire:is
                             :key="$action . '_' . $item->id"
