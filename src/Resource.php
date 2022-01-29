@@ -2,9 +2,13 @@
 
 namespace AngryMoustache\Rambo;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableResource;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
-abstract class Resource
+class Resource extends WireableResource
 {
     use \AngryMoustache\Rambo\Traits\Actions;
     use \AngryMoustache\Rambo\Traits\Buttons;
@@ -29,5 +33,10 @@ abstract class Resource
     public function model()
     {
         return $this->model;
+    }
+
+    public function __toString()
+    {
+        return $this->routebase();
     }
 }

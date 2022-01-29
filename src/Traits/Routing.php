@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Traits;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+
 trait Routing
 {
     public $routebase;
@@ -42,13 +44,21 @@ trait Routing
         ]);
     }
 
-    // public function routeAfterCreate($item)
-    // {
-    //     return $this->show($item->id);
-    // }
+    public function routeAfterCreate()
+    {
+        return $this->show();
+    }
 
-    // public function routeAfterEdit($item)
-    // {
-    //     return $this->show($item->id);
-    // }
+    public function routeAfterEdit()
+    {
+        return $this->show();
+    }
+
+    public static function resolveRouteBinding($resource)
+    {
+        $itemId = request()->route()->parameter('itemId');
+        $resource = Rambo::resource($resource, $itemId);
+        return $resource;
+    }
+
 }

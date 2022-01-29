@@ -6,11 +6,11 @@ use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 use Illuminate\Support\Facades\Validator;
 
-/** Basic form render component for text based fields */
+/**
+ * Basic form render component for text based fields
+ */
 class FormField extends RamboComponent
 {
-    public $component = 'rambo::livewire.fields.form.text';
-
     public $name;
 
     public $value;
@@ -28,7 +28,7 @@ class FormField extends RamboComponent
         parent::mount();
         $this->name = $field->getName();
         $this->value = $field->item($item)->getFormValue();
-        $this->component = $field->getFormComponent() ?? $this->component;
+        $this->component = $field->getFormComponent();
         $this->rules = $this->field->getRules() ?? [];
     }
 

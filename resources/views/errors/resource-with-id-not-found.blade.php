@@ -12,7 +12,7 @@
         </p>
 
         <a
-            href="{{ route('rambo.crud.index', $resource->routebase()) }}"
+            href="{{ $resource->index() }}"
             class="button"
         >
             Return to the overview

@@ -6,6 +6,7 @@ use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs as FacadeRamboBreadcrumbs;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
+use AngryMoustache\Rambo\Http\Livewire\AttachmentPicker;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
 use AngryMoustache\Rambo\Http\Livewire\Fields\FormField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\ShowField;
@@ -14,11 +15,11 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormAttachmentField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
 use AngryMoustache\Rambo\Rambo;
 use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -36,12 +37,6 @@ class RamboServiceProvider extends ServiceProvider
         $this->migrations();
         $this->publishing();
         $this->livewire();
-
-        Route::bind('resource', function ($value, $route) {
-            $itemId = $route->parameter('itemId');
-            $resource = FacadeRambo::resource($value, $itemId);
-            return $resource;
-        });
     }
 
     public function register()
@@ -73,14 +68,20 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-resource-show', ResourceShow::class);
         Livewire::component('rambo-resource-edit', ResourceEdit::class);
 
-        /** FIELDS */
+        /** FIELDS (FORM) */
         Livewire::component('rambo-field-form-field', FormField::class);
+        Livewire::component('rambo-field-form-attachment-field', FormAttachmentField::class);
+
+        /** FIELDS (SHOW) */
         Livewire::component('rambo-field-show-field', ShowField::class);
         Livewire::component('rambo-field-show-boolean-field', ShowBooleanField::class);
 
         /** ACTIONS */
         Livewire::component('rambo-action', ActionComponent::class);
         Livewire::component('rambo-action-delete', DeleteActionComponent::class);
+
+        /** OTHERS */
+        Livewire::component('rambo-attachment-picker', AttachmentPicker::class);
     }
 
     private function config()

@@ -18,8 +18,11 @@ use Illuminate\Support\Str;
  */
 class Field extends WireableField
 {
-    public $livewireFormComponent = 'rambo-field-form-field';
+    public $showComponent = 'rambo::livewire.fields.show.text';
     public $livewireShowComponent = 'rambo-field-show-field';
+
+    public $formComponent = 'rambo::livewire.fields.form.text';
+    public $livewireFormComponent = 'rambo-field-form-field';
 
     public static function make($name = null)
     {
@@ -31,7 +34,8 @@ class Field extends WireableField
         $this->name ??= $name;
         $this->label ??= Str::of($this->name)
             ->replace('_', ' ')
-            ->ucfirst();
+            ->ucfirst()
+            ->__toString();
     }
 
     public function __get($name)

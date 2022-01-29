@@ -3,22 +3,25 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Actions;
 
 use AngryMoustache\Rambo\Actions\Action;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceComponent;
+use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
+use AngryMoustache\Rambo\Resource;
 
-class ActionComponent extends ResourceComponent
+class ActionComponent extends RamboComponent
 {
     public $component = 'rambo::livewire.actions.action';
 
     public Action $action;
+    public Resource $resource;
+
     public $item;
     public $label = false;
     public $currentRoute;
 
-    public function mount($action = null, $item = null, $resource = null)
+    public function mount()
     {
         parent::mount();
-        $this->link = $this->action->getLink($resource, $item);
-        $this->itemId = optional($item)->{$resource->primaryField()};
+        $this->link = $this->action->getLink($this->resource, $this->item);
+        $this->itemId = optional($this->item)->{$this->resource->primaryField()};
         $this->currentRoute = request()->url();
     }
 }

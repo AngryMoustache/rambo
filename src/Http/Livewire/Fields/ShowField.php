@@ -5,10 +5,12 @@ namespace AngryMoustache\Rambo\Http\Livewire\Fields;
 use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 
-/** Basic render component for text based fields */
+/**
+ * Basic render component for text based fields
+ */
 class ShowField extends RamboComponent
 {
-    public $component = 'rambo::livewire.fields.show.text';
+    public $component;
 
     public $value;
 
@@ -18,7 +20,7 @@ class ShowField extends RamboComponent
     {
         parent::mount();
         $this->field = $field;
-        $this->component = $field->getShowComponent() ?? $this->component;
+        $this->component = $field->getShowComponent();
         $this->updateValue($item);
     }
 

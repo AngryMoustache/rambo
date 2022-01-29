@@ -39,7 +39,11 @@ class ResourceFormComponent extends ResourceComponent
     {
         $model = $this->handleSubmit();
         if ($redirect) {
-            return redirect($this->resource->show($model->{$this->resource->primaryField()}));
+            if ($this->itemId) {
+                return redirect($this->resource->routeAfterEdit());
+            }
+
+            return redirect($this->resource->item($model)->routeAfterCreate());
         }
 
         $this->toastOk("{$this->resource->singularLabel()} successfully saved!");

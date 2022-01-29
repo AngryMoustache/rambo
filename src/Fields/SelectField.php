@@ -2,9 +2,11 @@
 
 namespace AngryMoustache\Rambo\Fields;
 
+use AngryMoustache\Rambo\Resource;
+
 /**
  * @method $this options(array $options) The list of options to display [value => label]
- * @method $this resource(string $resourceClass) The resource to pull items from
+ * @method $this resource(object|string $resource) The resource to pull items from
  * @method $this nullable(boolean $nullable = true) Adds an empty select option at the top
  */
 class SelectField extends Field
@@ -15,9 +17,12 @@ class SelectField extends Field
     public $options = [];
     public $resource;
 
-    public function resource(string $resourceClass)
+    public function resource($resource)
     {
-        $resource = new $resourceClass;
+        if (! $resource instanceof Resource) {
+            $resource = new $resource;
+        }
+
         $this->resource = $resource;
         $this->options = $resource->relationQuery()->pluck(
             $resource->displayName(),

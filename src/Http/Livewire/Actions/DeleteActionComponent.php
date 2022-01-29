@@ -10,9 +10,10 @@ class DeleteActionComponent extends ActionComponent
 
     public $route = false;
 
-    public function mount($action = null, $item = null, $resource = null)
+    public function mount()
     {
-        $this->action = new $action;
+        parent::mount();
+        $this->action = new $this->action;
         $this->currentRoute = request()->route()->getName();
     }
 
