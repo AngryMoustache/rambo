@@ -2,11 +2,13 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire;
 
-use AngryMoustache\Rambo\Enums\ToastType;
+use AngryMoustache\Rambo\Http\Livewire\Traits\RamboCanToast;
 use Livewire\Component;
 
 class RamboComponent extends Component
 {
+    use RamboCanToast;
+
     public $layout = 'rambo::layouts.admin';
     protected $componentData = [];
 
@@ -29,28 +31,5 @@ class RamboComponent extends Component
     {
         return view($this->component, $this->getComponentData())
             ->extends($this->layout);
-    }
-
-    public function toast($message, $type = null)
-    {
-        $this->dispatchBrowserEvent('rambo-toast', [
-            'message' => $message,
-            'type' => $type ?? ToastType::OK,
-        ]);
-    }
-
-    public function toastOk($message)
-    {
-        $this->toast($message, ToastType::OK);
-    }
-
-    public function toastWarning($message)
-    {
-        $this->toast($message, ToastType::WARNING);
-    }
-
-    public function toastError($message)
-    {
-        $this->toast($message, ToastType::WARNING);
     }
 }
