@@ -2,8 +2,16 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
+
 class ResourceEdit extends ResourceFormComponent
 {
+    public function booted()
+    {
+        parent::booted();
+        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
+    }
+
     public function mount()
     {
         parent::mount();

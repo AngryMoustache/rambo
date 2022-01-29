@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs as FacadeRamboBreadcrumbs;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
@@ -15,6 +16,7 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
 use AngryMoustache\Rambo\Rambo;
+use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -50,6 +52,13 @@ class RamboServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(Rambo::class, 'rambo');
+
+        $this->app->booting(function() {
+            $loader = AliasLoader::getInstance();
+            $loader->alias('RamboBreadcrumbs', FacadeRamboBreadcrumbs::class);
+        });
+
+        $this->app->alias(RamboBreadcrumbs::class, 'rambo-breadcrumbs');
     }
 
     private function livewire()

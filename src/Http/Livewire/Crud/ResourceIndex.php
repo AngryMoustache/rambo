@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
@@ -23,6 +24,13 @@ class ResourceIndex extends ResourceComponent
         'search' => ['except' => ''],
         'page' => ['except' => 1],
     ];
+
+    public function booted()
+    {
+        parent::booted();
+        RamboBreadcrumbs::reset();
+        RamboBreadcrumbs::add($this->resource->label());
+    }
 
     public function mount()
     {
