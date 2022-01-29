@@ -22,15 +22,6 @@
             &:last-of-type {
                 border: 0;
             }
-
-            a {
-                color: $c-secondary;
-                font-weight: bold;
-
-                &:hover {
-                    color: $c-secondary-dark;
-                }
-            }
         }
     }
 }

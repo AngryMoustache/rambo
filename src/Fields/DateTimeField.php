@@ -3,8 +3,8 @@
 namespace AngryMoustache\Rambo\Fields;
 
 /**
- * @method object format(string $format = 'd M Y h:i:s')
- * @method object humanReadable(boolean $humanReadable = true)
+ * @method $this format(string $format = 'd M Y h:i:s') Formats the date on overview/detail pages
+ * @method $this humanReadable(boolean $humanReadable = true) Makes the date more human readable on overview/detail pages
  */
 class DateTimeField extends Field
 {

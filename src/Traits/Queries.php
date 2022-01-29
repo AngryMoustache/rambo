@@ -19,6 +19,14 @@ trait Queries
         return $this->query();
     }
 
+    public function relationQuery()
+    {
+        return $this->indexQuery()->orderBy(
+            $this->defaultOrderCol(),
+            $this->defaultOrderDir(),
+        );
+    }
+
     public function fetch($id)
     {
         $this->item = $this->query()->find($id);

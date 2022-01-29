@@ -6,13 +6,14 @@ use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\FormField;
-use AngryMoustache\Rambo\Http\Livewire\Crud\Fields\ShowField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\FormField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\ShowField;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
 use AngryMoustache\Rambo\Rambo;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Route;
@@ -64,8 +65,9 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-resource-edit', ResourceEdit::class);
 
         /** FIELDS */
-        Livewire::component('rambo-field-show-render', ShowField::class);
-        Livewire::component('rambo-field-form-render', FormField::class);
+        Livewire::component('rambo-field-form-field', FormField::class);
+        Livewire::component('rambo-field-show-field', ShowField::class);
+        Livewire::component('rambo-field-show-boolean-field', ShowBooleanField::class);
 
         /** ACTIONS */
         Livewire::component('rambo-action', ActionComponent::class);

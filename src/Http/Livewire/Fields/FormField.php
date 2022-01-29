@@ -1,8 +1,8 @@
 <?php
 
-namespace AngryMoustache\Rambo\Http\Livewire\Crud\Fields;
+namespace AngryMoustache\Rambo\Http\Livewire\Fields;
 
-use AngryMoustache\Rambo\FieldParser;
+use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +15,7 @@ class FormField extends RamboComponent
 
     public $value;
 
-    public $field;
+    public Field $field;
 
     public $rules = [];
 
@@ -32,31 +32,15 @@ class FormField extends RamboComponent
         $this->rules = $this->field->getRules() ?? [];
     }
 
+    public function emitValue()
+    {
+        $this->emitUp('changed-value', $this->value, $this->field->toLivewire());
+    }
+
     public function updatedValue()
     {
         $this->validateField(false);
         $this->emitValue();
-    }
-
-    public function emitValue()
-    {
-        $this->emitUp(
-            'changed-value',
-            $this->value,
-            FieldParser::dehydrate($this->field)
-        );
-    }
-
-    public function hydrate()
-    {
-        parent::hydrate();
-        $this->field = FieldParser::hydrate($this->field);
-    }
-
-    public function dehydrate()
-    {
-        parent::hydrate();
-        $this->field = FieldParser::dehydrate($this->field);
     }
 
     public function validateField($withMessage = true)

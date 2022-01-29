@@ -58,6 +58,15 @@ u {
     display: flex;
 }
 
+a.inline-link {
+    color: $c-secondary;
+    font-weight: bold;
+
+    &:hover {
+        color: $c-secondary-dark;
+    }
+}
+
 .tag {
     padding: .25rem .5rem;
     border-radius: .2rem;

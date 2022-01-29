@@ -5,7 +5,7 @@ namespace AngryMoustache\Rambo\Fields;
 use Illuminate\Support\Str;
 
 /**
- * @method object nameField(string $field = 'name')
+ * @method $this nameField(string $field = 'name') The name field to slug after saving
  */
 class SlugField extends Field
 {

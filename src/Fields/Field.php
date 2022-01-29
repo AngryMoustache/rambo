@@ -2,22 +2,24 @@
 
 namespace AngryMoustache\Rambo\Fields;
 
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableField;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
  * Below are some magic methods
- * @method object label(string $label)
- * @method object searchable(boolean $searchable = true)
- * @method object default(mixed $defaultValue)
- * @method object readonly(boolean $readonly = true)
- * @method object disabled(boolean $disabled = true)
+ * @method $this label(string $label) Set the label of the field
+ * @method $this searchable(boolean $searchable = true) Make the field searchable in the CMS
+ * @method $this sortable(boolean $searchable = true) Make the field sortable on the overview page
+ * @method $this default(mixed $defaultValue) The default value to fill in
+ * @method $this readonly(boolean $readonly = true) Disables the field on forms
+ * @method $this disabled(boolean $disabled = true) Disables the field on forms
  */
-class Field
+class Field extends WireableField
 {
-    public $livewireFormComponent = 'rambo-field-form-render';
-    public $livewireShowComponent = 'rambo-field-show-render';
+    public $livewireFormComponent = 'rambo-field-form-field';
+    public $livewireShowComponent = 'rambo-field-show-field';
 
     public static function make($name = null)
     {
