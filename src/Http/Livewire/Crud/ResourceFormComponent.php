@@ -2,7 +2,6 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
-use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableField;
 
 class ResourceFormComponent extends ResourceComponent
@@ -62,8 +61,6 @@ class ResourceFormComponent extends ResourceComponent
             $this->fields[$name] ??= $field->getDefault();
         });
 
-        $this->cleanFields();
-
         // Before save methods
         $fieldStack->each(function ($field) {
             $name = $field->getName();
@@ -74,16 +71,6 @@ class ResourceFormComponent extends ResourceComponent
             );
         });
 
-        $this->cleanFields();
         return $this->saveData();
-    }
-
-    public function cleanFields()
-    {
-        foreach ($this->fields as $key => $value) {
-            if ($value === '' || $value === null) {
-                unset($this->fields[$key]);
-            }
-        }
     }
 }

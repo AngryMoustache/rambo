@@ -4,14 +4,27 @@ namespace AngryMoustache\Rambo\Http\Livewire;
 
 use AngryMoustache\Media\Models\Attachment;
 use AngryMoustache\Rambo\Fields\Field;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class AttachmentPicker extends RamboComponent
 {
-    public $component = 'rambo::livewire.media.attachment-picker';
+    use WithFileUploads;
+    use WithPagination;
 
     public Field $field;
 
+    public $component = 'rambo::livewire.attachment-picker';
+
     public $value;
+
+    public $search;
+
+    public $uploadedFile;
+
+    // Modals
+    public $selecting = false;
+    public $uploading = false;
 
     public function mount()
     {
@@ -21,14 +34,64 @@ class AttachmentPicker extends RamboComponent
 
     public function clearSelection()
     {
-        $this->value = null;
-        $this->emitUp('changed-value', $this->value, $this->field->toLivewire());
+        $this->updateAttachment(null);
+    }
+
+    public function updateAttachment($id)
+    {
+        $this->value = Attachment::find($id);
+        $this->emitUp('changed-value', $id, $this->field->toLivewire());
+        $this->closeModal();
+    }
+
+    public function openSelectModal()
+    {
+        $this->selecting = true;
+    }
+
+    public function openUploadModal()
+    {
+        $this->uploading = true;
+    }
+
+    public function closeModal()
+    {
+        $this->selecting = false;
+        $this->uploading = false;
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function getComponentData()
+    {
+        $attachments = collect();
+
+        if ($this->selecting) {
+            $attachments = Attachment::where('alt_name', 'LIKE', "%{$this->search}%")
+                ->orWhere('original_name', 'LIKE', "%{$this->search}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate(15);
+        }
+
+        return array_merge([
+            'attachments' => $attachments,
+        ], parent::getComponentData());
+    }
+
+    public function uploadImage()
+    {
+        $attachment = $this->createAttachmentFromUpload();
+        $this->updateAttachment($attachment);
+        $this->uploadedFile = null;
     }
 
     private function createAttachmentFromUpload($file = null)
     {
-        $file ??= $this->upload;
+        $file ??= $this->uploadedFile;
         $attachment = Attachment::livewireUpload($file);
-        return $attachment;
+        return $attachment->id;
     }
 }

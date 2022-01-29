@@ -20,4 +20,17 @@
             </a>
         </div>
     @endif
+
+    @if ($selecting)
+        <x-rambo::modals.attachment-picker-selecting
+            :attachments="$attachments"
+            :search="$search"
+        />
+    @endif
+
+    @if ($uploading)
+        <x-rambo::modals.attachment-picker-uploading
+            :uploaded-file="$uploadedFile"
+        />
+    @endif
 </div>
