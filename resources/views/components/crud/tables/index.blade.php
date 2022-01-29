@@ -56,6 +56,7 @@
                             :resource="$resource->item($item)"
                             :action="$action"
                             :item="$item"
+                            :no-redirect="true"
                         />
                     </td>
                 @endforeach

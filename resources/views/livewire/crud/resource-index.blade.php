@@ -30,11 +30,11 @@
         </div>
     @endif
 
-    <div wire:loading.delay class="w-100">
+    <div wire:loading class="w-100">
         <x-rambo::loading />
     </div>
 
-    <div wire:loading.delay.remove>
+    <div wire:loading.remove>
         @if ($items->isEmpty())
             <div class="crud-index-search">
                 <p>No <strong>{{ $resource->label() }}</strong> found using the current filters.</p>

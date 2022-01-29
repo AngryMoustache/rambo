@@ -7,15 +7,8 @@ class DeleteActionComponent extends ActionComponent
     public $component = 'rambo::livewire.actions.delete-action';
 
     public $modal = false;
-
     public $route = false;
-
-    public function mount()
-    {
-        parent::mount();
-        $this->action = new $this->action;
-        $this->currentRoute = request()->route()->getName();
-    }
+    public $noRedirect = false;
 
     public function toggleModal()
     {
@@ -27,9 +20,9 @@ class DeleteActionComponent extends ActionComponent
         $item = $this->item->{$this->resource->displayName()};
         $this->item->delete();
 
-        if ($this->currentRoute === 'rambo.crud.index') {
-            $this->toggleModal();
+        if ($this->noRedirect) {
             $this->emit('refresh');
+            $this->toggleModal();
             $this->toastOk("'{$item}' has been deleted successfully!");
         } else {
             redirect($this->resource->index());

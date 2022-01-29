@@ -8,6 +8,13 @@ trait Routing
 {
     public $routebase;
 
+    public static function resolveRouteBinding($resource)
+    {
+        $itemId = request()->route()->parameter('itemId');
+        $resource = Rambo::resource($resource, $itemId);
+        return $resource;
+    }
+
     public function routebase()
     {
         return $this->routebase;
@@ -53,12 +60,4 @@ trait Routing
     {
         return $this->show();
     }
-
-    public static function resolveRouteBinding($resource)
-    {
-        $itemId = request()->route()->parameter('itemId');
-        $resource = Rambo::resource($resource, $itemId);
-        return $resource;
-    }
-
 }
