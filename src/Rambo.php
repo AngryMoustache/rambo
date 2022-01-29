@@ -20,7 +20,6 @@ class Rambo
     {
         $this->guard = config('rambo.admin-guard', 'rambo');
         $this->user = Administrator::find(optional(session($this->session))->id);
-
         $this->resources = $this->navigation()->flatten();
     }
 
@@ -37,7 +36,7 @@ class Rambo
 
     public function resource($value, $id = null, $key = null)
     {
-        return optional($this->resources->where($key ?? 'routebase', $value)->first())
+        return clone optional($this->resources->where($key ?? 'routebase', $value)->first())
             ->fetch($id);
     }
 

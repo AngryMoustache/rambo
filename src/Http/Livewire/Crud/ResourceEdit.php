@@ -6,15 +6,12 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceEdit extends ResourceFormComponent
 {
-    public function booted()
-    {
-        parent::booted();
-        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
-    }
-
     public function mount()
     {
         parent::mount();
+
+        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
+
         $this->component = $this->resource->editView();
 
         collect($this->resource->fieldStack('edit'))->each(function ($field) {

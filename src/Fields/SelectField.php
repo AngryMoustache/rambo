@@ -15,7 +15,6 @@ class SelectField extends Field
     public $formComponent = 'rambo::livewire.fields.form.select';
 
     public $options = [];
-    public $resource;
 
     public function resource($resource)
     {

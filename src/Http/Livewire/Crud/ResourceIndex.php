@@ -25,16 +25,11 @@ class ResourceIndex extends ResourceComponent
         'page' => ['except' => 1],
     ];
 
-    public function booted()
-    {
-        parent::booted();
-        RamboBreadcrumbs::reset();
-        RamboBreadcrumbs::add($this->resource->label());
-    }
-
     public function mount()
     {
         parent::mount();
+        RamboBreadcrumbs::reset();
+        RamboBreadcrumbs::add($this->resource->label());
         $this->component = $this->resource->indexView();
         $this->orderCol = request()->get('orderCol') ?? $this->resource->defaultOrderCol();
         $this->orderDir = request()->get('orderDir') ?? $this->resource->defaultOrderDir();

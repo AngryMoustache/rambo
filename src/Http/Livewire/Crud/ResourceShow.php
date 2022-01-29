@@ -6,15 +6,10 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceShow extends ResourceComponent
 {
-    public function booted()
-    {
-        parent::booted();
-        RamboBreadcrumbs::add($this->resource->itemName());
-    }
-
     public function mount()
     {
         parent::mount();
+        RamboBreadcrumbs::add($this->resource->itemName());
         $this->component = $this->resource->showView();
     }
 

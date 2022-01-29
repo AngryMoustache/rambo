@@ -8,7 +8,7 @@
                     @foreach ($resource->actions('edit') as $key => $action)
                         <li class="crud-title-actions-list-item">
                             <livewire:is
-                                :key="$key . '_' . $resource->item->id"
+                                :key="$key"
                                 :component="$action->getLivewireComponent()"
                                 :resource="$resource"
                                 :action="$action"

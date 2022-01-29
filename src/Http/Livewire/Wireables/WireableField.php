@@ -13,28 +13,29 @@ class WireableField implements Wireable
 {
     public function toLivewire()
     {
-        // Fetch models again
-        foreach (array_keys((array) $this) as $key) {
-            $value = $this->{$key};
+        $field = clone $this;
+
+        foreach (array_keys((array) $field) as $key) {
+            $value = $field->{$key};
             if ($value instanceof Model) {
-                $this->{$key} = 'rambo-model::' . get_class($value) . '::' . $value->id;
+                $field->{$key} = 'rambo-model::' . get_class($value) . '::' . $value->id;
             }
 
             if ($value instanceof Resource) {
-                $this->{$key} = $this->{$key}->toLivewire();
+                $field->{$key} = $field->{$key}->toLivewire();
             }
         }
 
         return base64_encode(json_encode([
-            'class' => get_class($this),
-            'values' => (array) $this,
+            'class' => get_class($field),
+            'values' => (array) $field,
         ]));
     }
 
     public static function fromLivewire($field)
     {
         if ($field instanceof Field) {
-            return $field;
+            return clone $field;
         }
 
         $field = json_decode(base64_decode($field));

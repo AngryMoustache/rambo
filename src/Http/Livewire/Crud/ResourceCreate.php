@@ -6,15 +6,10 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceCreate extends ResourceFormComponent
 {
-    public function booted()
-    {
-        parent::booted();
-        RamboBreadcrumbs::add('Create ' . $this->resource->singularLabel());
-    }
-
     public function mount()
     {
         parent::mount();
+        RamboBreadcrumbs::add('Create ' . $this->resource->singularLabel());
         $this->component = $this->resource->createView();
     }
 

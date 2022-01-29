@@ -2,10 +2,7 @@
 
 namespace AngryMoustache\Rambo;
 
-use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableResource;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class Resource extends WireableResource
