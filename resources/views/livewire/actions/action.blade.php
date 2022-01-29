@@ -1,5 +1,5 @@
 <div>
-    @if (!$action->shouldHide($resource, $currentRoute))
+    @if (! $action->shouldHide($resource, $currentRoute))
         <div class="action">
             <a href="{{ $link }}" class="action-link action-icon">
                 @if (isset($label) && $label)

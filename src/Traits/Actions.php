@@ -12,7 +12,10 @@ trait Actions
 {
     public function actions($type)
     {
-        return $this->{"${type}Actions"}() ?? [];
+        $actions = $this->{"${type}Actions"}() ?? [];
+        return collect($actions)
+            ->map(fn ($action) => new $action)
+            ->toArray();
     }
 
     public function itemActions()
@@ -26,17 +29,17 @@ trait Actions
 
     public function tableActions()
     {
-        return $this->actions('item');
+        return $this->itemActions();
     }
 
     public function showActions()
     {
-        return $this->actions('item');
+        return $this->itemActions();
     }
 
     public function editActions()
     {
-        return $this->actions('item');
+        return $this->itemActions();
     }
 
     public function formActions()
@@ -49,11 +52,11 @@ trait Actions
 
     public function createActions()
     {
-        return $this->actions('form');
+        return $this->formActions();
     }
 
     public function indexActions()
     {
-        return $this->actions('form');
+        return $this->formActions();
     }
 }

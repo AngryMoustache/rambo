@@ -4,11 +4,11 @@
 
             <div class="crud-title-actions">
                 <ul class="crud-title-actions-list">
-                    @foreach ($resource->actions('index') as $action)
+                    @foreach ($resource->actions('index') as $key => $action)
                         <li class="crud-title-actions-list-item">
                             <livewire:is
-                                :key="$action"
-                                :component="$action::getLivewireComponent()"
+                                :key="$key"
+                                :component="$action->getLivewireComponent()"
                                 :resource="$resource"
                                 :action="$action"
                                 label="true"
