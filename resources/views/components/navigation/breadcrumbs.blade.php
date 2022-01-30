@@ -1,8 +1,8 @@
 <ul class="header-breadcrumbs">
-    @foreach (RamboBreadcrumbs::list() as $link => $label)
+    @foreach (RamboBreadcrumbs::list() as $crumb)
         <li>
-            <a href="{{ $link }}">
-                {{ $label }}
+            <a href="{{ $crumb->queryLink }}">
+                {{ $crumb->label }}
             </a>
 
             @if (! $loop->last)

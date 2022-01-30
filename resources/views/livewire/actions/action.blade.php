@@ -1,4 +1,4 @@
-<div>
+<div class="action-wrapper">
     @if (! $action->shouldHide($resource, $currentRoute))
         <div class="action">
             <a href="{{ $link }}" class="action-link action-icon">

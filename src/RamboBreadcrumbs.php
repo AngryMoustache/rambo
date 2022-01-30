@@ -8,23 +8,11 @@ class RamboBreadcrumbs
 
     public function __construct()
     {
-        $this->crumbs = session('rambo-breadcrumbs', []);
-        $current = url()->current();
+        $this->crumbs = collect(session('rambo-breadcrumbs', []))
+            ->takeUntil(fn ($crumb) => $crumb->link === url()->current())
+            ->toArray();
 
-        if (
-            $current === route('rambo.dashboard') ||
-            ! isset($this->crumbs[url()->previous()])
-        ) {
-            // Remove all the crumbs, we got here from an external link
-            $this->reset();
-            $this->add('Dashboard', route('rambo.dashboard'));
-        } else {
-            // Remove all the crumbs following the current one
-            // array_intersect_key($array, array_flip($keys));
-            $this->crumbs = collect($this->crumbs)
-                ->takeUntil(fn ($label, $link) => $link === $current)
-                ->toArray();
-        }
+        $this->save();
     }
 
     public function list()
@@ -34,13 +22,19 @@ class RamboBreadcrumbs
 
     public function reset()
     {
-        $this->crumbs = [route('rambo.dashboard') => 'Dashboard'];
+        $this->crumbs = [];
+        $this->add('Dashboard', route('rambo.dashboard'));
         $this->save();
     }
 
     public function add(string $label, string $link = null)
     {
-        $this->crumbs[$link ?? url()->current()] = $label;
+        $this->crumbs[] = (object) [
+            'label' => $label,
+            'link' => $link ?? url()->current(),
+            'queryLink' => $link ?? request()->fullUrl(),
+        ];
+
         $this->save();
     }
 

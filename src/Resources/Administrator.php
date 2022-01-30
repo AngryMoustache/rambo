@@ -18,7 +18,6 @@ class Administrator extends Resource
     public function fields()
     {
         return [
-
             IDField::make(),
 
             TextField::make('username')

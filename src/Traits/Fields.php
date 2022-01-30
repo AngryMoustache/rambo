@@ -3,10 +3,17 @@
 namespace AngryMoustache\Rambo\Traits;
 
 use AngryMoustache\Rambo\Fields\Field;
+use Exception;
 
 trait Fields
 {
     public $fields;
+
+    public function fields()
+    {
+        // Don't make this an abstract function, we won't be able to use route binding otherwise
+        throw new Exception('No fields() function found on your resource!');
+    }
 
     /**
      * Returns the full field stack of the resource
