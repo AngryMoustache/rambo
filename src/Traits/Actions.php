@@ -42,7 +42,7 @@ trait Actions
         return $this->itemActions();
     }
 
-    public function formActions()
+    public function overviewActions()
     {
         return [
             OverviewAction::class,
@@ -52,11 +52,11 @@ trait Actions
 
     public function createActions()
     {
-        return $this->formActions();
+        return $this->overviewActions();
     }
 
     public function indexActions()
     {
-        return $this->formActions();
+        return $this->overviewActions();
     }
 }

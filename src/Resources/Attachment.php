@@ -61,4 +61,11 @@ class Attachment extends Resource
                 ->hideFrom(['edit']),
         ];
     }
+
+    public function overviewActions()
+    {
+        return [
+
+        ];
+    }
 }
