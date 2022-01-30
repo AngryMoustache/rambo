@@ -104,11 +104,11 @@ class Field extends WireableField
     /**
      * Search the item in the field for a value
      */
-    public function search($value, $item = null)
+    public function search($query, $item = null)
     {
         return Str::contains(
             strtolower(($item ?? $this->item)->{$this->getName()}),
-            strtolower($value)
+            strtolower($query)
         );
     }
 

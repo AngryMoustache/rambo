@@ -13,6 +13,8 @@ class Attachment extends Resource
 {
     public $model = ModelsAttachment::class;
 
+    public $displayName = 'alt_name';
+
     public $indexTableBlade = 'rambo::components.crud.tables.attachments';
 
     public $paginate = 24;

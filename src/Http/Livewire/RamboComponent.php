@@ -9,6 +9,9 @@ class RamboComponent extends Component
 {
     use RamboCanToast;
 
+    // Set to 'true' if you want to only load the page after everything is loaded
+    public $preLoad = false;
+
     public $layout = 'rambo::layouts.admin';
     protected $componentData = [];
 
@@ -22,8 +25,18 @@ class RamboComponent extends Component
         return $this->componentData;
     }
 
+    public function ready()
+    {
+        $this->preLoad = false;
+    }
+
     public function render()
     {
+        if ($this->preLoad) {
+            return view('rambo::livewire.loading-state')
+                ->extends($this->layout);
+        }
+
         return view($this->component, $this->getComponentData())
             ->extends($this->layout);
     }

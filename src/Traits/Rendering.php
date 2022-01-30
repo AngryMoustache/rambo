@@ -10,6 +10,7 @@ trait Rendering
     public $editView = 'rambo::livewire.crud.resource-edit';
 
     public $indexTableBlade = 'rambo::components.crud.tables.index';
+    public $preLoadIndex = true;
 
     public function indexView()
     {

@@ -15,6 +15,8 @@ class Administrator extends Resource
 
     public $displayName = 'username';
 
+    public $preLoadIndex = false;
+
     public function fields()
     {
         return [

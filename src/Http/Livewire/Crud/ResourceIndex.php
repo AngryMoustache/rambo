@@ -35,6 +35,7 @@ class ResourceIndex extends ResourceComponent
         $this->orderDir = request()->get('orderDir') ?? $this->resource->defaultOrderDir();
         $this->queryString['orderCol'] = ['except' => $this->resource->defaultOrderCol()];
         $this->queryString['orderDir'] = ['except' => $this->resource->defaultOrderDir()];
+        $this->preLoad = $this->resource->preLoadIndex;
     }
 
     /** Fetch, search and filter the items and set them */
