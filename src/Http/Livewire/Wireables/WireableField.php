@@ -2,7 +2,6 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Wireables;
 
-use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Resource;
 use Illuminate\Database\Eloquent\Model;

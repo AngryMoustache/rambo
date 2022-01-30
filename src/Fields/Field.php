@@ -127,7 +127,32 @@ class Field extends WireableField
      */
     public function rules($rules)
     {
-        $this->rules = Arr::wrap($rules);
+        $this->rules = $rules;
+        return $this->createRules($rules)->editRules($rules);
+    }
+
+    public function createRules($rules)
+    {
+        $this->createRules = Arr::wrap($rules);
         return $this;
+    }
+
+    public function editRules($rules)
+    {
+        $this->editRules = Arr::wrap($rules);
+        return $this;
+    }
+
+    /**
+     * Get validation rules, with separated create/edit rules if specified
+     */
+    public function getRules($stack = null)
+    {
+        $rules = collect($stack ? $this->{"${stack}Rules"} : $this->rules);
+
+        // Livewire has a hard time understanding |, so we'll explode it
+        $rules = $rules->map(fn ($rule) => explode('|', $rule))->flatten();
+
+        return $rules->toArray();
     }
 }

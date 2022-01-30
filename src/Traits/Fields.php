@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Traits;
 
+use AngryMoustache\Rambo\Fields\Field;
+
 trait Fields
 {
     public $fields;
@@ -26,12 +28,13 @@ trait Fields
     }
 
     /**
-     * Returns the fields that are searchable
+     * Returns the validation stack
+     * If create or edit rules are specified, take those
      */
     public function validationStack($stack = '')
     {
-        return $this->fieldStack($stack)
-            ->mapWithKeys(fn ($field) => ["fields.{$field->getName()}" => $field->getRules() ?? []])
-            ->toArray();
+        return $this->fieldStack($stack)->mapWithKeys(fn (Field $field) => [
+            "fields.{$field->getName()}" => $field->getRules($stack) ?? []
+        ])->toArray();
     }
 }
