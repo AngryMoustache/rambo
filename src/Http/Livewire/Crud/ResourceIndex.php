@@ -46,7 +46,6 @@ class ResourceIndex extends ResourceComponent
         ]);
 
         $items = $this->resource->indexQuery()
-            ->orderBy(DB::raw("LENGTH({$this->orderCol})"), $this->orderDir)
             ->orderBy($this->orderCol, $this->orderDir)
             ->get();
 
