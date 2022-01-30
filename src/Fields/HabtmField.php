@@ -12,6 +12,11 @@ class HabtmField extends HasManyField
 
     public function getFormValue()
     {
-        return parent::getFormValue()->pluck('id', 'id')->toArray();
+        $value = parent::getFormValue();
+        if (! $value) {
+            return [];
+        }
+
+        return $value->pluck('id', 'id')->toArray();
     }
 }

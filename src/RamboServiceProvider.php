@@ -20,6 +20,7 @@ use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
 use AngryMoustache\Rambo\Rambo;
 use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -41,6 +42,8 @@ class RamboServiceProvider extends ServiceProvider
 
     public function register()
     {
+        DB::disableQueryLog();
+
         $this->app->booting(function() {
             $loader = AliasLoader::getInstance();
             $loader->alias('Rambo', FacadeRambo::class);

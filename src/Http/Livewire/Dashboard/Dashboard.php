@@ -9,9 +9,9 @@ class Dashboard extends RamboComponent
 {
     public $component = 'rambo::livewire.dashboard';
 
-    public function booted()
+    public function mount()
     {
-        parent::booted();
+        parent::mount();
         RamboBreadcrumbs::reset();
     }
 }
