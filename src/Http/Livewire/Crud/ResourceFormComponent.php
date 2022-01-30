@@ -16,7 +16,7 @@ class ResourceFormComponent extends ResourceComponent
     public function mount()
     {
         parent::mount();
-        $this->rules = $this->resource->validationStack();
+        $this->rules = $this->resource->validationStack($this->pageType);
     }
 
     public function fieldUpdated($value, $field)
@@ -53,7 +53,7 @@ class ResourceFormComponent extends ResourceComponent
         $this->emit('fields-validate');
         $this->validate();
 
-        $fieldStack = $this->resource->fieldStack('form');
+        $fieldStack = $this->resource->fieldStack($this->pageType);
 
         // Default values
         $fieldStack->each(function ($field) {

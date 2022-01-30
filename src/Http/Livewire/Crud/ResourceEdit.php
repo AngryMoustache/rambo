@@ -6,6 +6,8 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceEdit extends ResourceFormComponent
 {
+    public $pageType = 'edit';
+
     public function mount()
     {
         parent::mount();

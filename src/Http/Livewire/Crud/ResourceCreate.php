@@ -6,6 +6,8 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceCreate extends ResourceFormComponent
 {
+    public $pageType = 'create';
+
     public function mount()
     {
         parent::mount();
