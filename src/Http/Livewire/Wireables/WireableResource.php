@@ -9,7 +9,7 @@ class WireableResource implements Wireable
 {
     public function toLivewire()
     {
-        $return = 'rambo-resource::' . $this->routebase();
+        $return = 'rambo-resource::' . $this;
         if ($this->item) {
             $return .= '::' . $this->itemId();
         }
@@ -17,9 +17,9 @@ class WireableResource implements Wireable
         return $return;
     }
 
-    public static function fromLivewire($field)
+    public static function fromLivewire($resource)
     {
-        $parts = explode('::', $field);
+        $parts = explode('::', $resource);
         return Rambo::resource($parts[1], $parts[2] ?? null);
     }
 }
