@@ -9,6 +9,7 @@ class Action extends WireableAction
     public $icon;
     public $label;
 
+    public $livewireAction;
     public static $livewireComponent = 'rambo-action';
 
     public static function getLivewireComponent()

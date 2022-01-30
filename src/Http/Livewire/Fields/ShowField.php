@@ -27,5 +27,6 @@ class ShowField extends RamboComponent
     public function updateValue($item)
     {
         $this->value = $this->field->item($item)->getShowValue();
+        $this->emit('refresh');
     }
 }

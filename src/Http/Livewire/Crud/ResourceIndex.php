@@ -5,7 +5,6 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class ResourceIndex extends ResourceComponent

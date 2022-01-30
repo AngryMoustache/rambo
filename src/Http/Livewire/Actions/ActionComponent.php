@@ -22,4 +22,9 @@ class ActionComponent extends RamboComponent
         $this->link = $this->action->getLink($this->resource, $this->item);
         $this->itemId = optional($this->item)->{$this->resource->primaryField()};
     }
+
+    public function handle()
+    {
+        //
+    }
 }

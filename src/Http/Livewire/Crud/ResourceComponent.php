@@ -25,11 +25,4 @@ class ResourceComponent extends RamboComponent
             throw new RamboResourceWithIdNotFoundHttpException();
         }
     }
-
-    public function refresh()
-    {
-        if (! optional($this->resource)->item && $this->itemId) {
-            $this->redirect($this->resource->index());
-        }
-    }
 }
