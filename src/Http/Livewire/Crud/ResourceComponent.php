@@ -29,7 +29,7 @@ class ResourceComponent extends RamboComponent
     public function refresh()
     {
         if (! optional($this->resource)->item && $this->itemId) {
-            redirect($this->resource->index());
+            $this->redirect($this->resource->index());
         }
     }
 }

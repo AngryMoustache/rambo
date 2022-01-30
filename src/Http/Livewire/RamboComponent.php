@@ -12,11 +12,6 @@ class RamboComponent extends Component
     public $layout = 'rambo::layouts.admin';
     protected $componentData = [];
 
-    public function booted()
-    {
-        //
-    }
-
     public function addComponentData($values)
     {
         $this->componentData = array_merge($values, $this->componentData);

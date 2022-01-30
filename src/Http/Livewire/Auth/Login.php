@@ -18,7 +18,7 @@ class Login extends RamboComponent
     {
         $this->error = '';
         if (Rambo::login($this->email, $this->password)) {
-            return redirect(
+            $this->redirect(
                 session()->pull('intended-redirect') ??
                     config('rambo::admin-route', 'admin')
             );

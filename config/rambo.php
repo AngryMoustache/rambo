@@ -9,15 +9,11 @@ return [
     'resources' => [
         Attachment::class,
         Administrator::class,
-        App\Resources\Pull::class,
     ],
     'navigation' => [
         'General' => [
             Administrator::class,
             Attachment::class,
-        ],
-        'Pulls' => [
-            App\Resources\Pull::class,
         ],
     ],
 ];

@@ -17,15 +17,17 @@ class DeleteActionComponent extends ActionComponent
 
     public function deleteConfirm()
     {
-        $item = $this->item->{$this->resource->displayName()};
+        $itemName = $this->item->{$this->resource->displayName()};
+        $toast = "'${itemName}' has been deleted successfully!";
         $this->item->delete();
 
         if ($this->noRedirect) {
             $this->emit('refresh');
             $this->toggleModal();
-            $this->toastOk("'{$item}' has been deleted successfully!");
+            $this->toastOk($toast);
         } else {
-            redirect($this->resource->index());
+            $this->sessionToastOk($toast);
+            $this->redirect($this->resource->index());
         }
     }
 }

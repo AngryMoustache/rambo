@@ -33,8 +33,9 @@ class SelectField extends Field
 
     public function getShowValue()
     {
-        if ($this->resource) {
-            $this->link = $this->resource->show(parent::getValue());
+        $value = parent::getValue();
+        if ($this->resource && $value) {
+            $this->link = $this->resource->show($value);
         }
 
         return $this->options[parent::getShowValue()] ?? null;

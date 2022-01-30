@@ -22,6 +22,17 @@
             toasts: [],
             showTime: 3000,
             init () {
+                // Flashed toasts
+                this.toasts = @json(session()->pull('rambo-toasts', []))
+
+                for (let i = 0; i < this.toasts.length; i++) {
+                    console.log(i)
+                    window.setTimeout(() => {
+                        this.toasts[i].show = false
+                    }, this.showTime)
+                }
+
+                // On-page toasts
                 window.addEventListener('rambo-toast', (e) => {
                     let id = this.toasts.length
                     this.toasts[id] = {

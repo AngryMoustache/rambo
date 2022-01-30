@@ -28,24 +28,27 @@ class ResourceFormComponent extends ResourceComponent
     public function cancel()
     {
         if ($this->itemId) {
-            return redirect($this->resource->show());
+            $this->redirect($this->resource->show());
+        } else {
+            $this->redirect($this->resource->index());
         }
-
-        return redirect($this->resource->index());
     }
 
     public function submit($redirect = true)
     {
         $model = $this->handleSubmit();
-        if ($redirect) {
-            if ($this->itemId) {
-                return redirect($this->resource->routeAfterEdit());
-            }
+        $toast = "{$this->resource->singularLabel()} successfully saved!";
 
-            return redirect($this->resource->item($model)->routeAfterCreate());
+        if ($redirect) {
+            $redirect = $this->itemId
+                ? $this->resource->routeAfterEdit()
+                : $this->resource->item($model)->routeAfterCreate();
+
+            $this->sessionToastOk($toast);
+            return $this->redirect($redirect);
         }
 
-        $this->toastOk("{$this->resource->singularLabel()} successfully saved!");
+        $this->toastOk($toast);
     }
 
     public function handleSubmit()
