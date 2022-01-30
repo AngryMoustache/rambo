@@ -20,11 +20,6 @@ trait Routing
         return $this->routebase;
     }
 
-    public function isActive()
-    {
-        return optional(request()->route('resource'))->routebase === $this->routebase();
-    }
-
     public function index()
     {
         return route('rambo.crud.index', $this->routebase());

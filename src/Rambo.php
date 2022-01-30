@@ -5,12 +5,15 @@ namespace AngryMoustache\Rambo;
 use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
+use Exception;
 
 class Rambo
 {
     public $session = 'rambo.auth';
 
     public $resources;
+
+    public $navigation;
 
     public $user;
 
@@ -20,18 +23,20 @@ class Rambo
     {
         $this->guard = config('rambo.admin-guard', 'rambo');
         $this->user = Administrator::find(optional(session($this->session))->id);
-        $this->resources = $this->navigation()->flatten();
-    }
-
-    public function navigation()
-    {
-        return collect(config('rambo.resources', $this->resources))
-            ->map(fn ($resource) => $this->fetchResource($resource));
+        $this->resources = $this->resources();
+        $this->navigation = $this->navigation();
     }
 
     public function resources()
     {
-        return $this->resources;
+        if ($this->resources) {
+            return $this->resources;
+        }
+
+        $resources = config('rambo.resources')
+            ?? throw new Exception('No \'rambo.resources\' config defined!');
+
+        return collect($resources)->map(fn ($class) => (new $class));
     }
 
     public function resource($value, $id = null, $key = null)
@@ -76,19 +81,35 @@ class Rambo
         );
     }
 
-    private function fetchResource($resource)
-    {
-        if (is_array($resource)) {
-            return collect($resource)
-                ->map(fn ($item) => $this->fetchResource($item))
-                ->toArray();
-        }
-
-        return (new $resource());
-    }
-
     public function notFound()
     {
         throw new RamboNotFoundHttpException();
+    }
+
+    public function navigation()
+    {
+        return $this->navigation ?? collect(config('rambo.navigation', $this->resources))
+            ->map(fn ($resource) => $this->fetchNavResource($resource));
+    }
+
+    private function fetchNavResource($resource)
+    {
+        if (is_array($resource)) {
+            $resource = collect($resource)
+                ->map(fn ($item) => $this->fetchNavResource($item))
+                ->toArray();
+
+            $active = collect($resource)->flatten()
+                ->filter(fn ($item) => $item === true)
+                ->isNotEmpty();
+        } else {
+            $resource = (new $resource());
+            $active = request()->route('resource') === $resource->routebase();
+        }
+
+        return [
+            'active' => $active,
+            'resource' => $resource,
+        ];
     }
 }

@@ -7,10 +7,17 @@ return [
     'admin-route' => 'admin',
     'admin-guard' => 'rambo',
     'resources' => [
+        Attachment::class,
+        Administrator::class,
+        App\Resources\Pull::class,
+    ],
+    'navigation' => [
         'General' => [
             Administrator::class,
             Attachment::class,
         ],
-        App\Resources\Pull::class,
+        'Pulls' => [
+            App\Resources\Pull::class,
+        ],
     ],
 ];
