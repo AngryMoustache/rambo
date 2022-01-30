@@ -6,7 +6,6 @@ use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs as FacadeRamboBreadcrumbs;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
-use AngryMoustache\Rambo\Http\Livewire\AttachmentPicker;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
 use AngryMoustache\Rambo\Http\Livewire\Fields\FormField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\ShowField;
@@ -16,6 +15,8 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\AttachmentPicker;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
 use AngryMoustache\Rambo\Rambo;
 use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
@@ -78,8 +79,9 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-action', ActionComponent::class);
         Livewire::component('rambo-action-delete', DeleteActionComponent::class);
 
-        /** OTHERS */
+        /** PICKERS */
         Livewire::component('rambo-attachment-picker', AttachmentPicker::class);
+        Livewire::component('rambo-habtm-picker', HabtmPicker::class);
     }
 
     private function config()

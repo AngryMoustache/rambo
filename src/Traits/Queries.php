@@ -53,4 +53,16 @@ trait Queries
     {
         return $this->paginate ?? $this->pagination;
     }
+
+    public function search($query, $item = null)
+    {
+        $searchableFields = $this->searchableFields();
+        foreach ($searchableFields as $field) {
+            if ($field->search($query, $item ?? $this->item)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -8,6 +8,8 @@ class ResourceFormComponent extends ResourceComponent
 {
     public $fields = [];
 
+    public $pageType;
+
     public $listeners = [
         'changed-value' => 'fieldUpdated',
         'refresh',
@@ -32,6 +34,11 @@ class ResourceFormComponent extends ResourceComponent
         } else {
             $this->redirect($this->resource->index());
         }
+    }
+
+    public function submitContinue()
+    {
+        return $this->submit(false);
     }
 
     public function submit($redirect = true)
@@ -74,6 +81,29 @@ class ResourceFormComponent extends ResourceComponent
             );
         });
 
-        return $this->saveData();
+        $item = $this->saveData();
+
+        // HABTM relations
+        foreach ($this->getHabtmRelations() as $relation => $values) {
+            $item->{$relation}()->sync($values);
+        }
+
+        return $item;
+    }
+
+    public function getHabtmRelations()
+    {
+        $relations = [];
+        $fields = collect($this->resource->fieldStack($this->pageType));
+
+        $fields->each(function ($field) use (&$relations) {
+            $name = $field->getName();
+
+            if ($field->isHasManyRelation() && isset($this->fields[$name])) {
+                $relations[$name] = $this->fields[$name];
+            }
+        });
+
+        return $relations;
     }
 }

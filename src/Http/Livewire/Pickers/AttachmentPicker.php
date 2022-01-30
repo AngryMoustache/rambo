@@ -1,9 +1,10 @@
 <?php
 
-namespace AngryMoustache\Rambo\Http\Livewire;
+namespace AngryMoustache\Rambo\Http\Livewire\Pickers;
 
 use AngryMoustache\Media\Models\Attachment;
 use AngryMoustache\Rambo\Fields\Field;
+use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -14,7 +15,7 @@ class AttachmentPicker extends RamboComponent
 
     public Field $field;
 
-    public $component = 'rambo::livewire.attachment-picker';
+    public $component = 'rambo::livewire.pickers.attachment-picker';
 
     public $value;
 

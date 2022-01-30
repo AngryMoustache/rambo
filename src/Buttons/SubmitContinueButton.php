@@ -6,5 +6,5 @@ class SubmitContinueButton extends Button
 {
     public static $label = 'Save and continue editing';
 
-    public static $action = 'submit(false)';
+    public static $action = 'submitContinue';
 }

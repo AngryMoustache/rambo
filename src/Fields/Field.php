@@ -24,6 +24,9 @@ class Field extends WireableField
     public $formComponent = 'rambo::livewire.fields.form.text';
     public $livewireFormComponent = 'rambo-field-form-field';
 
+    // Set this to true if the field is supposed to save HABTM relations
+    public $hasManyRelation = false;
+
     public static function make($name = null)
     {
         return new static($name);

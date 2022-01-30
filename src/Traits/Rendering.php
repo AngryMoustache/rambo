@@ -10,6 +10,8 @@ trait Rendering
     public $editView = 'rambo::livewire.crud.resource-edit';
 
     public $indexTableBlade = 'rambo::components.crud.tables.index';
+    public $habtmComponent = 'rambo::components.habtm.item';
+
     public $preLoadIndex = true;
 
     public function indexView()
@@ -35,5 +37,10 @@ trait Rendering
     public function indexTableBlade()
     {
         return $this->indexTableBlade;
+    }
+
+    public function habtmComponent()
+    {
+        return $this->habtmComponent;
     }
 }
