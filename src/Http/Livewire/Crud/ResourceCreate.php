@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceCreate extends ResourceFormComponent
@@ -12,6 +13,11 @@ class ResourceCreate extends ResourceFormComponent
     {
         parent::mount();
         RamboBreadcrumbs::add('Create ' . $this->resource->singularLabel());
+
+        if (! $this->resource->can('create')) {
+            return Rambo::unauthorized();
+        }
+
         $this->component = $this->resource->createView();
     }
 

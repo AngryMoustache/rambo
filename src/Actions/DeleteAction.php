@@ -8,4 +8,9 @@ class DeleteAction extends Action
     public $label = 'Delete';
 
     public static $livewireComponent = 'rambo-action-delete';
+
+    public function shouldHide($resource = null)
+    {
+        return ! $resource->can('delete');
+    }
 }

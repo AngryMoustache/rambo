@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,11 @@ class ResourceIndex extends ResourceComponent
         parent::mount();
         RamboBreadcrumbs::reset();
         RamboBreadcrumbs::add($this->resource->label());
+
+        if (! $this->resource->can('index')) {
+            return Rambo::unauthorized();
+        }
+
         $this->component = $this->resource->indexView();
         $this->orderCol = request()->get('orderCol') ?? $this->resource->defaultOrderCol();
         $this->orderDir = request()->get('orderDir') ?? $this->resource->defaultOrderDir();

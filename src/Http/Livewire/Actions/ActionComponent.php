@@ -15,13 +15,11 @@ class ActionComponent extends RamboComponent
 
     public $item;
     public $label = false;
-    public $currentRoute;
 
     public function mount()
     {
         parent::mount();
         $this->link = $this->action->getLink($this->resource, $this->item);
         $this->itemId = optional($this->item)->{$this->resource->primaryField()};
-        $this->currentRoute = request()->url();
     }
 }

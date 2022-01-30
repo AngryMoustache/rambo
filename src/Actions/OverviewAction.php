@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+
 class OverviewAction extends Action
 {
     public $icon = 'fas fa-table';
@@ -12,8 +14,9 @@ class OverviewAction extends Action
         return $resource->index();
     }
 
-    public function shouldHide($resource = null, $currentRoute = null)
+    public function shouldHide($resource = null)
     {
-        return $resource->index() === $currentRoute;
+        return ! $resource->can('index')
+            || Rambo::currentUrl() === $resource->index();
     }
 }

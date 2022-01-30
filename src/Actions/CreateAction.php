@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+
 class CreateAction extends Action
 {
     public $icon = 'fas fa-plus';
@@ -12,8 +14,9 @@ class CreateAction extends Action
         return $resource->create();
     }
 
-    public function shouldHide($resource = null, $currentRoute = null)
+    public function shouldHide($resource = null)
     {
-        return $resource->create() === $currentRoute;
+        return ! $resource->can('create')
+            || Rambo::currentUrl() === $resource->create();
     }
 }

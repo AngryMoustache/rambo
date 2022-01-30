@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
+use AngryMoustache\Rambo\Http\Exceptions\RamboUnauthorizedHttpException;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
 use Exception;
@@ -25,6 +26,10 @@ class Rambo
         $this->user = Administrator::find(optional(session($this->session))->id);
         $this->resources = $this->resources();
         $this->navigation = $this->navigation();
+
+        if ($this->serving()) {
+            session(['rambo-current-url' => request()->url()]);
+        }
     }
 
     public function resources()
@@ -84,6 +89,16 @@ class Rambo
     public function notFound()
     {
         throw new RamboNotFoundHttpException();
+    }
+
+    public function unauthorized()
+    {
+        throw new RamboUnauthorizedHttpException();
+    }
+
+    public function currentUrl()
+    {
+        return session('rambo-current-url');
     }
 
     public function navigation()

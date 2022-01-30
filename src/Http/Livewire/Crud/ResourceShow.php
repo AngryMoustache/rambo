@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
+use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
 class ResourceShow extends ResourceComponent
@@ -10,6 +11,11 @@ class ResourceShow extends ResourceComponent
     {
         parent::mount();
         RamboBreadcrumbs::add($this->resource->itemName());
+
+        if (! $this->resource->can('show')) {
+            return Rambo::unauthorized();
+        }
+
         $this->component = $this->resource->showView();
     }
 

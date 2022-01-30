@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+
 class EditAction extends Action
 {
     public $icon = 'far fa-edit';
@@ -12,8 +14,9 @@ class EditAction extends Action
         return $resource->edit($item->id);
     }
 
-    public function shouldHide($resource = null, $currentRoute = null)
+    public function shouldHide($resource = null)
     {
-        return $resource->edit() === $currentRoute;
+        return ! $resource->can('edit')
+            || Rambo::currentUrl() === $resource->edit();
     }
 }

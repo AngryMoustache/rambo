@@ -2,6 +2,8 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
+use AngryMoustache\Rambo\Facades\Rambo;
+
 class ShowAction extends Action
 {
     public $icon = 'far fa-eye';
@@ -12,8 +14,9 @@ class ShowAction extends Action
         return $resource->show($item->id);
     }
 
-    public function shouldHide($resource = null, $currentRoute = null)
+    public function shouldHide($resource = null)
     {
-        return $resource->show() === $currentRoute;
+        return ! $resource->can('show')
+            || Rambo::currentUrl() === $resource->show();
     }
 }

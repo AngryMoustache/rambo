@@ -16,7 +16,7 @@ class Action extends WireableAction
         return static::$livewireComponent;
     }
 
-    public function shouldHide($resource = null, $currentRoute = null)
+    public function shouldHide($resource = null)
     {
         return false;
     }

@@ -11,8 +11,9 @@ class Resource extends WireableResource
     use \AngryMoustache\Rambo\Traits\Buttons;
     use \AngryMoustache\Rambo\Traits\Fields;
     use \AngryMoustache\Rambo\Traits\Labels;
-    use \AngryMoustache\Rambo\Traits\Routing;
+    use \AngryMoustache\Rambo\Traits\Permissions;
     use \AngryMoustache\Rambo\Traits\Queries;
+    use \AngryMoustache\Rambo\Traits\Routing;
     use \AngryMoustache\Rambo\Traits\Rendering;
 
     public $model;
