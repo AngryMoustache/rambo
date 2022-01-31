@@ -24,7 +24,7 @@ class SelectField extends Field
 
         $this->resource = $resource;
         $this->options = $resource->relationQuery()->pluck(
-            $resource->displayName(),
+            $resource->displayNameField(),
             $resource->primaryField()
         );
 

@@ -9,7 +9,7 @@ trait Labels
     public $displayName = 'id';
     public $primaryField = 'id';
 
-    public function displayName()
+    public function displayNameField()
     {
         return $this->displayName;
     }
@@ -21,7 +21,7 @@ trait Labels
 
     public function itemName()
     {
-        return $this->item->{$this->displayName()};
+        return $this->item->{$this->displayNameField()};
     }
 
     public function itemId()
@@ -37,5 +37,10 @@ trait Labels
     public function singularLabel()
     {
         return $this->singularLabel;
+    }
+
+    public function globalSearchLabel()
+    {
+        return $this->label();
     }
 }

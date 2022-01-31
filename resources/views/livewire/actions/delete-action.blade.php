@@ -12,11 +12,11 @@
             @if ($modal)
                 <x-rambo::modal>
                     <x-slot name="title">
-                        Deleting: {{ $item->{$resource->displayName()} }}
+                        Deleting: {{ $resource->itemName() }}
                     </x-slot>
 
                     <x-slot name="content">
-                        Are you sure you wish to delete "{{ $item->{$resource->displayName()} }}"
+                        Are you sure you wish to delete "{{ $resource->itemName() }}"
                     </x-slot>
 
                     <x-slot name="footer">

@@ -17,7 +17,7 @@ class DeleteActionComponent extends ActionComponent
 
     public function deleteConfirm()
     {
-        $itemName = $this->item->{$this->resource->displayName()};
+        $itemName = $this->resource->itemName();
         $toast = "'${itemName}' has been deleted successfully!";
         $this->item->delete();
 

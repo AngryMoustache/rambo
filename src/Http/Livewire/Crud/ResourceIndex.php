@@ -47,7 +47,7 @@ class ResourceIndex extends ResourceComponent
     public function refresh()
     {
         $this->addComponentData([
-            'fieldStack' => $this->resource->fieldStack('index', true),
+            'fieldStack' => $this->resource->fieldStack('index'),
         ]);
 
         $items = $this->resource->indexQuery()

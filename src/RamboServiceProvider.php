@@ -15,6 +15,7 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
+use AngryMoustache\Rambo\Http\Livewire\GlobalSearch;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\AttachmentPicker;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
 use AngryMoustache\Rambo\Rambo;
@@ -61,6 +62,8 @@ class RamboServiceProvider extends ServiceProvider
 
     private function livewire()
     {
+        Livewire::component('rambo-global-search', GlobalSearch::class);
+
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
         Livewire::component('rambo-dashboard', Dashboard::class);

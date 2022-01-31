@@ -19,12 +19,22 @@ trait Queries
         return $this->query();
     }
 
-    public function relationQuery()
+    public function sortedQuery()
     {
         return $this->indexQuery()->orderBy(
             $this->defaultOrderCol(),
             $this->defaultOrderDir(),
         );
+    }
+
+    public function globalSearchQuery()
+    {
+        return $this->sortedQuery();
+    }
+
+    public function relationQuery()
+    {
+        return $this->sortedQuery();
     }
 
     public function fetch($id)
@@ -52,17 +62,5 @@ trait Queries
     public function pagination()
     {
         return $this->paginate ?? $this->pagination;
-    }
-
-    public function search($query, $item = null)
-    {
-        $searchableFields = $this->searchableFields();
-        foreach ($searchableFields as $field) {
-            if ($field->search($query, $item ?? $this->item)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

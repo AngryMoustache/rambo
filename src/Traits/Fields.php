@@ -9,6 +9,10 @@ trait Fields
 {
     public $fields;
 
+    private $fieldStacks = [];
+    private $searchableFields = [];
+    private $validationStack = [];
+
     public function fields()
     {
         // Don't make this an abstract function, we won't be able to use route binding otherwise
@@ -21,8 +25,10 @@ trait Fields
      */
     public function fieldStack($stack = '')
     {
-        return collect($this->fields())
+        $this->fieldStack[$stack] ??= collect($this->fields())
             ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []));
+
+        return $this->fieldStack[$stack];
     }
 
     /**
@@ -30,8 +36,10 @@ trait Fields
      */
     public function searchableFields($stack = '')
     {
-        return $this->fieldStack($stack)
+        $this->searchableFields[$stack] ??= $this->fieldStack($stack)
             ->filter(fn ($field) => $field->isSearchable());
+
+        return $this->searchableFields[$stack];
     }
 
     /**
@@ -40,8 +48,11 @@ trait Fields
      */
     public function validationStack($stack = '')
     {
-        return $this->fieldStack($stack)->mapWithKeys(fn (Field $field) => [
-            "fields.{$field->getName()}" => $field->getRules($stack) ?? []
-        ])->toArray();
+        $this->validationStack[$stack] ??= $this->fieldStack($stack)
+            ->mapWithKeys(fn (Field $field) => [
+                "fields.{$field->getName()}" => $field->getRules($stack) ?? []
+            ])->toArray();
+
+        return $this->validationStack[$stack];
     }
 }

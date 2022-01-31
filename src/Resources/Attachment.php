@@ -19,6 +19,8 @@ class Attachment extends Resource
 
     public $paginate = 24;
 
+    public $isGlobalSearchable = false;
+
     public function fields()
     {
         return [

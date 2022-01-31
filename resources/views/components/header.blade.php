@@ -1,4 +1,7 @@
 <div class="header">
+    {{-- GLOBAL SEARCH --}}
+    <livewire:rambo-global-search />
+
     {{-- BREADCRUMBS --}}
     <x-rambo::navigation.breadcrumbs />
 

@@ -17,6 +17,8 @@ class Administrator extends Resource
 
     public $preLoadIndex = false;
 
+    public $globalSearchBladeComponent = 'rambo::components.global-search.admin';
+
     public function fields()
     {
         return [
