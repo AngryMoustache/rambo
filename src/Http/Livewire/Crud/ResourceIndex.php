@@ -56,15 +56,8 @@ class ResourceIndex extends ResourceComponent
 
         /** Search the fields of the items */
         if ($this->search !== '') {
-            $searchableFields = $this->resource->searchableFields();
-            $items = $items->filter(function ($item) use ($searchableFields) {
-                foreach ($searchableFields as $field) {
-                    if ($field->search($this->search, $item)) {
-                        return true;
-                    }
-                }
-
-                return false;
+            $items = $items->filter(function ($item) {
+                return $this->resource->search($this->search, $item);
             });
         }
 
