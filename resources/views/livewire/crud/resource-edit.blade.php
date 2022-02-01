@@ -34,6 +34,7 @@
                         :resource="$resource"
                         :field="$field"
                         :item="$resource->item"
+                        :rules="$rules"
                     />
                 @endforeach
             </div>

@@ -27,7 +27,8 @@ class Administrator extends Resource
 
             TextField::make('username')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->rules('required'),
 
             PasswordField::make('password')
                 ->createRules('required'),

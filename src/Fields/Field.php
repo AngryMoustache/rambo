@@ -30,6 +30,10 @@ class Field extends WireableField
     // Set this to true if the field is supposed to save HABTM relations
     public $hasManyRelation = false;
 
+    // Validation rules
+    public $createRules = [];
+    public $editRules = [];
+
     public static function make($name = null)
     {
         return new static($name);
@@ -154,7 +158,8 @@ class Field extends WireableField
      */
     public function getRules($stack = null)
     {
-        $rules = collect($stack ? $this->{"${stack}Rules"} : $this->rules);
+        $stack = ucfirst($stack);
+        $rules = collect($stack ? $this->{"get${stack}Rules"}() : $this->rules);
 
         // Livewire has a hard time understanding |, so we'll explode it
         $rules = $rules->map(fn ($rule) => explode('|', $rule))->flatten();

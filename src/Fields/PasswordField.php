@@ -10,6 +10,8 @@ class PasswordField extends Field
 
     public $unsetWhenNull = true;
 
+    public $hideFrom = ['index', 'show'];
+
     public function getFormValue()
     {
         return null;

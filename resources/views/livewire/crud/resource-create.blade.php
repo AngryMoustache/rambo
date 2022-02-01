@@ -31,6 +31,7 @@
                     :component="$field->getLivewireFormComponent()"
                     :resource="$resource"
                     :field="$field"
+                    :rules="$rules"
                 />
             @endforeach
         </div>

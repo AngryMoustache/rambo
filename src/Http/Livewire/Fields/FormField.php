@@ -23,13 +23,13 @@ class FormField extends RamboComponent
         'fields-validate' => 'validateField',
     ];
 
-    public function mount($field = null, $item = null)
+    public function mount($field = null, $item = null, $rules = [])
     {
         parent::mount();
         $this->name = $field->getName();
         $this->value = $field->item($item)->getFormValue();
         $this->component = $field->getFormComponent();
-        $this->rules = $this->field->getRules() ?? [];
+        $this->rules = $rules["fields.{$this->name}"] ?? [];
     }
 
     public function emitValue()
@@ -52,7 +52,6 @@ class FormField extends RamboComponent
 
         if ($validator->fails()) {
             $this->addError($this->name, implode(', ', $validator->errors()->all()));
-
             if ($withMessage) {
                 $this->toastWarning("Validation error for the '{$this->name}' field.");
             }
