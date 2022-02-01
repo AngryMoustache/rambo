@@ -53,9 +53,9 @@
     @endif
 
     <script>
-        let input = document.getElementById('global-search');
-        input.addEventListener('blur', () => {
-            @this.query = '';
-        });
+        let $input = document.getElementById('global-search')
+        $input.addEventListener('blur', () => {
+            @this.query = ''
+        })
     </script>
 </div>

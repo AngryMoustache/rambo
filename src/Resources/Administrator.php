@@ -7,6 +7,7 @@ use AngryMoustache\Rambo\Models\Administrator as ModelsAdministrator;
 use AngryMoustache\Rambo\Resource;
 use AngryMoustache\Rambo\Fields\BooleanField;
 use AngryMoustache\Rambo\Fields\IDField;
+use AngryMoustache\Rambo\Fields\PasswordField;
 use AngryMoustache\Rambo\Fields\TextField;
 
 class Administrator extends Resource
@@ -26,8 +27,10 @@ class Administrator extends Resource
 
             TextField::make('username')
                 ->sortable()
-                ->searchable()
-                ->rules('required'),
+                ->searchable(),
+
+            PasswordField::make('password')
+                ->createRules('required'),
 
             TextField::make('email')
                 ->label('E-Mail')

@@ -67,8 +67,22 @@ class ResourceFormComponent extends ResourceComponent
 
         // Default values
         $fieldStack->each(function ($field) {
+            $this->fields[$field->getName()] ??= $field->getDefault();
+        });
+
+        // Unset fields
+        $fieldStack->each(function ($field) {
             $name = $field->getName();
-            $this->fields[$name] ??= $field->getDefault();
+
+            // Clear empty strings
+            if ($this->fields[$name] === '' && ! $field->getDontClearEmpty()) {
+                $this->fields[$name] = null;
+            }
+
+            // Unset when null fields (passwords etc.)
+            if ($field->isUnsetWhenNull() && is_null($this->fields[$name])) {
+                unset($this->fields[$name]);
+            }
         });
 
         // Before save methods

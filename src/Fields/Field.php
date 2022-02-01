@@ -24,6 +24,9 @@ class Field extends WireableField
     public $formComponent = 'rambo::livewire.fields.form.text';
     public $livewireFormComponent = 'rambo-field-form-field';
 
+    // Don't update the field when it's null (useful for password fields)
+    public $unsetWhenNull = false;
+
     // Set this to true if the field is supposed to save HABTM relations
     public $hasManyRelation = false;
 
