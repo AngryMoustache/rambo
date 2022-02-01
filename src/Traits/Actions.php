@@ -12,18 +12,15 @@ trait Actions
 {
     public function actions($type)
     {
-        $actions = $this->{"${type}Actions"}() ?? [];
-        return collect($actions)
-            ->map(fn ($action) => new $action)
-            ->toArray();
+        return $this->{"${type}Actions"}() ?? [];
     }
 
     public function itemActions()
     {
         return [
-            ShowAction::class,
-            EditAction::class,
-            DeleteAction::class,
+            ShowAction::make(),
+            EditAction::make(),
+            DeleteAction::make(),
         ];
     }
 
@@ -45,8 +42,8 @@ trait Actions
     public function overviewActions()
     {
         return [
-            OverviewAction::class,
-            CreateAction::class,
+            OverviewAction::make(),
+            CreateAction::make(),
         ];
     }
 

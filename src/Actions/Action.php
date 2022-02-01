@@ -2,28 +2,33 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableAction;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use AngryMoustache\Rambo\Traits\RamboMagic;
 
-class Action extends WireableAction
+class Action extends WireableRamboItem
 {
+    use RamboMagic;
+
     public $icon;
     public $label;
 
     public $livewireAction;
-    public static $livewireComponent = 'rambo-action';
+    public $livewireComponent = 'rambo-action';
 
-    public static function getLivewireComponent()
-    {
-        return static::$livewireComponent;
-    }
+    public $canSee = true;
 
-    public function shouldHide($resource = null)
+    public static function make()
     {
-        return false;
+        return new static();
     }
 
     public function getLink($resource, $item)
     {
         //
+    }
+
+    public function shouldHide()
+    {
+        return false;
     }
 }

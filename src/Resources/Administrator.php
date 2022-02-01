@@ -2,6 +2,7 @@
 
 namespace AngryMoustache\Rambo\Resources;
 
+use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Fields\AttachmentField;
 use AngryMoustache\Rambo\Models\Administrator as ModelsAdministrator;
 use AngryMoustache\Rambo\Resource;
@@ -45,5 +46,11 @@ class Administrator extends Resource
             BooleanField::make('online')
                 ->sortable(),
         ];
+    }
+
+    // Don't delete yourself
+    public function canDelete()
+    {
+        return $this->itemId() !== Rambo::user()->id;
     }
 }

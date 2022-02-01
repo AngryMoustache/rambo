@@ -1,12 +1,12 @@
 <div class="action-wrapper">
-    @if (! $action->shouldHide($resource))
+    @if ($action->getCanSee() && ! $action->shouldHide($resource))
         <div class="action">
             <a href="#" wire:click.prevent="toggleModal" class="action-link action-icon">
                 @if (isset($label) && $label)
-                    <span>{{ $action->label }}</span>
+                    <span>{{ $action->getLabel() }}</span>
                 @endif
 
-                <i class="{{ $action->icon }}"></i>
+                <i class="{{ $action->getIcon() }}"></i>
             </a>
 
             @if ($modal)

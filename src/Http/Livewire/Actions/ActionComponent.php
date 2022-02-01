@@ -21,6 +21,7 @@ class ActionComponent extends RamboComponent
         parent::mount();
         $this->link = $this->action->getLink($this->resource, $this->item);
         $this->itemId = optional($this->item)->{$this->resource->primaryField()};
+        $this->action->resource($this->resource);
     }
 
     public function handle()

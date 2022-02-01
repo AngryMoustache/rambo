@@ -2,8 +2,8 @@
 
 namespace AngryMoustache\Rambo\Fields;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableField;
-use Closure;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use AngryMoustache\Rambo\Traits\RamboMagic;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -16,8 +16,10 @@ use Illuminate\Support\Str;
  * @method $this readonly(boolean $readonly = true) Disables the field on forms
  * @method $this disabled(boolean $disabled = true) Disables the field on forms
  */
-class Field extends WireableField
+class Field extends WireableRamboItem
 {
+    use RamboMagic;
+
     public $showComponent = 'rambo::livewire.fields.show.text';
     public $livewireShowComponent = 'rambo-field-show-field';
 
@@ -46,46 +48,6 @@ class Field extends WireableField
             ->replace('_', ' ')
             ->ucfirst()
             ->__toString();
-    }
-
-    public function __get($name)
-    {
-        return $this->{$name} ?? null;
-    }
-
-    public function __call($name, $value)
-    {
-        // Check for any getX functions
-        if (preg_match('/get[A-Z]{1}/', $name)) {
-            if (! method_exists($this, $name)) {
-                $name = lcfirst(Str::of($name)->after('get'));
-            }
-
-            return $this->{$name};
-        }
-
-        // Check for any isX functions (returns bool)
-        if (preg_match('/is[A-Z]{1}/', $name)) {
-            if (! method_exists($this, $name)) {
-                $name = lcfirst(Str::of($name)->after('is'));
-            }
-
-            return (bool) $this->{$name};
-        }
-
-        // User is setting something
-        if ($value === []) {
-            $this->{$name} = true;
-        } else {
-            $value = optional($value)[0];
-            if ($value instanceof Closure) {
-                $this->{$name} = call_user_func($value);
-            } else {
-                $this->{$name} = $value;
-            }
-        }
-
-        return $this;
     }
 
     public function getValue()

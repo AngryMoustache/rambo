@@ -2,7 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableField;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
 
 class ResourceFormComponent extends ResourceComponent
 {
@@ -23,7 +23,7 @@ class ResourceFormComponent extends ResourceComponent
 
     public function fieldUpdated($value, $field)
     {
-        $field = (new WireableField())->fromLivewire($field);
+        $field = (new WireableRamboItem())->fromLivewire($field);
         $this->fields[$field->getName()] = $value;
     }
 

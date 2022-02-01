@@ -1,5 +1,5 @@
 <div class="action-wrapper">
-    @if (! $action->shouldHide($resource))
+    @if ($action->getCanSee() && ! $action->shouldHide())
         <div class="action">
             <a
                 href="{{ $link }}"
@@ -9,10 +9,10 @@
                 @endif
             >
                 @if (isset($label) && $label)
-                    <span>{{ $action->label }}</span>
+                    <span>{{ $action->getLabel() }}</span>
                 @endif
 
-                <i class="{{ $action->icon }}"></i>
+                <i class="{{ $action->getIcon() }}"></i>
             </a>
         </div>
     @endif

@@ -7,10 +7,10 @@ class DeleteAction extends Action
     public $icon = 'far fa-trash-alt';
     public $label = 'Delete';
 
-    public static $livewireComponent = 'rambo-action-delete';
+    public $livewireComponent = 'rambo-action-delete';
 
-    public function shouldHide($resource = null)
+    public function shouldHide()
     {
-        return ! $resource->can('delete');
+        return ! $this->resource->can('delete');
     }
 }
