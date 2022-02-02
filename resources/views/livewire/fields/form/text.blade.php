@@ -3,7 +3,7 @@
 
     <div class="crud-form-field-input">
         <input
-            wire:model.debounce="value"
+            wire:model.lazy="value"
             type="{{ $field->getType() ?? 'text' }}"
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"

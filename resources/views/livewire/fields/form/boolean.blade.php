@@ -3,7 +3,7 @@
 
     <div class="crud-form-field-input crud-form-field-checkbox">
         <input
-            wire:model.debounce="value"
+            wire:model.lazy="value"
             type="checkbox"
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"
