@@ -88,11 +88,13 @@ class ResourceFormComponent extends ResourceComponent
         // Before save methods
         $fieldStack->each(function ($field) {
             $name = $field->getName();
-            $this->fields[$name] = $field->beforeSave(
-                $this->fields[$name] ?? null,
-                $this->fields,
-                $this->itemId
-            );
+            if (isset($this->fields[$name])) {
+                $this->fields[$name] = $field->beforeSave(
+                    $this->fields[$name] ?? null,
+                    $this->fields,
+                    $this->itemId
+                );
+            }
         });
 
         $item = $this->saveData();
