@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use Illuminate\Support\Arr;
 
 class ResourceFormComponent extends ResourceComponent
 {
@@ -88,7 +89,7 @@ class ResourceFormComponent extends ResourceComponent
         // Before save methods
         $fieldStack->each(function ($field) {
             $name = $field->getName();
-            if (isset($this->fields[$name])) {
+            if (Arr::has($this->fields, $name)) {
                 $this->fields[$name] = $field->beforeSave(
                     $this->fields[$name] ?? null,
                     $this->fields,
