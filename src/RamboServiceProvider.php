@@ -18,6 +18,7 @@ use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
 use AngryMoustache\Rambo\Http\Livewire\GlobalSearch;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\AttachmentPicker;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\ManyAttachmentPicker;
 use AngryMoustache\Rambo\Rambo;
 use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
@@ -87,6 +88,7 @@ class RamboServiceProvider extends ServiceProvider
 
         /** PICKERS */
         Livewire::component('rambo-attachment-picker', AttachmentPicker::class);
+        Livewire::component('rambo-many-attachment-picker', ManyAttachmentPicker::class);
         Livewire::component('rambo-habtm-picker', HabtmPicker::class);
     }
 

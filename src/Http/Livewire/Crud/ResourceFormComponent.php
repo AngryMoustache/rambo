@@ -102,6 +102,7 @@ class ResourceFormComponent extends ResourceComponent
 
         // HABTM relations
         foreach ($this->getHabtmRelations() as $relation => $values) {
+            $item->{$relation}()->detach();
             $item->{$relation}()->sync($values);
         }
 

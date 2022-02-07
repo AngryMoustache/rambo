@@ -19,6 +19,10 @@ class AttachmentPicker extends RamboComponent
 
     public $value;
 
+    public $emit = 'changed-value';
+
+    public $clearOnUpdate = false;
+
     public $search;
 
     public $uploadedFile;
@@ -41,8 +45,12 @@ class AttachmentPicker extends RamboComponent
     public function updateAttachment($id)
     {
         $this->value = Attachment::find($id);
-        $this->emitUp('changed-value', $id, $this->field->toLivewire());
+        $this->emitUp($this->emit, $id, $this->field->toLivewire());
         $this->closeModal();
+
+        if ($this->clearOnUpdate) {
+            $this->value = null;
+        }
     }
 
     public function openSelectModal()
