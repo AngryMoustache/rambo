@@ -31,6 +31,15 @@ class SelectField extends Field
         return $this;
     }
 
+    public function enum($enum)
+    {
+        $this->options = collect($enum::cases())
+            ->mapWithKeys(fn ($item) => [$item->name => $item->value])
+            ->toArray();
+
+        return $this;
+    }
+
     public function getShowValue()
     {
         $value = parent::getValue();
