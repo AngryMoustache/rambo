@@ -4,13 +4,18 @@ namespace AngryMoustache\Rambo\Fields;
 
 class FileSizeField extends Field
 {
+    private $units = ['B', 'kB', 'MB', 'GB'];
+
     public function getShowValue()
     {
         $value = parent::getShowValue();
-        if ($value && gettype($value) === 'integer') {
-            $value = ($value / 1000) . ' Mb';
+
+        $i = 0;
+        while (($value / 1024) > 0.9) {
+            $value = $value / 1024;
+            $i++;
         }
 
-        return $value;
+        return round($value, 2) . ' ' . $this->units[$i];
     }
 }
