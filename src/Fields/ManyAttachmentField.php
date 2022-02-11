@@ -6,8 +6,8 @@ use AngryMoustache\Media\Models\Attachment;
 
 class ManyAttachmentField extends Field
 {
-    public $formComponent = 'rambo::livewire.fields.form.many-attachment';
-    public $showComponent = 'rambo::livewire.fields.show.many-attachment';
+    public $bladeShowComponent = 'rambo::livewire.fields.show.many-attachment';
+    public $livewireFormComponent = 'rambo-form-many-attachment-field';
 
     public $folder = 'uploads';
 

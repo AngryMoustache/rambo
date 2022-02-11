@@ -20,7 +20,7 @@ class ShowField extends RamboComponent
     {
         parent::mount();
         $this->field = $field;
-        $this->component = $field->getShowComponent();
+        $this->component = $field->getBladeShowComponent();
         $this->updateValue($item);
     }
 

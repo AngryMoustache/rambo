@@ -28,7 +28,7 @@ trait RamboCanToast
 
     public function toastError($message)
     {
-        $this->toast($message, ToastType::WARNING);
+        $this->toast($message, ToastType::ERROR);
     }
 
     /** Toast in session (for redirects) */

@@ -6,7 +6,7 @@ class HabtmField extends HasManyField
 {
     public $hideFrom = [];
 
-    public $formComponent = 'rambo::livewire.fields.form.habtm';
+    public $livewireFormComponent = 'rambo-form-habtm-field';
 
     public $hasManyRelation = true;
 

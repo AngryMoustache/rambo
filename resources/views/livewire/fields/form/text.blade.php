@@ -3,7 +3,7 @@
 
     <div class="crud-form-field-input">
         <input
-            wire:model.lazy="value"
+            wire:model.lazy="fields.{{ $field->getName() }}"
             type="{{ $field->getType() ?? 'text' }}"
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"

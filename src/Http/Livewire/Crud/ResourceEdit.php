@@ -21,9 +21,8 @@ class ResourceEdit extends ResourceFormComponent
 
         $this->component = $this->resource->editView();
 
-        collect($this->resource->fieldStack('edit'))->each(function ($field) {
-            $value = $field->item($this->resource->item)->getFormValue();
-            $this->fields[$field->getName()] = $value;
+        collect($this->resource->fieldStack('edit', $this->resource->item))->each(function ($field) {
+            $this->fields[$field->getName()] = $field->getFormValue();
         });
     }
 

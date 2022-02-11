@@ -4,10 +4,13 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ResourceFormComponent extends ResourceComponent
 {
     public $fields = [];
+    public $labels = [];
 
     public $pageType;
 
@@ -19,7 +22,15 @@ class ResourceFormComponent extends ResourceComponent
     public function mount()
     {
         parent::mount();
-        $this->rules = $this->resource->validationStack($this->pageType);
+        $this->rules = collect($this->resource->validationStack($this->pageType))
+            ->mapWithKeys(fn ($rules, $key) => [Str::replaceFirst('fields.', '', $key) => $rules])
+            ->toArray();
+
+        // Fill in the data
+        $this->resource->fieldStack($this->pageType, $this->resource->item)->each(function ($field) {
+            $this->fields[$field->getName()] = $field->getValue();
+            $this->labels[$field->getName()] = $field->getLabel();
+        });
     }
 
     public function fieldUpdated($value, $field)
@@ -45,6 +56,11 @@ class ResourceFormComponent extends ResourceComponent
     public function submit($redirect = true)
     {
         $model = $this->handleSubmit();
+        if (! $model) {
+            $this->toastError('Something went wrong while saving!');
+            return;
+        }
+
         $toast = "{$this->resource->singularLabel()} successfully saved!";
 
         if ($redirect) {
@@ -61,8 +77,10 @@ class ResourceFormComponent extends ResourceComponent
 
     public function handleSubmit()
     {
-        $this->emit('fields-validate');
-        $this->validate();
+        if (! $this->validateStack()) {
+            $this->emit('fields-validate');
+            return null;
+        }
 
         $fieldStack = $this->resource->fieldStack($this->pageType);
 
@@ -123,5 +141,39 @@ class ResourceFormComponent extends ResourceComponent
         });
 
         return $relations;
+    }
+
+    // Validate one field
+    public function updatedFields($value, $key)
+    {
+        $validator = Validator::make([$key => $value], [$key => $this->rules[$key]]);
+        $this->validateWith($validator, false);
+    }
+
+    // Validate all fields (submit)
+    public function validateStack()
+    {
+        $validator = Validator::make([...$this->fields], $this->rules);
+        return $this->validateWith($validator);
+    }
+
+    public function validateWith($validator, $withMessage = true)
+    {
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag()->toArray();
+            foreach ($messages as $field => $errors) {
+                foreach ($errors as $error) {
+                    $this->addError($field, $error);
+                    if ($withMessage) {
+                        $label = $this->labels[$field] ?? $field;
+                        $this->toastWarning("Validation error for the '${label}' field.");
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        return true;
     }
 }

@@ -19,7 +19,7 @@ class AttachmentPicker extends RamboComponent
 
     public $value;
 
-    public $emit = 'changed-value';
+    public $emit = 'picked-attachment';
 
     public $clearOnUpdate = false;
 

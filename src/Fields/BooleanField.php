@@ -7,10 +7,9 @@ namespace AngryMoustache\Rambo\Fields;
  */
 class BooleanField extends Field
 {
-    public $showComponent = 'rambo::livewire.fields.show.boolean';
-    public $formComponent = 'rambo::livewire.fields.form.boolean';
-
     public $livewireShowComponent = 'rambo-field-show-boolean-field';
+    public $bladeShowComponent = 'rambo::livewire.fields.show.boolean';
+    public $bladeFormComponent = 'rambo::livewire.fields.form.boolean';
 
     public $toggleable = false;
 

@@ -6,7 +6,7 @@ use AngryMoustache\Media\Models\Attachment;
 
 class ImageField extends Field
 {
-    public $showComponent = 'rambo::livewire.fields.show.image';
+    public $bladeShowComponent = 'rambo::livewire.fields.show.image';
 
     public function getShowValue()
     {

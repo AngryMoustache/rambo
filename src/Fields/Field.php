@@ -20,11 +20,11 @@ class Field extends WireableRamboItem
 {
     use RamboMagic;
 
-    public $showComponent = 'rambo::livewire.fields.show.text';
-    public $livewireShowComponent = 'rambo-field-show-field';
+    public $bladeShowComponent = 'rambo::livewire.fields.show.text';
+    public $livewireShowComponent = null;
 
-    public $formComponent = 'rambo::livewire.fields.form.text';
-    public $livewireFormComponent = 'rambo-field-form-field';
+    public $bladeFormComponent = 'rambo::livewire.fields.form.text';
+    public $livewireFormComponent = null;
 
     // Don't update the field when it's null (useful for password fields)
     public $unsetWhenNull = false;
@@ -41,13 +41,12 @@ class Field extends WireableRamboItem
         return new static($name);
     }
 
-    public function __construct($name = null, $label = null)
+    public function __construct($name = null)
     {
         $this->name ??= $name;
-        $this->label ??= Str::of($this->name)
+        $this->label ??= (string) Str::of($this->name)
             ->replace('_', ' ')
-            ->ucfirst()
-            ->__toString();
+            ->ucfirst();
     }
 
     public function getValue()
@@ -62,7 +61,7 @@ class Field extends WireableRamboItem
 
     public function getFormValue()
     {
-        return $this->getValue();
+        return $this->getValue() ?? $this->getDefault();
     }
 
     /**

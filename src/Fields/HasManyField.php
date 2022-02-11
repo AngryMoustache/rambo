@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
  */
 class HasManyField extends Field
 {
-    public $showComponent = 'rambo::livewire.fields.show.has-many';
+    public $bladeShowComponent = 'rambo::livewire.fields.show.has-many';
 
     public $hideFrom = ['index', 'edit', 'create'];
 

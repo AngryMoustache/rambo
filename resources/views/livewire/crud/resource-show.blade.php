@@ -22,7 +22,7 @@
         </div>
 
         <table class="crud-show-table">
-            @foreach ($resource->fieldStack('show') as $field)
+            @foreach ($resource->fieldStack('show', $item) as $field)
                 <tr>
                     <td class="crud-show-table-label">
                         <span>
@@ -31,9 +31,7 @@
                     </td>
 
                     <td class="crud-show-table-value">
-                        <livewire:is
-                            :key="$field->getName() . '_' . $item->id"
-                            :component="$field->getLivewireShowComponent()"
+                        <x-rambo::crud.fields.show
                             :resource="$resource"
                             :field="$field"
                             :item="$item"

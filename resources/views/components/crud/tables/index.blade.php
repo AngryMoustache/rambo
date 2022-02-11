@@ -35,11 +35,10 @@
         @foreach ($items as $item)
             <tr>
                 @foreach ($resource->fieldStack('index') as $field)
-                    <td>
+                    @php $field->item($item); @endphp
+                    <td >
                         <span class="crud-index-table-content">
-                            <livewire:is
-                                :key="$field->getName() . '_' . $item->id"
-                                :component="$field->getLivewireShowComponent()"
+                            <x-rambo::crud.fields.show
                                 :resource="$resource"
                                 :field="$field"
                                 :item="$item"

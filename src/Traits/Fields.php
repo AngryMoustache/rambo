@@ -23,10 +23,12 @@ trait Fields
      * Returns the full field stack of the resource
      * You can specify the page you are on to look at the fields hideFrom
      */
-    public function fieldStack($stack = '')
+    public function fieldStack($stack = '', $item = null)
     {
+        $item ??= $this->item;
         $this->fieldStack[$stack] ??= collect($this->fields())
-            ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []));
+            ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []))
+            ->map(fn ($field) => $field->item($item));
 
         return $this->fieldStack[$stack];
     }

@@ -26,12 +26,9 @@
 
         <div wire:loading.remove wire:target="submit">
             @foreach ($resource->fieldStack('create') as $field)
-                <livewire:is
-                    :key="$field->getName()"
-                    :component="$field->getLivewireFormComponent()"
+                 <x-rambo::crud.fields.form
                     :resource="$resource"
                     :field="$field"
-                    :rules="$rules"
                 />
             @endforeach
         </div>
