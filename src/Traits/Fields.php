@@ -37,7 +37,7 @@ trait Fields
     public function flatFieldStack($stack = '', $item = null)
     {
         $fields = Collection::wrap($this->fields())
-            ->map(fn (Field $field) => $field->getFields($item) ?? $field)
+            ->map(fn (Field $field) => $this->fieldsFromField($field, $item) ?? $field)
             ->flatten(1);
 
         return $this->flatFieldStack[$stack] ??= $this->parseFields($fields, $stack, $item);
@@ -61,6 +61,21 @@ trait Fields
         return $this->validationStack[$stack] ??= $this->flatFieldStack($stack)
             ->mapWithKeys(fn (Field $field) => ["fields.{$field->getName()}" => $field->getRules($stack) ?? []])
             ->toArray();
+    }
+
+    /**
+     * Recursive field fetch
+     */
+    private function fieldsFromField($field, $item)
+    {
+        $fields = $field->getFields($item);
+        if (! $fields) {
+            return $field;
+        }
+
+        return Collection::wrap($fields)
+            ->map(fn (Field $field) => $this->fieldsFromField($field, $item))
+            ->flatten(1);
     }
 
     private function parseFields($fields, $stack = '', $item = null)
