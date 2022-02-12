@@ -11,6 +11,7 @@ class ManyAttachmentPicker extends RamboComponent
 {
     public $value;
     public Field $field;
+    public ?Attachment $cropping;
 
     public $component = 'rambo::livewire.pickers.many-attachment-picker';
 
@@ -56,5 +57,15 @@ class ManyAttachmentPicker extends RamboComponent
             $this->value,
             $this->field->toLivewire()
         );
+    }
+
+    public function openCropper($index)
+    {
+        $this->cropping = Attachment::find($this->value[$index]);
+    }
+
+    public function closeModal()
+    {
+        $this->cropping = null;
     }
 }

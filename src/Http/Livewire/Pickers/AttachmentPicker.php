@@ -30,6 +30,7 @@ class AttachmentPicker extends RamboComponent
     // Modals
     public $selecting = false;
     public $uploading = false;
+    public $cropping = false;
 
     public function mount()
     {
@@ -63,10 +64,16 @@ class AttachmentPicker extends RamboComponent
         $this->uploading = true;
     }
 
+    public function openCroppingModal()
+    {
+        $this->cropping = true;
+    }
+
     public function closeModal()
     {
         $this->selecting = false;
         $this->uploading = false;
+        $this->cropping = false;
     }
 
     public function updatedSearch()

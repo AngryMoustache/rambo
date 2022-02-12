@@ -4,6 +4,6 @@ namespace AngryMoustache\Rambo\Fields;
 
 class CropperField extends Field
 {
-    public $livewireFormComponent = 'rambo-form-cropper-field';
+    public $bladeFormComponent = 'rambo::livewire.fields.form.cropper';
     public $hideFrom = ['index', 'show', 'create'];
 }

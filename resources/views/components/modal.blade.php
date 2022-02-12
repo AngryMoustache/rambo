@@ -13,7 +13,13 @@
         @endisset
 
         @isset($content)
-            <div class="modal-card-content" wire:loading.remove>
+            <div
+                wire:loading.remove
+                @class([
+                    'modal-card-content' => ! isset($fixed),
+                    'modal-card-content-fixed' => isset($fixed) && $fixed,
+                ])
+            >
                 {{ $content }}
             </div>
         @endisset

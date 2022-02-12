@@ -7,6 +7,7 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs as FacadeRamboBreadcrumbs;
 use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
+use AngryMoustache\Rambo\Http\Livewire\Cropper;
 use AngryMoustache\Rambo\Http\Livewire\Fields\FormField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\ShowField;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
@@ -15,7 +16,6 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormAttachmentField;
-use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormCropperField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormGroupField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormHabtmField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormManyAttachmentField;
@@ -68,8 +68,6 @@ class RamboServiceProvider extends ServiceProvider
 
     private function livewire()
     {
-        Livewire::component('rambo-global-search', GlobalSearch::class);
-
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
         Livewire::component('rambo-dashboard', Dashboard::class);
@@ -86,7 +84,6 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-form-many-attachment-field', FormManyAttachmentField::class);
         Livewire::component('rambo-form-habtm-field', FormHabtmField::class);
         Livewire::component('rambo-form-group-field', FormGroupField::class);
-        Livewire::component('rambo-form-cropper-field', FormCropperField::class);
 
         /** FIELDS (SHOW) */
         Livewire::component('rambo-field-show-field', ShowField::class);
@@ -100,6 +97,10 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-attachment-picker', AttachmentPicker::class);
         Livewire::component('rambo-many-attachment-picker', ManyAttachmentPicker::class);
         Livewire::component('rambo-habtm-picker', HabtmPicker::class);
+
+        /** OTHERS */
+        Livewire::component('rambo-cropper', Cropper::class);
+        Livewire::component('rambo-global-search', GlobalSearch::class);
     }
 
     private function config()

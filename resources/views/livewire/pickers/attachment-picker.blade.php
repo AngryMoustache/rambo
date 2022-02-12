@@ -1,10 +1,17 @@
 <div class="attachment-picker">
     @if ($value)
-        <div class="attachment-picker-selection">
-            <img src="{{ $value->format('thumb') }}">
+        <div
+            class="attachment-picker-selection"
+            style="background-image: url('{{ $value->format('thumb') }}')"
+        >
             <i
                 wire:click="clearSelection"
                 class="button fa fa-trash"
+            ></i>
+
+            <i
+                wire:click="openCroppingModal"
+                class="button fas fa-crop"
             ></i>
         </div>
     @else
@@ -22,15 +29,21 @@
     @endif
 
     @if ($selecting)
-        <x-rambo::modals.attachment-picker-selecting
+        <x-rambo::modals.attachment-picker.selecting
             :attachments="$attachments"
             :search="$search"
         />
     @endif
 
     @if ($uploading)
-        <x-rambo::modals.attachment-picker-uploading
+        <x-rambo::modals.attachment-picker.uploading
             :uploaded-file="$uploadedFile"
+        />
+    @endif
+
+    @if ($cropping)
+        <x-rambo::modals.attachment-picker.cropping
+            :attachment="$value"
         />
     @endif
 </div>

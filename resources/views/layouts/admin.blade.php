@@ -8,6 +8,7 @@
         <link href="{{ asset('vendor/rambo/css/app.css') }}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/989b502037.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="{{ asset('vendor/rambo/images/favicon.png') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/rambo/css/cropper.min.css') }}" />
         <livewire:styles>
         @stack('rambo-styles')
     </head>
@@ -28,6 +29,7 @@
         <x-rambo::toasts />
 
         <livewire:scripts>
+        <script src="{{ asset('vendor/rambo/js/cropper.min.js') }}"></script>
         <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>
         @stack('rambo-scripts')
     </body>
