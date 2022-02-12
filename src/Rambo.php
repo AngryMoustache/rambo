@@ -127,4 +127,9 @@ class Rambo
             'resource' => $resource,
         ];
     }
+
+    public function cropperEnabled()
+    {
+        return ! empty(config('media.cropper.formats', []));
+    }
 }
