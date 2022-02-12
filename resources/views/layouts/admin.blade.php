@@ -9,6 +9,7 @@
         <script src="https://kit.fontawesome.com/989b502037.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="{{ asset('vendor/rambo/images/favicon.png') }}">
         <livewire:styles>
+        @stack('rambo-styles')
     </head>
     <body>
         {{-- Nav --}}
@@ -28,5 +29,6 @@
 
         <livewire:scripts>
         <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>
+        @stack('rambo-scripts')
     </body>
 </html>

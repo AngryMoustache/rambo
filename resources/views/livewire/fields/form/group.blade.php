@@ -1,4 +1,4 @@
-<div class="crud-form-field-tab-group" x-data="{ open: true }">
+<div class="crud-form-field-tab-group" x-data="{ open: false }">
     <div class="crud-form-field-tab-group-content">
         <ul
             class="crud-form-field-tab-group-content-tabs"

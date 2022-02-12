@@ -27,7 +27,11 @@ trait Fields
      */
     public function fieldStack($stack = '', $item = null)
     {
-        return $this->fieldStack[$stack] ??= $this->parseFields(Collection::wrap($this->fields()));
+        return $this->fieldStack[$stack] ??= $this->parseFields(
+            Collection::wrap($this->fields()),
+            $stack,
+            $item
+        );
     }
 
     /**

@@ -16,4 +16,9 @@ return [
             Attachment::class,
         ],
     ],
+    'cropper' => [
+        'formats' => [
+            \AngryMoustache\Media\Formats\Thumb::class => 'Thumb',
+        ],
+    ],
 ];

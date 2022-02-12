@@ -4,7 +4,7 @@ namespace AngryMoustache\Rambo\Fields;
 
 class HabtmField extends HasManyField
 {
-    public $hideFrom = [];
+    public $hideFrom = ['index'];
 
     public $livewireFormComponent = 'rambo-form-habtm-field';
 

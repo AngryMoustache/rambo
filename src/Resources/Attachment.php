@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Resources;
 
 use AngryMoustache\Media\Models\Attachment as ModelsAttachment;
+use AngryMoustache\Rambo\Fields\CropperField;
 use AngryMoustache\Rambo\Fields\FileSizeField;
 use AngryMoustache\Rambo\Fields\IDField;
 use AngryMoustache\Rambo\Fields\ImageField;
@@ -60,6 +61,8 @@ class Attachment extends Resource
                 ->readonly(),
 
             TextField::make('folder_location'),
+
+            CropperField::make('cropper'),
 
             ImageField::make('id')
                 ->label('Image')

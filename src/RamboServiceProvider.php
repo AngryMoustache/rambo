@@ -15,6 +15,7 @@ use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormAttachmentField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormCropperField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormGroupField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormHabtmField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormManyAttachmentField;
@@ -85,6 +86,7 @@ class RamboServiceProvider extends ServiceProvider
         Livewire::component('rambo-form-many-attachment-field', FormManyAttachmentField::class);
         Livewire::component('rambo-form-habtm-field', FormHabtmField::class);
         Livewire::component('rambo-form-group-field', FormGroupField::class);
+        Livewire::component('rambo-form-cropper-field', FormCropperField::class);
 
         /** FIELDS (SHOW) */
         Livewire::component('rambo-field-show-field', ShowField::class);

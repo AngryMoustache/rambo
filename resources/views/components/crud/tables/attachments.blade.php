@@ -4,7 +4,7 @@
             <div class="crud-index-attachments-item">
                 <div
                     class="crud-index-attachments-item-image"
-                    style="background-image: url('{{ $item->format('thumb') }}')"
+                    style="background-image: url('{{ $item->format('thumb') }}?rand={{ rand(0, 1000) }}')"
                 ></div>
 
                 <div class="crud-index-attachments-item-actions">
