@@ -23,21 +23,7 @@
 
         <table class="crud-show-table">
             @foreach ($resource->fieldStack('show', $item) as $field)
-                <tr>
-                    <td class="crud-show-table-label">
-                        <span>
-                            {{ $field->getLabel() }}
-                        </span>
-                    </td>
-
-                    <td class="crud-show-table-value">
-                        <x-rambo::crud.fields.show
-                            :resource="$resource"
-                            :field="$field"
-                            :item="$item"
-                        />
-                    </td>
-                </tr>
+                @include($field->getShowWrapperComponent())
             @endforeach
         </table>
     </div>

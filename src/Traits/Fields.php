@@ -4,12 +4,14 @@ namespace AngryMoustache\Rambo\Traits;
 
 use AngryMoustache\Rambo\Fields\Field;
 use Exception;
+use Illuminate\Support\Collection;
 
 trait Fields
 {
     public $fields;
 
     private $fieldStacks = [];
+    private $flatFieldStacks = [];
     private $searchableFields = [];
     private $validationStack = [];
 
@@ -25,12 +27,20 @@ trait Fields
      */
     public function fieldStack($stack = '', $item = null)
     {
-        $item ??= $this->item;
-        $this->fieldStack[$stack] ??= collect($this->fields())
-            ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []))
-            ->map(fn ($field) => $field->item($item));
+        return $this->fieldStack[$stack] ??= $this->parseFields(Collection::wrap($this->fields()));
+    }
 
-        return $this->fieldStack[$stack];
+    /**
+     * Returns the full flattened field stack of the resource
+     * This is needed for when you are using nested groups with additional fields
+     */
+    public function flatFieldStack($stack = '', $item = null)
+    {
+        $fields = Collection::wrap($this->fields())
+            ->map(fn (Field $field) => $field->getFields($item) ?? $field)
+            ->flatten(1);
+
+        return $this->flatFieldStack[$stack] ??= $this->parseFields($fields, $stack, $item);
     }
 
     /**
@@ -38,10 +48,8 @@ trait Fields
      */
     public function searchableFields($stack = '')
     {
-        $this->searchableFields[$stack] ??= $this->fieldStack($stack)
+        return $this->searchableFields[$stack] ??= $this->flatFieldStack($stack)
             ->filter(fn ($field) => $field->isSearchable());
-
-        return $this->searchableFields[$stack];
     }
 
     /**
@@ -50,11 +58,16 @@ trait Fields
      */
     public function validationStack($stack = '')
     {
-        $this->validationStack[$stack] ??= $this->fieldStack($stack)
-            ->mapWithKeys(fn (Field $field) => [
-                "fields.{$field->getName()}" => $field->getRules($stack) ?? []
-            ])->toArray();
+        return $this->validationStack[$stack] ??= $this->flatFieldStack($stack)
+            ->mapWithKeys(fn (Field $field) => ["fields.{$field->getName()}" => $field->getRules($stack) ?? []])
+            ->toArray();
+    }
 
-        return $this->validationStack[$stack];
+    private function parseFields($fields, $stack = '', $item = null)
+    {
+        return Collection::wrap($fields)
+            ->reject(fn ($field) => in_array($stack, $field->getHideFrom() ?? []))
+            ->map(fn ($field) => $field->item($item ?? $this->item))
+            ->map(fn ($field) => $field->stack($stack));
     }
 }

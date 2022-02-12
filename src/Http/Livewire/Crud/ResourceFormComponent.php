@@ -27,8 +27,8 @@ class ResourceFormComponent extends ResourceComponent
             ->toArray();
 
         // Fill in the data
-        $this->resource->fieldStack($this->pageType, $this->resource->item)->each(function ($field) {
-            $this->fields[$field->getName()] = $field->getValue();
+        $this->resource->flatFieldStack($this->pageType, $this->resource->item)->each(function ($field) {
+            $this->fields[$field->getName()] = $field->getFormValue();
             $this->labels[$field->getName()] = $field->getLabel();
         });
     }
@@ -130,11 +130,10 @@ class ResourceFormComponent extends ResourceComponent
     public function getHabtmRelations()
     {
         $relations = [];
-        $fields = collect($this->resource->fieldStack($this->pageType));
+        $fields = collect($this->resource->flatFieldStack($this->pageType));
 
         $fields->each(function ($field) use (&$relations) {
             $name = $field->getName();
-
             if ($field->isHasManyRelation() && isset($this->fields[$name])) {
                 $relations[$name] = $this->fields[$name];
             }
@@ -153,7 +152,7 @@ class ResourceFormComponent extends ResourceComponent
     // Validate all fields (submit)
     public function validateStack()
     {
-        $validator = Validator::make([...$this->fields], $this->rules);
+        $validator = Validator::make($this->fields, $this->rules);
         return $this->validateWith($validator);
     }
 

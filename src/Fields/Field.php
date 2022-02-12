@@ -26,6 +26,9 @@ class Field extends WireableRamboItem
     public $bladeFormComponent = 'rambo::livewire.fields.form.text';
     public $livewireFormComponent = null;
 
+    public $indexWrapperComponent = 'rambo::components.crud.fields.wrapper-index';
+    public $showWrapperComponent = 'rambo::components.crud.fields.wrapper-show';
+
     // Don't update the field when it's null (useful for password fields)
     public $unsetWhenNull = false;
 
@@ -36,17 +39,17 @@ class Field extends WireableRamboItem
     public $createRules = [];
     public $editRules = [];
 
-    public static function make($name = null)
+    public $hideLabelOnShow = false;
+
+    public static function make($name = null, $label = null)
     {
-        return new static($name);
+        return new static($name, $label);
     }
 
-    public function __construct($name = null)
+    public function __construct($name = null, $label = null)
     {
         $this->name ??= $name;
-        $this->label ??= (string) Str::of($this->name)
-            ->replace('_', ' ')
-            ->ucfirst();
+        $this->label ??= $label ?? (string) Str::of($this->name)->replace('_', ' ')->ucfirst();
     }
 
     public function getValue()
@@ -127,4 +130,13 @@ class Field extends WireableRamboItem
 
         return $rules->toArray();
     }
+
+    /**
+     * Blade wrapper files for showing values
+     */
+     public function getWrapperComponent()
+     {
+        $page = ucfirst($this->getStack() ?? '');
+        return $this->{"get${page}Wrapper"}();
+     }
 }

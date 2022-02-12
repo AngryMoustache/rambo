@@ -12,6 +12,7 @@ use AngryMoustache\Rambo\Resource;
 class SelectField extends Field
 {
     public $bladeShowComponent = 'rambo::livewire.fields.show.select';
+    public $bladeFormComponent = 'rambo::livewire.fields.form.select';
 
     public $options = [];
 

@@ -6,7 +6,7 @@
             id="{{ $field->getName() }}"
             name="{{ $field->getName() }}"
             placeholder="{{ $field->getLabel() }}"
-            wire:model.lazy="value"
+            wire:model.lazy="fields.{{ $field->getName() }}"
         >
             @if ($field->isNullable())
                 <option value="">-</option>

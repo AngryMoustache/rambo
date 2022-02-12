@@ -4,6 +4,7 @@ namespace AngryMoustache\Rambo\Http\Livewire\Fields;
 
 use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
+use AngryMoustache\Rambo\Resource;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -16,6 +17,8 @@ class FormField extends RamboComponent
     public $value;
 
     public Field $field;
+
+    public Resource $resource;
 
     public $rules = [];
 

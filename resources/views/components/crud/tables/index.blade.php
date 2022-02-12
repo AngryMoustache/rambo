@@ -1,7 +1,7 @@
 <table class="crud-index-table">
     <thead>
         <tr>
-            @foreach ($resource->fieldStack('index') as $field)
+            @foreach ($fieldStack as $field)
                 <td>
                     @if ($field->isSortable())
                         <span
@@ -34,17 +34,9 @@
     <tbody wire:key="index_{{ $resource->routebase() }}">
         @foreach ($items as $item)
             <tr>
-                @foreach ($resource->fieldStack('index') as $field)
+                @foreach ($fieldStack as $field)
                     @php $field->item($item); @endphp
-                    <td >
-                        <span class="crud-index-table-content">
-                            <x-rambo::crud.fields.show
-                                :resource="$resource"
-                                :field="$field"
-                                :item="$item"
-                            />
-                        </span>
-                    </td>
+                    @include($field->getIndexWrapperComponent())
                 @endforeach
 
                 @foreach ($resource->actions('table') as $key => $action)
