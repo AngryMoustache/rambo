@@ -27,7 +27,7 @@ class RamboBreadcrumbs
         $this->save();
     }
 
-    public function add(string $label, string $link = null)
+    public function add($label, $link = null)
     {
         $this->crumbs[] = (object) [
             'label' => $label,

@@ -6,22 +6,12 @@ trait Permissions
 {
     public $defaultPermission = true;
 
-    public function can($type)
-    {
-        $type = ucfirst($type);
-        if (method_exists($this, "can{$type}")) {
-            return $this->{"can{$type}"}();
-        }
-
-        return $this->getDefaultPermission();
-    }
-
     public function getDefaultPermission()
     {
         return $this->defaultPermission;
     }
 
-    public function canIndex()
+    public function canViewIndex()
     {
         return $this->getDefaultPermission();
     }

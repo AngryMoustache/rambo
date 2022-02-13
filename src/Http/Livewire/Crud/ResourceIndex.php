@@ -31,7 +31,7 @@ class ResourceIndex extends ResourceComponent
         RamboBreadcrumbs::reset();
         RamboBreadcrumbs::add($this->resource->label());
 
-        if (! $this->resource->can('index')) {
+        if (! $this->resource->canViewIndex()) {
             return Rambo::unauthorized();
         }
 

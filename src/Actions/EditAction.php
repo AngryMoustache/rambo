@@ -16,7 +16,7 @@ class EditAction extends Action
 
     public function shouldHide()
     {
-        return ! $this->resource->can('edit')
+        return ! $this->resource->canEdit()
             || Rambo::currentUrl() === $this->resource->edit();
     }
 }

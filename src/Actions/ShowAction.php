@@ -16,7 +16,7 @@ class ShowAction extends Action
 
     public function shouldHide()
     {
-        return ! $this->resource->can('show')
+        return ! $this->resource->canShow()
             || Rambo::currentUrl() === $this->resource->show();
     }
 }

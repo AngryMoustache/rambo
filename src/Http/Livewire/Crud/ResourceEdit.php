@@ -15,7 +15,7 @@ class ResourceEdit extends ResourceFormComponent
 
         RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
 
-        if (! $this->resource->can('edit')) {
+        if (! $this->resource->canEdit()) {
             return Rambo::unauthorized();
         }
 

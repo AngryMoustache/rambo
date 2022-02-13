@@ -12,7 +12,7 @@ class ResourceShow extends ResourceComponent
         parent::mount();
         RamboBreadcrumbs::add($this->resource->itemName());
 
-        if (! $this->resource->can('show')) {
+        if (! $this->resource->canShow()) {
             return Rambo::unauthorized();
         }
 

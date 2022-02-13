@@ -23,11 +23,7 @@ class GlobalSearch extends RamboComponent
         $this->results = collect();
 
         Rambo::resources()->each(function (Resource $resource) {
-            if (! $resource->isGlobalSearchable()) {
-                return;
-            }
-
-            if ($resource->searchableFields()->isEmpty()) {
+            if (! $resource->isGlobalSearchable() || $resource->searchableFields()->isEmpty()) {
                 return;
             }
 
@@ -37,8 +33,9 @@ class GlobalSearch extends RamboComponent
             }
 
             $items = $items
-                ->filter(fn ($item) => $resource->search($this->query, $item))
-                ->map(fn ($item) => clone $resource->item($item));
+                ->map(fn ($item) => (new ($resource::class))->item($item))
+                ->filter(fn ($resource) => $resource->canShow())
+                ->filter(fn ($resource) => $resource->search($this->query));
 
             if ($items->isNotEmpty()) {
                 $this->results[$resource->routebase()] = (object) [

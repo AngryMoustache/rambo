@@ -48,9 +48,9 @@ class Administrator extends Resource
         ];
     }
 
-    // Don't delete yourself
     public function canDelete()
     {
+        // Don't delete yourself
         return $this->itemId() !== Rambo::user()->id;
     }
 }

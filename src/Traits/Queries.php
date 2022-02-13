@@ -45,7 +45,12 @@ trait Queries
 
     public function item($item)
     {
-        $this->item = $item;
+        if (is_integer($item)) {
+            $this->fetch($item);
+        } else {
+            $this->item = $item;
+        }
+
         return $this;
     }
 

@@ -11,6 +11,6 @@ class DeleteAction extends Action
 
     public function shouldHide()
     {
-        return ! $this->resource->can('delete');
+        return ! $this->resource->canDelete();
     }
 }
