@@ -27,13 +27,13 @@ class ResourceIndex extends ResourceComponent
 
     public function mount()
     {
-        parent::mount();
         RamboBreadcrumbs::reset();
         RamboBreadcrumbs::add($this->resource->label());
-
         if (! $this->resource->canViewIndex()) {
             return Rambo::unauthorized();
         }
+
+        parent::mount();
 
         $this->component = $this->resource->indexView();
         $this->orderCol = request()->get('orderCol') ?? $this->resource->defaultOrderCol();

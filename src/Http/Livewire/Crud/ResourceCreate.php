@@ -11,12 +11,12 @@ class ResourceCreate extends ResourceFormComponent
 
     public function mount()
     {
-        parent::mount();
         RamboBreadcrumbs::add('Create ' . $this->resource->singularLabel());
-
         if (! $this->resource->canCreate()) {
             return Rambo::unauthorized();
         }
+
+        parent::mount();
 
         $this->component = $this->resource->createView();
     }
