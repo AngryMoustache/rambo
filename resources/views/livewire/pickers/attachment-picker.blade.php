@@ -9,10 +9,12 @@
                 class="button fa fa-trash"
             ></i>
 
-            <i
-                wire:click="openCroppingModal"
-                class="button fas fa-crop"
-            ></i>
+            @if (Rambo::cropperEnabled())
+                <i
+                    wire:click="openCroppingModal"
+                    class="button fas fa-crop"
+                ></i>
+            @endif
         </div>
     @else
         <div class="attachment-picker-actions">

@@ -18,10 +18,12 @@
                     wire:sortable.handle
                 ></i>
 
-                <i
-                    class="button fas fa-crop"
-                    wire:click="openCropper({{ $key }})"
-                ></i>
+                @if (Rambo::cropperEnabled())
+                    <i
+                        class="button fas fa-crop"
+                        wire:click="openCropper({{ $key }})"
+                    ></i>
+                @endif
             </div>
         @endforeach
     </div>
