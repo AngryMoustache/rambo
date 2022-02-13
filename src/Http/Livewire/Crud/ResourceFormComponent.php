@@ -35,6 +35,7 @@ class ResourceFormComponent extends ResourceComponent
 
     public function fieldUpdated($value, $field)
     {
+        // TODO: Check for base64
         $field = (new WireableRamboItem())->fromLivewire($field);
         $this->fields[$field->getName()] = $value;
     }
