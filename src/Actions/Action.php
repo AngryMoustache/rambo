@@ -12,7 +12,6 @@ class Action extends WireableRamboItem
     public $icon;
     public $label;
 
-    public $livewireAction;
     public $livewireComponent = 'rambo-action';
 
     public $canSee = true;

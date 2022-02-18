@@ -15,6 +15,11 @@ class ManyAttachmentField extends Field
 
     public function getValue()
     {
+        $value = parent::getValue();
+        if (! $value) {
+            return [];
+        }
+
         return parent::getValue()->pluck('id')->toArray();
     }
 
