@@ -1,4 +1,4 @@
-<x-rambo::modal>
+<x-rambo::modal :loader="false">
     <x-slot name="title">Cropper</x-slot>
 
     <x-slot name="content" :fixed="true">

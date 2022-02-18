@@ -26,7 +26,6 @@
                 this.toasts = @json(session()->pull('rambo-toasts', []))
 
                 for (let i = 0; i < this.toasts.length; i++) {
-                    console.log(i)
                     window.setTimeout(() => {
                         this.toasts[i].show = false
                     }, this.showTime)
@@ -40,6 +39,7 @@
                         type: e.detail.type,
                         show: true,
                     }
+
                     window.setTimeout(() => {
                         this.toasts[id].show = false
                     }, this.showTime)

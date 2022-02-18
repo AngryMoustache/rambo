@@ -19,6 +19,7 @@ Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
             return redirect(route('rambo.auth.login'));
         })->name('rambo.auth.logout');
 
+        /** Logged in routes */
         Route::middleware(RamboAuthMiddleware::class)->group(function () {
             Route::get('', Dashboard::class)->name('rambo.dashboard');
 

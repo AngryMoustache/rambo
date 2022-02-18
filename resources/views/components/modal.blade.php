@@ -1,39 +1,35 @@
 <div class="modal">
     <div class="modal-card no-padding">
         @isset($title)
-            <div class="modal-card-title">
+            <div {{ $title->attributes->merge(['class' => 'modal-card-title']) }}>
                 <h4>{{ $title }}</h4>
             </div>
         @endisset
 
         @isset($subtitle)
-            <div class="modal-card-subtitle">
+            <div {{ $subtitle->attributes->merge(['class' => 'modal-card-subtitle']) }}>
                 {{ $subtitle }}
             </div>
         @endisset
 
         @isset($content)
-            <div
-                wire:loading.remove
-                @class([
-                    'modal-card-content' => ! isset($fixed),
-                    'modal-card-content-fixed' => isset($fixed) && $fixed,
-                ])
-            >
+            <div {{ $content->attributes->merge(['class' => 'modal-card-content']) }}>
                 {{ $content }}
             </div>
         @endisset
 
-        <div wire:loading class="modal-card-content">
-            <x-rambo::loading />
-        </div>
+        @if (! isset($loader))
+            <div wire:loading class="modal-card-content">
+                <x-rambo::loading />
+            </div>
+        @endisset
 
         @isset($preFooter)
             {{ $preFooter }}
         @endisset
 
         @isset($footer)
-            <div class="modal-card-footer" wire:loading.remove>
+            <div {{ $footer->attributes->merge(['class' => 'modal-card-footer']) }}>
                 {{ $footer }}
             </div>
         @endisset
