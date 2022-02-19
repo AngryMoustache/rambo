@@ -17,7 +17,8 @@ class WiredRamboCollection extends Collection implements Wireable
 
     public static function fromLivewire($array)
     {
-        return self::wrap($array)
-            ->map(fn ($item) => (new $item['class'])::fromLivewire($item['value']));
+        return self::wrap($array)->map(function ($item) {
+            return (new $item['class'])::fromLivewire($item['value']);
+        });
     }
 }

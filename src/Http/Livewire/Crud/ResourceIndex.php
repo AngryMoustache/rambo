@@ -7,7 +7,6 @@ use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 use AngryMoustache\Rambo\Filters\Filter;
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Livewire\WithPagination;
 
 class ResourceIndex extends ResourceComponent
@@ -19,8 +18,13 @@ class ResourceIndex extends ResourceComponent
     public $orderCol = '';
     public $orderDir = '';
 
+    public WiredRamboCollection $filters;
+
+    public $filterModal = true;
+
     public $listeners = [
         'refresh',
+        'filters-updated' => 'filtersUpdated'
     ];
 
     public $queryString = [
@@ -28,7 +32,6 @@ class ResourceIndex extends ResourceComponent
         'page' => ['except' => 1],
     ];
 
-    public WiredRamboCollection $filters;
 
     private $items;
 
@@ -84,6 +87,18 @@ class ResourceIndex extends ResourceComponent
         $this->page = 1;
     }
 
+    public function toggleFilterModal()
+    {
+        $this->filterModal = ! $this->filterModal;
+    }
+
+    public function filtersUpdated($key, $enabled, $fields)
+    {
+        $this->filters[$key] = $this->filters[$key]
+            ->enabled($enabled)
+            ->fields($fields);
+    }
+
     public function changeOrder($column)
     {
         if ($this->orderCol === $column) {
@@ -115,12 +130,13 @@ class ResourceIndex extends ResourceComponent
 
     protected function parseFilters()
     {
-        // foreach ($this->resource->filters() as $filter) {
-        //     if ($filter->canBeSeen($this->resource)) {
-        //         $this->items = $this->items
-        //             ->filter(fn ($item) => $filter->handle(true, $this->resource->item($item)));
-        //     }
-        // }
+        foreach ($this->filters as $filter) {
+            if ($filter->canBeSeen($this->resource) && $filter->isEnabled()) {
+                $this->items = $this->items->filter(fn ($item) => $filter->handle(
+                    $this->resource->item($item)
+                ));
+            }
+        }
 
         return $this->items;
     }

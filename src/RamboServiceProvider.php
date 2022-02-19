@@ -20,6 +20,7 @@ use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormGroupField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormHabtmField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormManyAttachmentField;
 use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
+use AngryMoustache\Rambo\Http\Livewire\FilterComponent;
 use AngryMoustache\Rambo\Http\Livewire\GlobalSearch;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\AttachmentPicker;
 use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
@@ -101,6 +102,7 @@ class RamboServiceProvider extends ServiceProvider
         /** OTHERS */
         Livewire::component('rambo-cropper', Cropper::class);
         Livewire::component('rambo-global-search', GlobalSearch::class);
+        Livewire::component('rambo-filter-component', FilterComponent::class);
     }
 
     private function config()

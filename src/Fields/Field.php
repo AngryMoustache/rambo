@@ -64,6 +64,11 @@ class Field extends WiredRamboItem
         return $this->getValue() ?? $this->getDefault();
     }
 
+    public function getFilterValue()
+    {
+        return $this->getFormValue();
+    }
+
     /**
      * Do something before saving (returns the final value)
      */

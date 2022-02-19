@@ -62,4 +62,27 @@
             </div>
         @endif
     </div>
+
+    @if ($filterModal)
+        <x-rambo::modal :loader="false">
+            <x-slot name="title">{{ $resource->singularLabel() }} filters</x-slot>
+
+            <x-slot name="content" class="no-padding">
+                @foreach ($filters as $key => $filter)
+                    <livewire:rambo-filter-component
+                        :filter-key="$key"
+                        :filter="$filter"
+                        :resource="$resource"
+                        wire:key="filter_{{ $key }}"
+                    />
+                @endforeach
+            </x-slot>
+
+            <x-slot name="footer">
+                <a wire:click.prevent="toggleFilterModal" class="button-link">
+                    Close
+                </a>
+            </x-slot>
+        </x-rambo::modal>
+    @endif
 </div>

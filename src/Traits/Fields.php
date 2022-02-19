@@ -18,7 +18,7 @@ trait Fields
     public function fields()
     {
         // Don't make this an abstract function, we won't be able to use route binding otherwise
-        throw new Exception('No fields() function found on your resource!');
+        throw new Exception('No fields() function found on ' . get_class($this));
     }
 
     /**

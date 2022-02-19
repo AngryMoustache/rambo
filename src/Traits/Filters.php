@@ -3,16 +3,13 @@
 namespace AngryMoustache\Rambo\Traits;
 
 use AngryMoustache\Rambo\Filters\Filter;
-use AngryMoustache\Rambo\Filters\OnlineFilter;
 use Illuminate\Support\Collection;
 
 trait Filters
 {
     public function filters()
     {
-        return [
-            OnlineFilter::make(),
-        ];
+        return [];
     }
 
     public function getFilters()
