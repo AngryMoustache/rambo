@@ -3,18 +3,16 @@
 namespace AngryMoustache\Rambo\Actions;
 
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
-use AngryMoustache\Rambo\Traits\RamboMagic;
+use AngryMoustache\Rambo\Traits\HasCanSee;
 
 class Action extends WireableRamboItem
 {
-    use RamboMagic;
+    use HasCanSee;
 
     public $icon;
     public $label;
 
     public $livewireComponent = 'rambo-action';
-
-    public $canSee = true;
 
     public static function make()
     {
@@ -24,10 +22,5 @@ class Action extends WireableRamboItem
     public function getLink($resource, $item)
     {
         //
-    }
-
-    public function shouldHide()
-    {
-        return false;
     }
 }

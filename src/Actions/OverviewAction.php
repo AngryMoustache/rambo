@@ -14,7 +14,7 @@ class OverviewAction extends Action
         return $resource->index();
     }
 
-    public function shouldHide()
+    public function shouldHide($resource)
     {
         return ! $this->resource->canViewIndex()
             || Rambo::currentUrl() === $this->resource->index();

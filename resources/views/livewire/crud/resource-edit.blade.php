@@ -37,8 +37,8 @@
             </div>
 
             <div class="crud-form-button">
-                @foreach ($resource->buttons('edit') as $button)
-                    @include($button::$component)
+                @foreach ($resource->editButtons() as $button)
+                    @include($button->getComponent())
                 @endforeach
             </div>
         </div>

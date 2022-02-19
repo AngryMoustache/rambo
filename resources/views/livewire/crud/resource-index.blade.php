@@ -19,14 +19,25 @@
         </div>
     </div>
 
-    @if ($resource->searchableFields()->isNotEmpty())
+    @if (
+        $resource->searchableFields()->isNotEmpty() ||
+        $resource->getFilters()->isNotEmpty()
+    )
         <div class="crud-index-search">
-            <input
-                type="text"
-                wire:key="seach_{{ $resource->routebase() }}"
-                wire:model.250ms="search"
-                placeholder="Search for {{ $resource->label() }}"
-            >
+            @if ($resource->searchableFields()->isNotEmpty())
+                <input
+                    type="text"
+                    wire:model.250ms="search"
+                    wire:key="search_{{ $resource->routebase() }}"
+                    placeholder="Search for {{ $resource->label() }}"
+                >
+            @endif
+
+            @if ($resource->getFilters()->isNotEmpty())
+                <div wire:click="toggleFilterModal" class="button">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
+                </div>
+            @endif
         </div>
     @endif
 

@@ -8,25 +8,20 @@ use AngryMoustache\Rambo\Buttons\SubmitContinueButton;
 
 trait Buttons
 {
-    public function buttons($type)
-    {
-        return $this->{"${type}Buttons"}() ?? [];
-    }
-
     public function createButtons()
     {
         return [
-            CancelButton::class,
-            SubmitButton::class,
+            CancelButton::make(),
+            SubmitButton::make(),
         ];
     }
 
     public function editButtons()
     {
         return [
-            CancelButton::class,
-            SubmitContinueButton::class,
-            SubmitButton::class,
+            CancelButton::make(),
+            SubmitContinueButton::make(),
+            SubmitButton::make(),
         ];
     }
 }

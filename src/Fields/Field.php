@@ -3,7 +3,6 @@
 namespace AngryMoustache\Rambo\Fields;
 
 use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
-use AngryMoustache\Rambo\Traits\RamboMagic;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -18,8 +17,6 @@ use Illuminate\Support\Str;
  */
 class Field extends WireableRamboItem
 {
-    use RamboMagic;
-
     public $bladeShowComponent = 'rambo::livewire.fields.show.text';
     public $livewireShowComponent = null;
 

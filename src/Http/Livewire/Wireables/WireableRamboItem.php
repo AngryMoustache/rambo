@@ -3,12 +3,15 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Wireables;
 
 use AngryMoustache\Rambo\Resource;
+use AngryMoustache\Rambo\Traits\RamboMagic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Livewire\Wireable;
 
 class WireableRamboItem implements Wireable
 {
+    use RamboMagic;
+
     public function toLivewire()
     {
         $item = clone $this;

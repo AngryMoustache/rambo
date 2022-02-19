@@ -1,19 +1,17 @@
 <?php
 
-namespace AngryMoustache\Rambo\Buttons;
+namespace AngryMoustache\Rambo\Filters;
 
 use AngryMoustache\Rambo\Traits\HasCanSee;
 use AngryMoustache\Rambo\Traits\RamboMagic;
 
-class Button
+abstract class Filter
 {
     use HasCanSee;
     use RamboMagic;
 
-    public $component = 'rambo::components.crud.buttons.button';
-    public $label;
-    public $action;
-    public $inline = false;
+    abstract public function fields();
+    abstract public function handle($value, $resource);
 
     public static function make()
     {

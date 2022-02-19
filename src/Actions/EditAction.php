@@ -14,7 +14,7 @@ class EditAction extends Action
         return $resource->edit($item->id);
     }
 
-    public function shouldHide()
+    public function shouldHide($resource)
     {
         return ! $this->resource->canEdit()
             || Rambo::currentUrl() === $this->resource->edit();

@@ -14,7 +14,7 @@ class CreateAction extends Action
         return $resource->create();
     }
 
-    public function shouldHide()
+    public function shouldHide($resource)
     {
         return ! $this->resource->canCreate()
             || Rambo::currentUrl() === $this->resource->create();
