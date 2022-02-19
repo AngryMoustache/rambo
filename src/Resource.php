@@ -2,10 +2,10 @@
 
 namespace AngryMoustache\Rambo;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableResource;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredResource;
 use Illuminate\Support\Str;
 
-class Resource extends WireableResource
+class Resource extends WiredResource
 {
     use \AngryMoustache\Rambo\Traits\Actions;
     use \AngryMoustache\Rambo\Traits\Buttons;

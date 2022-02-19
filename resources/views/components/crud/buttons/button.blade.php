@@ -1,4 +1,4 @@
-@if ($button->isCanSee() && ! $button->shouldHide($resource))
+@if ($button->canBeSeen($resource))
     <div class="crud-form-button-input">
         <input
             type="button"

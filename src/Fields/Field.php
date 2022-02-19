@@ -2,7 +2,7 @@
 
 namespace AngryMoustache\Rambo\Fields;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboItem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  * @method $this readonly(boolean $readonly = true) Disables the field on forms
  * @method $this disabled(boolean $disabled = true) Disables the field on forms
  */
-class Field extends WireableRamboItem
+class Field extends WiredRamboItem
 {
     public $bladeShowComponent = 'rambo::livewire.fields.show.text';
     public $livewireShowComponent = null;

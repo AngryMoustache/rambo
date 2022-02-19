@@ -1,5 +1,5 @@
 <div class="action-wrapper">
-    @if ($action->getCanSee() && ! $action->shouldHide($resource))
+    @if ($action->canBeSeen($resource))
         <div class="action">
             <a href="#" wire:click.prevent="toggleModal" class="action-link action-icon">
                 @if (isset($label) && $label)

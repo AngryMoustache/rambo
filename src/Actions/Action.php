@@ -2,10 +2,10 @@
 
 namespace AngryMoustache\Rambo\Actions;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboItem;
 use AngryMoustache\Rambo\Traits\HasCanSee;
 
-class Action extends WireableRamboItem
+class Action extends WiredRamboItem
 {
     use HasCanSee;
 

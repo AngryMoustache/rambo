@@ -1,5 +1,5 @@
 <div class="action-wrapper">
-    @if ($action->getCanSee() && ! $action->shouldHide($resource))
+    @if ($action->canBeSeen($resource))
         <div class="action" wire:loading.remove>
             <a
                 class="action-link action-icon"

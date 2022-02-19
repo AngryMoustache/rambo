@@ -5,7 +5,7 @@ namespace AngryMoustache\Rambo\Http\Livewire\Wireables;
 use AngryMoustache\Rambo\Facades\Rambo;
 use Livewire\Wireable;
 
-class WireableResource implements Wireable
+class WiredResource implements Wireable
 {
     public function toLivewire()
     {

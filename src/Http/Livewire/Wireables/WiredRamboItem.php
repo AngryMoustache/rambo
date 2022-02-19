@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Livewire\Wireable;
 
-class WireableRamboItem implements Wireable
+class WiredRamboItem implements Wireable
 {
     use RamboMagic;
 

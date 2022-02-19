@@ -10,4 +10,9 @@ trait HasCanSee
     {
         return false;
     }
+
+    public function canBeSeen($resource)
+    {
+        return $this->canSee && ! $this->shouldHide($resource);
+    }
 }

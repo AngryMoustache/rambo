@@ -5,6 +5,7 @@ namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 use AngryMoustache\Rambo\Filters\Filter;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Livewire\WithPagination;
@@ -27,6 +28,10 @@ class ResourceIndex extends ResourceComponent
         'page' => ['except' => 1],
     ];
 
+    public WiredRamboCollection $filters;
+
+    private $items;
+
     public function mount()
     {
         RamboBreadcrumbs::reset();
@@ -43,35 +48,25 @@ class ResourceIndex extends ResourceComponent
         $this->queryString['orderCol'] = ['except' => $this->resource->defaultOrderCol()];
         $this->queryString['orderDir'] = ['except' => $this->resource->defaultOrderDir()];
         $this->preLoad = $this->resource->preLoadIndex;
+        $this->filters = WiredRamboCollection::wrap($this->resource->filters());
     }
 
-    /** Fetch, search and filter the items and set them */
+    // Fetch, search and filter the items and set them
     public function refresh()
     {
         $this->addComponentData([
             'fieldStack' => $this->resource->flatFieldStack('index'),
         ]);
 
-        $items = $this->resource->indexQuery()
-            ->orderBy($this->orderCol, $this->orderDir)
-            ->get();
-
-        /** Search the fields of the items */
-        if ($this->search !== '') {
-            $items = $items->filter(function ($item) {
-                return $this->resource->search($this->search, $item);
-            });
-        }
+        // Get and parse data
+        $items = $this->fetchInitialItems();
+        $items = $this->parseSearch($items);
+        $items = $this->parseFilters($items);
 
         // Paginate at the end
-        $pagination = $this->resource->pagination();
-        $this->componentData['items'] = new LengthAwarePaginator(
-            $items->forPage($this->page, $pagination),
-            $items->count(),
-            $pagination,
-            $this->page
-        );
+        $this->componentData['items'] = $this->buildPagination();
 
+        // Go to page 1 if you are on a page with no items left
         if ($this->componentData['items']->count() === 0 && $this->page !== 1) {
             $this->page = 1;
             $this->refresh();
@@ -97,5 +92,47 @@ class ResourceIndex extends ResourceComponent
             $this->orderCol = $column;
             $this->orderDir = 'asc';
         }
+    }
+
+    protected function fetchInitialItems()
+    {
+        $this->items = $this->resource->indexQuery()
+            ->orderBy($this->orderCol, $this->orderDir)
+            ->get();
+
+        return $this->items;
+    }
+
+    protected function parseSearch()
+    {
+        if ($this->search !== '') {
+            $this->items = $this->items
+                ->filter(fn ($item) => $this->resource->search($this->search, $item));
+        }
+
+        return $this->items;
+    }
+
+    protected function parseFilters()
+    {
+        // foreach ($this->resource->filters() as $filter) {
+        //     if ($filter->canBeSeen($this->resource)) {
+        //         $this->items = $this->items
+        //             ->filter(fn ($item) => $filter->handle(true, $this->resource->item($item)));
+        //     }
+        // }
+
+        return $this->items;
+    }
+
+    protected function buildPagination()
+    {
+        $pagination = $this->resource->pagination();
+        return new LengthAwarePaginator(
+            $this->items->forPage($this->page, $pagination),
+            $this->items->count(),
+            $pagination,
+            $this->page
+        );
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
-use AngryMoustache\Rambo\Http\Livewire\Wireables\WireableRamboItem;
+use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboItem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -36,7 +36,7 @@ class ResourceFormComponent extends ResourceComponent
     public function fieldUpdated($value, $field)
     {
         // TODO: Check for base64
-        $field = (new WireableRamboItem())->fromLivewire($field);
+        $field = (new WiredRamboItem())->fromLivewire($field);
         $this->fields[$field->getName()] = $value;
     }
 
