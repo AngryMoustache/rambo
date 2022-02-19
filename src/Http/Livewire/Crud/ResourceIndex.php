@@ -20,7 +20,7 @@ class ResourceIndex extends ResourceComponent
 
     public WiredRamboCollection $filters;
 
-    public $filterModal = true;
+    public $filterModal = false;
 
     public $listeners = [
         'refresh',
