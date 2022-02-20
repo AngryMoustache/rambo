@@ -12,10 +12,6 @@ class RamboController extends Controller
     public function __invoke(Request $request, $resource, $itemId = null)
     {
         $resource = Rambo::resource($resource, $itemId);
-        if (! $resource) {
-            abort(404);
-        }
-
         $page = Str::afterLast($request->route()->getName(), '.');
         $component = $resource->{"${page}LivewireComponent"}();
 

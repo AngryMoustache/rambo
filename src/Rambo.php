@@ -47,7 +47,7 @@ class Rambo
     public function resource($value, $id = null, $key = null)
     {
         $item = optional($this->resources->where($key ?? 'routebase', $value)->first())->fetch($id);
-        return $item ? clone $item : abort(404);
+        return $item ? clone $item : $this->notFound();
     }
 
     public function user()
