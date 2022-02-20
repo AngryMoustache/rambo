@@ -4,6 +4,11 @@ namespace AngryMoustache\Rambo\Traits;
 
 trait Rendering
 {
+    public $indexLivewireComponent = 'rambo-resource-index';
+    public $createLivewireComponent = 'rambo-resource-create';
+    public $showLivewireComponent = 'rambo-resource-show';
+    public $editLivewireComponent = 'rambo-resource-edit';
+
     public $indexView = 'rambo::livewire.crud.resource-index';
     public $createView = 'rambo::livewire.crud.resource-create';
     public $showView = 'rambo::livewire.crud.resource-show';
@@ -13,6 +18,26 @@ trait Rendering
     public $habtmComponent = 'rambo::components.habtm.item';
 
     public $preLoadIndex = true;
+
+    public function indexLivewireComponent()
+    {
+        return $this->indexLivewireComponent;
+    }
+
+    public function createLivewireComponent()
+    {
+        return $this->createLivewireComponent;
+    }
+
+    public function showLivewireComponent()
+    {
+        return $this->showLivewireComponent;
+    }
+
+    public function editLivewireComponent()
+    {
+        return $this->editLivewireComponent;
+    }
 
     public function indexView()
     {

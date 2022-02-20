@@ -2,12 +2,9 @@
 
 use AngryMoustache\Rambo\Facades\Rambo;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
 use AngryMoustache\Rambo\Http\Livewire\Dashboard\Dashboard;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
+use AngryMoustache\Rambo\Http\RamboController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
@@ -24,10 +21,10 @@ Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
             Route::get('', Dashboard::class)->name('rambo.dashboard');
 
             /** CRUD */
-            Route::get('{resource}', ResourceIndex::class)->name('rambo.crud.index');
-            Route::get('{resource}/create', ResourceCreate::class)->name('rambo.crud.create');
-            Route::get('{resource}/{itemId}', ResourceShow::class)->name('rambo.crud.show');
-            Route::get('{resource}/{itemId}/edit', ResourceEdit::class)->name('rambo.crud.edit');
+            Route::get('{resource}', RamboController::class)->name('rambo.crud.index');
+            Route::get('{resource}/create', RamboController::class)->name('rambo.crud.create');
+            Route::get('{resource}/{itemId}', RamboController::class)->name('rambo.crud.show');
+            Route::get('{resource}/{itemId}/edit', RamboController::class)->name('rambo.crud.edit');
         });
     });
 });

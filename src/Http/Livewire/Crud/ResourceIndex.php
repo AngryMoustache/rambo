@@ -32,7 +32,6 @@ class ResourceIndex extends ResourceComponent
         'page' => ['except' => 1],
     ];
 
-
     private $items;
 
     public function mount()

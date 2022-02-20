@@ -2,18 +2,9 @@
 
 namespace AngryMoustache\Rambo\Traits;
 
-use AngryMoustache\Rambo\Facades\Rambo;
-
 trait Routing
 {
     public $routebase;
-
-    public static function resolveRouteBinding($resource)
-    {
-        $itemId = request()->route()->parameter('itemId');
-        $resource = Rambo::resource($resource, $itemId);
-        return $resource;
-    }
 
     public function routebase()
     {
