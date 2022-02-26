@@ -14,6 +14,7 @@ class Cropper extends RamboComponent
     public Attachment $attachment;
 
     public $current = null;
+    public $hash;
 
     public $listeners = [
         'cropped' => 'saveCrop',
@@ -22,6 +23,7 @@ class Cropper extends RamboComponent
     public function mount()
     {
         $this->formats = config('media.cropper.formats', []);
+        $this->hash = md5(rand(1000, 9999));
     }
 
     public function updatedCurrent()
@@ -41,6 +43,34 @@ class Cropper extends RamboComponent
     {
         $crop = $event['crop'];
         $data = $event['data'];
+        $saveAsNew = $event['saveAsNew'];
+
+        if ($saveAsNew) {
+            $attachment = Attachment::firstOrCreate([
+                'original_name' => $this->attachment->original_name,
+                'alt_name' => $this->attachment->alt_name . ' - ' . rand(10000, 99999),
+                'mime_type' => $this->attachment->mime_type,
+                'extension' => $this->attachment->extension,
+                'disk' => config('media.default-disk', 'public'),
+            ]);
+
+            Storage::putFileAs(
+                "public/attachments/{$attachment->id}/",
+                $crop,
+                $this->attachment->original_name
+            );
+
+            $path = "public/attachments/{$attachment->id}/{$attachment->original_name}";
+            $sizes = getimagesize(Storage::path($path));
+            $attachment->size = Storage::size($path);
+            $attachment->width = $sizes[0];
+            $attachment->height = $sizes[1];
+            $attachment->save();
+
+            $this->toastOk("Cropped successfully and saved as a new attachment ({$attachment->id})!");
+            $this->current = null;
+            return;
+        }
 
         $format = $this->formatName();
         $url = $this->attachment->id . '/' . ($format ? $format . '-' : '') . $this->attachment->original_name;
