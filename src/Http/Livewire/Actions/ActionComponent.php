@@ -26,6 +26,6 @@ class ActionComponent extends RamboComponent
 
     public function handle()
     {
-        $this->action->handle($this);
+        return $this->action->handle($this);
     }
 }
