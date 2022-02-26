@@ -18,11 +18,14 @@ class ResourceComponent extends RamboComponent
         parent::mount();
 
         if (! $this->resource) {
-            throw new RamboResourceNotFoundHttpException();
+            throw new RamboResourceNotFoundHttpException($this->resource);
         }
 
         if ($this->itemId && ! optional($this->resource)->item) {
-            throw new RamboResourceWithIdNotFoundHttpException();
+            throw new RamboResourceWithIdNotFoundHttpException(
+                $this->resource,
+                $this->itemId
+            );
         }
     }
 }

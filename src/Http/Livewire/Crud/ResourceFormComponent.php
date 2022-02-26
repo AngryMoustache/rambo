@@ -22,6 +22,7 @@ class ResourceFormComponent extends ResourceComponent
     public function mount()
     {
         parent::mount();
+
         $this->rules = collect($this->resource->validationStack($this->pageType))
             ->mapWithKeys(fn ($rules, $key) => [Str::replaceFirst('fields.', '', $key) => $rules])
             ->toArray();

@@ -11,12 +11,13 @@ class ResourceEdit extends ResourceFormComponent
 
     public function mount()
     {
-        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
         if (! $this->resource->canEdit()) {
             return Rambo::unauthorized();
         }
 
         parent::mount();
+
+        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
 
         $this->component = $this->resource->editView();
 

@@ -18,6 +18,7 @@ class RamboController extends Controller
         return view('rambo::router', [
             'resource' => $resource,
             'component' => $component,
+            'itemId' => $itemId,
         ]);
     }
 }

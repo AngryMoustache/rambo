@@ -3,16 +3,20 @@
 namespace AngryMoustache\Rambo\Http\Exceptions;
 
 use Exception;
-use Illuminate\Http\Request;
 
 class RamboResourceWithIdNotFoundHttpException extends Exception
 {
-    public function render(Request $request)
+    public function __construct(
+        public $resource,
+        public $itemId
+    ) {}
+
+    public function render()
     {
         return view('rambo::errors.resource-with-id-not-found', [
             'titleForLayout' => '404',
-            'resource' => request()->resource,
-            'itemId' => request()->itemId,
+            'resource' => $this->resource,
+            'itemId' => $this->itemId,
         ]);
     }
 }

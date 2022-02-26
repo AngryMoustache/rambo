@@ -4,5 +4,6 @@
     <livewire:is
         :component="$component"
         :resource="$resource"
+        :item-id="$itemId"
     />
 @endsection
