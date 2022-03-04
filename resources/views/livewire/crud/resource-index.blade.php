@@ -46,21 +46,7 @@
     </div>
 
     <div wire:loading.delay.long.remove>
-        @if ($items->isEmpty())
-            <div class="crud-index-search">
-                <p>No <strong>{{ $resource->label() }}</strong> found using the current filters.</p>
-            </div>
-        @endif
-
-        @if ($items->isNotEmpty())
-            @include($resource->indexTableBlade())
-        @endif
-
-        @if ($items->hasPages())
-            <div class="pagination">
-                {{ $items->withQueryString()->links('rambo::components.crud.tables.pagination') }}
-            </div>
-        @endif
+        @include($resource->indexTableBlade())
     </div>
 
     @if ($filterModal)
