@@ -6,9 +6,12 @@ use AngryMoustache\Rambo\Http\Livewire\Wireables\WiredRamboItem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class ResourceFormComponent extends ResourceComponent
 {
+    use WithFileUploads;
+
     public $fields = [];
     public $labels = [];
 
