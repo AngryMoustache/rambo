@@ -7,7 +7,7 @@ use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Http\RamboController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix(config('rambo::admin-route', 'admin'))->group(function () {
+Route::prefix(config('rambo.admin-route', 'admin'))->group(function () {
     Route::middleware('web')->group(function () {
         /** Auth */
         Route::get('login', Login::class)->name('rambo.auth.login');
