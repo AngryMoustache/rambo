@@ -6,7 +6,7 @@ use AngryMoustache\Rambo\Http\Controllers\RamboAuthController;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
-$adminRoute = config('rambo::admin-route', 'admin');
+$adminRoute = config('rambo.admin-route', 'admin');
 
 Route::middleware('web')->group(function () use ($adminRoute) {
     /**
