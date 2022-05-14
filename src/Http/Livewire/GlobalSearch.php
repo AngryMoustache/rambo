@@ -15,7 +15,7 @@ class GlobalSearch extends RamboComponent
 
     public function mount()
     {
-        $this->updatedQuery();
+        // $this->updatedQuery();
     }
 
     public function updatedQuery()
