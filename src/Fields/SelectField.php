@@ -23,10 +23,6 @@ class SelectField extends Field
         }
 
         $this->resource = $resource;
-        $this->options = $resource->relationQuery()->pluck(
-            $resource->displayNameField(),
-            $resource->primaryField()
-        );
 
         return $this;
     }
@@ -47,6 +43,27 @@ class SelectField extends Field
             $this->link = $this->resource->show($value);
         }
 
+        $resource = $this->getResource();
+        if ($resource) {
+            return $resource->relationQuery()
+                ->where($resource->primaryField(), $value)
+                ->first()
+                ->{$resource->displayNameField()} ?? null;
+        }
+
         return $this->options[parent::getShowValue()] ?? null;
+    }
+
+    public function getOptions()
+    {
+        $resource = $this->getResource();
+        if ($resource) {
+            return $resource->relationQuery()->pluck(
+                $resource->displayNameField(),
+                $resource->primaryField()
+            );
+        }
+
+        return $this->options;
     }
 }
