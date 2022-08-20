@@ -125,7 +125,6 @@ class ResourceFormComponent extends ResourceComponent
 
         // HABTM relations
         foreach ($this->getHabtmRelations() as $relation => $values) {
-            $item->{$relation}()->detach();
             $item->{$relation}()->sync($values);
         }
 
@@ -140,7 +139,8 @@ class ResourceFormComponent extends ResourceComponent
         $fields->each(function ($field) use (&$relations) {
             $name = $field->getName();
             if ($field->isHasManyRelation() && isset($this->fields[$name])) {
-                $relations[$name] = $this->fields[$name];
+                $relations[$name] = $field->getWithPivotData($this->fields[$name])
+                    ?? $this->fields[$name];
             }
         });
 

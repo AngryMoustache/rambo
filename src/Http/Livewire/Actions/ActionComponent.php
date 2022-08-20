@@ -28,4 +28,9 @@ class ActionComponent extends RamboComponent
     {
         return $this->action->handle($this);
     }
+
+    public function confirmUpload()
+    {
+        dd($this->fields);
+    }
 }

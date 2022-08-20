@@ -5,7 +5,6 @@ namespace AngryMoustache\Rambo\Http\Livewire\Pickers;
 use AngryMoustache\Media\Models\Attachment;
 use AngryMoustache\Rambo\Fields\Field;
 use AngryMoustache\Rambo\Http\Livewire\RamboComponent;
-use Illuminate\Database\Eloquent\Collection;
 
 class ManyAttachmentPicker extends RamboComponent
 {

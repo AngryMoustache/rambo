@@ -2,8 +2,6 @@
 
 namespace AngryMoustache\Rambo\Fields;
 
-use AngryMoustache\Media\Models\Attachment;
-
 class ManyAttachmentField extends Field
 {
     public $bladeShowComponent = 'rambo::livewire.fields.show.many-attachment';
@@ -25,6 +23,21 @@ class ManyAttachmentField extends Field
 
     public function getShowValue()
     {
-        return Attachment::whereIn('id', $this->getValue())->get();
+        return $this->item->{$this->getName()};
+    }
+
+    public function getWithPivotData($values)
+    {
+        if ($this->getSortField()) {
+            $count = 0;
+
+            return collect($values)->mapWithKeys(function ($id) use (&$count) {
+                return [$id => [
+                    $this->getSortField() => ++$count,
+                ]];
+            })->toArray();
+        }
+
+        return $values;
     }
 }
