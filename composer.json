@@ -4,9 +4,10 @@
   "keywords": [],
   "license": "MIT",
   "require": {
-    "php": ">=7.4.0",
+    "php": "^8.0",
+    "laravel/framework": "^9.0",
     "livewire/livewire": "^2.0",
-    "angry-moustache/media": "dev-master"
+    "angry-moustache/media": "dev-release/2.0 as 2.0.0"
   },
   "autoload": {
     "files": [

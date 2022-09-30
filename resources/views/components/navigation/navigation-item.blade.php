@@ -1,11 +1,9 @@
 <li>
-    @if (is_array($resource))
+    @if (is_array($navItem['resource']))
         <input
             type="checkbox"
             id="sub-{{ $key }}"
-            @if (($navigation['pathToActive'][$depth - 1] ?? null) === $key)
-                checked
-            @endif
+            @if ($navItem['active']) checked @endif
         >
 
         <div class="nav-sub-list-sub">
@@ -17,20 +15,22 @@
 
             <ul>
                 @php $depth += 1 @endphp
-                @php $_resource = $resource @endphp
-                @foreach ($_resource as $key => $resource)
-                    @include('rambo::components.navigation.navigation-item', [
-                        'resource' => $resource['resource'] ?? $resource,
-                    ])
+                @php $_resource = $navItem['resource'] @endphp
+                @foreach ($_resource as $key => $item)
+                    <x-rambo::navigation.navigation-item
+                        :nav-item="$item"
+                        :key="$key"
+                        :depth="$depth"
+                    />
                 @endforeach
             </ul>
         </div>
     @else
         <a
-            href="{{ $resource->index() }}"
-            class="@if ($resource->isActive()) active @endif pl-{{ $depth }}"
+            href="{{ $navItem['resource']->index() }}"
+            class="@if ($navItem['active']) js-nav-active active @endif pl-{{ $depth }}"
         >
-            {{ $resource->getLabel() }}
+            {{ $navItem['resource']->label() }}
         </a>
     @endif
 </li>

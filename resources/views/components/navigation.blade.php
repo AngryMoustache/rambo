@@ -38,12 +38,12 @@
     <div class="nav-sub">
         {{-- RESOURCES --}}
         <ul class="nav-sub-list">
-            @php $navigation = Rambo::navigation() @endphp
-            @foreach ($navigation['resources'] as $key => $resource)
-                @php $depth = 1 @endphp
-                @include('rambo::components.navigation.navigation-item', [
-                    'resource' => $resource['resource'] ?? $resource,
-                ])
+            @foreach (Rambo::navigation() as $key => $navItem)
+                <x-rambo::navigation.navigation-item
+                    :nav-item="$navItem"
+                    :key="$key"
+                    :depth="1"
+                />
             @endforeach
 
             <li class="nav-sub-list-filler">

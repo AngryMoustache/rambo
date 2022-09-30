@@ -20,6 +20,7 @@ class CreateAdministratorsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('avatar_id')->nullable()->constrained('attachments')->nullOnDelete();
+            $table->boolean('online')->default(0);
             $table->timestamps();
         });
 
@@ -27,6 +28,7 @@ class CreateAdministratorsTable extends Migration
             'username' => 'Admin',
             'email' => 'admin',
             'password' => '$2y$10$1KTK.XWRA22lgvB/En9IuO71bfDHsirOZmHuWmFveThRZX18XTR5e',
+            'online' => 1,
         ]);
     }
 

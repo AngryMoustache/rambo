@@ -3,50 +3,35 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Facades\Rambo;
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
-class ResourceEdit extends FormController
+class ResourceEdit extends ResourceFormComponent
 {
-    public $component = 'rambo::livewire.crud.resource-edit';
+    public $pageType = 'edit';
 
-    public $item;
-
-    public function mount($resource, $item = null)
+    public function mount()
     {
-        parent::mount($resource, $item);
+        if (! $this->resource->canEdit()) {
+            return Rambo::unauthorized();
+        }
 
-        $this->item = $item;
+        parent::mount();
 
-        collect($resource->formFieldStack('edit', true))->each(function ($field) {
-            $value = $field->item($this->item)->getValue();
-            if (! $field->dontAutoFillEdit) {
-                $this->fields[$field->getName()] = $value;
-            }
+        RamboBreadcrumbs::add('Editing ' . $this->resource->itemName());
+
+        $this->component = $this->resource->editView();
+
+        collect($this->resource->fieldStack('edit', $this->resource->item))->each(function ($field) {
+            $this->fields[$field->getName()] = $field->getFormValue();
         });
-    }
-
-    public function render()
-    {
-        $resource = $this->resource();
-        $resource = $resource->item($this->item->id);
-
-        return view($this->component, [
-            'resource' => $resource,
-        ]);
     }
 
     public function saveData()
     {
-        $resource = $this->resource();
-        $this->item->update($this->fields);
-        $this->item->touch();
+        $item = $this->resource->item;
+        $item->update($this->fields);
+        $item->touch();
 
-        foreach ($this->habtmRelations() as $relation => $values) {
-            $this->item->{$relation}()->detach();
-            $this->item->{$relation}()->sync($values);
-        }
-
-        Rambo::toast($resource->getSingularLabel() . ' succesfully updated!');
-
-        return redirect($resource->routeAfterEdit($this->item));
+        return $item;
     }
 }

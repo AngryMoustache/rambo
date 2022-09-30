@@ -62,13 +62,18 @@
             display: flex;
             border-top: $border;
 
-            a {
+            .action-wrapper {
                 width: 100%;
-                padding: 1rem 0;
-                font-size: 1.2rem;
-                text-align: center;
 
-                &:hover {
+                a {
+                    display: inline-block;
+                    font-size: 1.2rem;
+                    width: 100%;
+                    padding: .7rem 0;
+                    text-align: center;
+                }
+
+                &:hover a {
                     i {
                         color: $c-secondary;
                     }

@@ -3,6 +3,7 @@
 namespace AngryMoustache\Rambo\Models;
 
 use AngryMoustache\Media\Models\Attachment;
+use AngryMoustache\Rambo\Facades\Rambo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Administrator extends Authenticatable
@@ -14,6 +15,7 @@ class Administrator extends Authenticatable
         'avatar_id',
         'online',
     ];
+
     protected $guard = 'admin';
 
     public function avatar()
@@ -23,14 +25,11 @@ class Administrator extends Authenticatable
 
     public function link()
     {
-        return route('rambo.crud.show', [
-            'resource' => 'administrators',
-            'id' => $this->id,
-        ]);
+        return Rambo::resource('administrators', $this->id)->show();
     }
 
     public function scopeOnline($query)
     {
-        return $query->where('online', true);
+        return $query->where('online', 1);
     }
 }

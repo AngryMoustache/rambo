@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name') }} | Rambo</title>
+        <title>{{ isset($titleForLayout) ? $titleForLayout : config('app.name') }} | Rambo</title>
         <link href="{{ asset('vendor/rambo/css/app.css') }}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/989b502037.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="{{ asset('vendor/rambo/images/favicon.png') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/rambo/css/cropper.min.css') }}" />
         <livewire:styles>
+        @stack('rambo-styles')
     </head>
     <body>
         {{-- Nav --}}
@@ -16,7 +18,7 @@
 
         {{-- Content --}}
         <div class="main">
-            <x-rambo::header :breadcrumbs="$breadcrumbs" />
+            <x-rambo::header />
 
             <div class="main-content">
                 @yield('content')
@@ -24,9 +26,11 @@
         </div>
 
         {{-- Toasts --}}
-        <x-rambo-toasts />
+        <x-rambo::toasts />
 
         <livewire:scripts>
+        <script src="{{ asset('vendor/rambo/js/cropper.min.js') }}"></script>
         <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>
+        @stack('rambo-scripts')
     </body>
 </html>

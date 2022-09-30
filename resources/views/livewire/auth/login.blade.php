@@ -3,9 +3,9 @@
         <x-rambo::logo />
     </div>
 
-    <form wire:submit.prevent="attemptLogin">
-        <p class="auth-card-form-error">{{ $error }}</p>
-
+    <form
+        wire:submit.prevent="attemptLogin"
+    >
         <input
             type="text"
             placeholder="E-Mail"

@@ -1,38 +1,30 @@
-<div class="crud crud-show">
-    <div class="crud-title">
-        <h1 class="h3">{{ $resource->getItemName() }}</h1>
+<div class="card no-padding">
+    <div class="crud crud-show">
+        <div class="crud-title">
+            <h1 class="h3">{{ $resource->itemName() }}</h1>
 
-        <div class="crud-title-actions">
-            <ul>
-                @foreach ($resource->showActions() as $action)
-                    <li>
-                        {{ (new $action($resource, $currentUrl, $item))->render() }}
-                    </li>
-                @endforeach
-            </ul>
+            <div class="crud-title-actions">
+                <ul class="crud-title-actions-list">
+                    @foreach ($resource->actions('show') as $key => $action)
+                        <li class="crud-title-actions-list-item">
+                            <livewire:is
+                                :key="$key"
+                                :component="$action->getLivewireComponent()"
+                                :resource="$resource"
+                                :action="$action"
+                                :item="$item"
+                                label="true"
+                            />
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
+
+        <table class="crud-show-table">
+            @foreach ($resource->fieldStack('show', $item) as $field)
+                @include($field->getShowWrapperComponent())
+            @endforeach
+        </table>
     </div>
-
-    <table class="crud-show-table">
-        @foreach ($resource->fieldStack('show') as $field)
-            <tr>
-                @if (! $field->hideLabel)
-                    <td class="crud-show-table-label">
-                        <span>
-                            {{ $field->getLabel() }}
-                        </span>
-                    </td>
-                @endif
-
-                <td
-                    class="crud-show-table-value"
-                    @if ($field->hideLabel) colspan="2" @endif
-                >
-                    <span class="crud-index-table-content">
-                        {{ $field->item($item)->renderShow() }}
-                    </span>
-                </td>
-            </tr>
-        @endforeach
-    </table>
 </div>

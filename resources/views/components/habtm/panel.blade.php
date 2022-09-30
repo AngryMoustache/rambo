@@ -1,7 +1,9 @@
 <div class="habtm-picker-grid-panel">
     @if ($search === '' || $items->isNotEmpty())
         @foreach ($items as $item)
-            @include($itemComponent)
+            @include($resource->habtmComponent(), [
+                'resource' => $resource->item($item),
+            ])
         @endforeach
     @else
         <p class="habtm-picker-grid-panel-empty">

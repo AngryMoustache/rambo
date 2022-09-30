@@ -1,8 +1,10 @@
 .auth {
     height: 100vh;
+    padding-bottom: 10vh;
     display: flex;
     justify-content: center;
-    padding-top: 25vh;
+    align-items: center;
+
     background-image: $gradient-flat;
     background-size: 200%;
     background-position: left;
@@ -10,6 +12,7 @@
 
     &-card {
         margin: 0 auto;
+        width: 700px;
 
         &-form {
             &-logo {

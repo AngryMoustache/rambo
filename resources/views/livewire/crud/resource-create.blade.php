@@ -1,21 +1,42 @@
-<div class="crud crud-create">
-    <div class="crud-title">
-        <h1 class="h3">Creating {{ $resource->getSingularLabel() }}</h1>
+<div class="card no-padding">
+    <div class="crud crud-create">
+        <div class="crud-title">
+            <h1 class="h3">Creating {{ $resource->singularLabel() }}</h1>
 
-        <div class="crud-title-actions">
-            <ul>
-                @foreach ($resource->createActions() as $action)
-                    <li>
-                        {{ (new $action($resource, $currentUrl))->render() }}
-                    </li>
-                @endforeach
-            </ul>
+            <div class="crud-title-actions">
+                <ul class="crud-title-actions-list">
+                    @foreach ($resource->actions('create') as $key => $action)
+                        <li class="crud-title-actions-list-item">
+                            <livewire:is
+                                :key="$key"
+                                :component="$action->getLivewireComponent()"
+                                :resource="$resource"
+                                :action="$action"
+                                label="true"
+                            />
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <div class="crud-form">
-        @foreach ($resource->formFieldStack('create') as $field)
-            {{ $field->render() }}
-        @endforeach
+        <div wire:loading.flex wire:target="submit">
+            <x-rambo::loading />
+        </div>
+
+        <div wire:loading.remove wire:target="submit">
+            @foreach ($resource->fieldStack('create') as $field)
+                 <x-rambo::crud.fields.form
+                    :resource="$resource"
+                    :field="$field"
+                />
+            @endforeach
+        </div>
+
+        <div class="crud-form-button">
+            @foreach ($resource->createButtons() as $button)
+                @include($button->getComponent())
+            @endforeach
+        </div>
     </div>
 </div>

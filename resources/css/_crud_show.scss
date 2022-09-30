@@ -14,6 +14,10 @@
         &-label,
         &-value {
             padding: 2rem;
+
+            img {
+                max-width: 33%;
+            }
         }
 
         tr {
@@ -21,15 +25,6 @@
 
             &:last-of-type {
                 border: 0;
-            }
-
-            a {
-                color: $c-secondary;
-                font-weight: bold;
-
-                &:hover {
-                    color: $c-secondary-dark;
-                }
             }
         }
     }

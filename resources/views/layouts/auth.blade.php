@@ -7,12 +7,21 @@
         <title>Rambo</title>
         <link href="{{ asset('vendor/rambo/css/app.css') }}" rel="stylesheet">
         <link rel="shortcut icon" href="{{ asset('vendor/rambo/images/favicon.png') }}">
+        <livewire:styles>
     </head>
     <body class="auth">
         <div class="content">
-            @yield('content')
+            <div class="auth-card">
+                <div class="auth-card-form">
+                    @yield('content')
+                </div>
+            </div>
         </div>
 
-        @livewireScripts
+        {{-- Toasts --}}
+        <x-rambo::toasts />
+
+        <livewire:scripts>
+        <script src="{{ asset('vendor/rambo/js/index.js') }}"></script>
     </body>
 </html>

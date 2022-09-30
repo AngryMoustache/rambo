@@ -1,22 +1,24 @@
 <?php
 
-use AngryMoustache\Rambo\Cards\WelcomeCard;
-use AngryMoustache\Rambo\Rambo\Administrator;
-use AngryMoustache\Rambo\Rambo\Attachment;
-use AngryMoustache\Rambo\Rambo\StaticString;
+use AngryMoustache\Rambo\Resources\Administrator;
+use AngryMoustache\Rambo\Resources\Attachment;
 
 return [
     'admin-route' => 'admin',
-
     'admin-guard' => 'rambo',
-
     'resources' => [
-        Administrator::class,
         Attachment::class,
-        StaticString::class,
+        Administrator::class,
     ],
-
-    'cards' => [
-        WelcomeCard::class,
+    'navigation' => [
+        'General' => [
+            Administrator::class,
+            Attachment::class,
+        ],
+    ],
+    'cropper' => [
+        'formats' => [
+            \AngryMoustache\Media\Formats\Thumb::class => 'Thumb',
+        ],
     ],
 ];

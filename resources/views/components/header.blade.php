@@ -1,25 +1,16 @@
 <div class="header">
-    {{-- BREADCRUMBS --}}
-    @isset($breadcrumbs)
-        <ul class="header-breadcrumbs">
-            @foreach ($breadcrumbs as $crumb)
-                <li>
-                    <a href="{{ $crumb['route'] }}">
-                        {{ $crumb['label'] }}
-                    </a>
+    {{-- GLOBAL SEARCH --}}
+    <livewire:rambo-global-search />
 
-                    @if (! $loop->last)
-                        >
-                    @endif
-                </li>
-            @endforeach
-        </ul>
-    @endisset
+    {{-- BREADCRUMBS --}}
+    <x-rambo::navigation.breadcrumbs />
 
     {{-- PROFILE --}}
     <div class="header-profile">
         <a href="{{ Rambo::user()->link() }}">
-            <img src="{{ optional(Rambo::user()->avatar)->format('thumb') }}">
+            @if (Rambo::user()->avatar)
+                <img src="{{ Rambo::user()->avatar->format('thumb') }}">
+            @endif
             <p>{{ Rambo::user()->username }}</p>
         </a>
     </div>

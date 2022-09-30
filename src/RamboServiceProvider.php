@@ -3,23 +3,32 @@
 namespace AngryMoustache\Rambo;
 
 use AngryMoustache\Rambo\Facades\Rambo as FacadeRambo;
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs as FacadeRamboBreadcrumbs;
+use AngryMoustache\Rambo\Http\Livewire\Actions\ActionComponent;
+use AngryMoustache\Rambo\Http\Livewire\Actions\DeleteActionComponent;
 use AngryMoustache\Rambo\Http\Livewire\Auth\Login;
-use AngryMoustache\Rambo\Http\Livewire\Crud\AttachmentsIndexTable;
-use AngryMoustache\Rambo\Http\Livewire\Crud\IndexTable;
+use AngryMoustache\Rambo\Http\Livewire\Cropper;
+use AngryMoustache\Rambo\Http\Livewire\Fields\FormField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\ShowField;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceCreate;
-use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceDelete;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceEdit;
+use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceIndex;
 use AngryMoustache\Rambo\Http\Livewire\Crud\ResourceShow;
-use AngryMoustache\Rambo\Http\Livewire\Fields\AttachmentPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\HabtmPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\ManyAttachmentPicker;
-use AngryMoustache\Rambo\Http\Livewire\Fields\PasswordInput;
-use AngryMoustache\Rambo\Http\Livewire\Fields\YoutubeLink;
+use AngryMoustache\Rambo\Http\Livewire\Dashboard;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormAttachmentField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormGroupField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormHabtmField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Form\FormManyAttachmentField;
+use AngryMoustache\Rambo\Http\Livewire\Fields\Show\ShowBooleanField;
+use AngryMoustache\Rambo\Http\Livewire\FilterComponent;
+use AngryMoustache\Rambo\Http\Livewire\GlobalSearch;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\AttachmentPicker;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\HabtmPicker;
+use AngryMoustache\Rambo\Http\Livewire\Pickers\ManyAttachmentPicker;
 use AngryMoustache\Rambo\Rambo;
-use AngryMoustache\Rambo\View\Components\Toasts;
+use AngryMoustache\Rambo\RamboBreadcrumbs;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -37,43 +46,63 @@ class RamboServiceProvider extends ServiceProvider
         $this->migrations();
         $this->publishing();
         $this->livewire();
-
-        Route::bind('resource', function ($value) {
-            return FacadeRambo::resource($value) ?? abort(404);
-        });
-
-        Blade::component('rambo-toasts', Toasts::class);
     }
 
     public function register()
     {
+        DB::disableQueryLog();
+
         $this->app->booting(function() {
             $loader = AliasLoader::getInstance();
             $loader->alias('Rambo', FacadeRambo::class);
         });
 
         $this->app->alias(Rambo::class, 'rambo');
+
+        $this->app->booting(function() {
+            $loader = AliasLoader::getInstance();
+            $loader->alias('RamboBreadcrumbs', FacadeRamboBreadcrumbs::class);
+        });
+
+        $this->app->alias(RamboBreadcrumbs::class, 'rambo-breadcrumbs');
     }
 
     private function livewire()
     {
         /** AUTH */
         Livewire::component('rambo-auth-login', Login::class);
+        Livewire::component('rambo-dashboard', Dashboard::class);
 
         /** CRUD */
-        Livewire::component('rambo-crud-index-table', IndexTable::class);
-        Livewire::component('rambo-crud-resource-create', ResourceCreate::class);
-        Livewire::component('rambo-crud-resource-delete', ResourceDelete::class);
-        Livewire::component('rambo-crud-resource-edit', ResourceEdit::class);
-        Livewire::component('rambo-crud-resource-show', ResourceShow::class);
-        Livewire::component('rambo-crud-attachments-index-table', AttachmentsIndexTable::class);
+        Livewire::component('rambo-resource-index', ResourceIndex::class);
+        Livewire::component('rambo-resource-create', ResourceCreate::class);
+        Livewire::component('rambo-resource-show', ResourceShow::class);
+        Livewire::component('rambo-resource-edit', ResourceEdit::class);
 
-        /** FIELDS */
-        Livewire::component('rambo-fields-attachment-picker', AttachmentPicker::class);
-        Livewire::component('rambo-fields-habtm-picker', HabtmPicker::class);
-        Livewire::component('rambo-fields-many-attachment-picker', ManyAttachmentPicker::class);
-        Livewire::component('rambo-fields-password-input', PasswordInput::class);
-        Livewire::component('rambo-fields-youtube-link', YoutubeLink::class);
+        /** FIELDS (FORM) */
+        Livewire::component('rambo-field-form-field', FormField::class);
+        Livewire::component('rambo-form-attachment-field', FormAttachmentField::class);
+        Livewire::component('rambo-form-many-attachment-field', FormManyAttachmentField::class);
+        Livewire::component('rambo-form-habtm-field', FormHabtmField::class);
+        Livewire::component('rambo-form-group-field', FormGroupField::class);
+
+        /** FIELDS (SHOW) */
+        Livewire::component('rambo-field-show-field', ShowField::class);
+        Livewire::component('rambo-field-show-boolean-field', ShowBooleanField::class);
+
+        /** ACTIONS */
+        Livewire::component('rambo-action', ActionComponent::class);
+        Livewire::component('rambo-action-delete', DeleteActionComponent::class);
+
+        /** PICKERS */
+        Livewire::component('rambo-attachment-picker', AttachmentPicker::class);
+        Livewire::component('rambo-many-attachment-picker', ManyAttachmentPicker::class);
+        Livewire::component('rambo-habtm-picker', HabtmPicker::class);
+
+        /** OTHERS */
+        Livewire::component('rambo-cropper', Cropper::class);
+        Livewire::component('rambo-global-search', GlobalSearch::class);
+        Livewire::component('rambo-filter-component', FilterComponent::class);
     }
 
     private function config()

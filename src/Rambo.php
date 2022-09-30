@@ -2,11 +2,11 @@
 
 namespace AngryMoustache\Rambo;
 
+use AngryMoustache\Rambo\Http\Exceptions\RamboNotFoundHttpException;
+use AngryMoustache\Rambo\Http\Exceptions\RamboUnauthorizedHttpException;
 use AngryMoustache\Rambo\Http\Middleware\RamboAuthMiddleware;
 use AngryMoustache\Rambo\Models\Administrator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Exception;
 
 class Rambo
 {
@@ -14,19 +14,40 @@ class Rambo
 
     public $resources;
 
+    public $navigation;
+
     public $user;
 
     public $guard;
 
     public function __construct()
     {
-        $this->resources = collect(config('rambo.resources', []))
-            ->map(fn ($resource) => $this->fetchResource($resource))
-            ->flatten();
-
         $this->guard = config('rambo.admin-guard', 'rambo');
-
         $this->user = Administrator::find(optional(session($this->session))->id);
+        $this->resources = $this->resources();
+        $this->navigation = $this->navigation();
+
+        if ($this->serving()) {
+            session(['rambo-current-url' => request()->url()]);
+        }
+    }
+
+    public function resources()
+    {
+        if ($this->resources) {
+            return $this->resources;
+        }
+
+        $resources = config('rambo.resources')
+            ?? throw new Exception('No \'rambo.resources\' config defined!');
+
+        return collect($resources)->map(fn ($class) => (new $class));
+    }
+
+    public function resource($value, $id = null, $key = null)
+    {
+        $item = optional($this->resources->where($key ?? 'routebase', $value)->first())->fetch($id);
+        return $item ? clone $item : $this->notFound();
     }
 
     public function user()
@@ -41,12 +62,9 @@ class Rambo
 
     public function login($email, $password)
     {
-        if (Auth::check($this->guard) && $this->attemptLogin($email, $password)) {
-            session([$this->session => $this->guard()->user()]);
-            return $this->guard()->user();
-        }
-
-        $user = Administrator::where('email', $email)->online()->get()
+        $user = Administrator::where('email', $email)
+            ->online()
+            ->get()
             ->skipUntil(fn ($user) => password_verify($password, $user->password))
             ->first();
 
@@ -55,92 +73,9 @@ class Rambo
         return $user;
     }
 
-    protected function attemptLogin($email, $password)
-    {
-        return $this->guard()->attempt([
-            'email' => $email,
-            'password' => $password,
-        ], false);
-    }
-
-    protected function guard()
-    {
-        return Auth::guard($this->guard);
-    }
-
     public function logout()
     {
         session()->forget($this->session);
-    }
-
-    public function resources()
-    {
-        return $this->resources;
-    }
-
-    public function resource($value, $key = 'routebase')
-    {
-        return $this->resources->where($key, $value)->first();
-    }
-
-    public function cards()
-    {
-        return config('rambo.cards', []);
-    }
-
-    public function getNameFromClassName($name)
-    {
-        $name = Str::afterLast($name, '\\');
-        return trim(Str::ucfirst(implode(' ', preg_split('/(?=[A-Z])/', $name))));
-    }
-
-    public function navigation()
-    {
-        $resources = collect(config('rambo.resources', $this->resources))
-            ->map(fn ($resource) => $this->fetchResource($resource));
-
-        return [
-            'resources' => $resources,
-            'pathToActive' => $this->getPathToActiveResource($resources),
-        ];
-    }
-
-    public function toast($message, $type = 'ok')
-    {
-        session()->push('rambo-toasts', [
-            'message' => $message,
-            'type' => $type,
-            'show' => true,
-        ]);
-    }
-
-    private function fetchResource($resource)
-    {
-        if (is_array($resource)) {
-            return collect($resource)
-                ->map(fn ($item) => $this->fetchResource($item))
-                ->toArray();
-        }
-
-        $resource = (new $resource());
-
-        return [
-            'resource' => $resource,
-            'active' => $resource->isActive(),
-        ];
-    }
-
-    private function getPathToActiveResource($resources)
-    {
-        $path = collect(Arr::dot($resources))
-            ->filter(fn ($item) => $item === true)
-            ->keys()
-            ->first();
-
-        $path = explode('.', $path);
-        array_pop($path);
-
-        return $path;
     }
 
     public function serving()
@@ -149,5 +84,52 @@ class Rambo
             RamboAuthMiddleware::class,
             optional(request()->route())->middleware() ?? []
         );
+    }
+
+    public function notFound()
+    {
+        throw new RamboNotFoundHttpException();
+    }
+
+    public function unauthorized()
+    {
+        throw new RamboUnauthorizedHttpException();
+    }
+
+    public function currentUrl()
+    {
+        return session('rambo-current-url');
+    }
+
+    public function navigation()
+    {
+        return $this->navigation ?? collect(config('rambo.navigation', $this->resources))
+            ->map(fn ($resource) => $this->fetchNavResource($resource));
+    }
+
+    private function fetchNavResource($resource)
+    {
+        if (is_array($resource)) {
+            $resource = collect($resource)
+                ->map(fn ($item) => $this->fetchNavResource($item))
+                ->toArray();
+
+            $active = collect($resource)->flatten()
+                ->filter(fn ($item) => $item === true)
+                ->isNotEmpty();
+        } else {
+            $resource = (new $resource());
+            $active = request()->route('resource') === $resource->routebase();
+        }
+
+        return [
+            'active' => $active,
+            'resource' => $resource,
+        ];
+    }
+
+    public function cropperEnabled()
+    {
+        return ! empty(config('media.cropper.formats', []));
     }
 }

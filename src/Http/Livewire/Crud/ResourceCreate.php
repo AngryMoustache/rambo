@@ -3,22 +3,28 @@
 namespace AngryMoustache\Rambo\Http\Livewire\Crud;
 
 use AngryMoustache\Rambo\Facades\Rambo;
+use AngryMoustache\Rambo\Facades\RamboBreadcrumbs;
 
-class ResourceCreate extends FormController
+class ResourceCreate extends ResourceFormComponent
 {
-    public $component = 'rambo::livewire.crud.resource-create';
+    public $pageType = 'create';
+
+    public function mount()
+    {
+        RamboBreadcrumbs::add('Create ' . $this->resource->singularLabel());
+        if (! $this->resource->canCreate()) {
+            return Rambo::unauthorized();
+        }
+
+        parent::mount();
+
+        $this->component = $this->resource->createView();
+    }
 
     public function saveData()
     {
-        $resource = $this->resource();
-        $savedModel = $resource->model()::withoutGlobalScopes()->create($this->fields);
-
-        foreach ($this->habtmRelations() as $relation => $values) {
-            $savedModel->{$relation}()->sync($values);
-        }
-
-        Rambo::toast($resource->getSingularLabel() . ' succesfully created');
-
-        return redirect($resource->routeAfterCreate($savedModel));
+        $model = $this->resource->model();
+        $savedModel = $model::withoutGlobalScopes()->create($this->fields);
+        return $savedModel;
     }
 }
